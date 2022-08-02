@@ -9,13 +9,13 @@ void AgentController::addAgent(Agent a) {
 }
 
 void AgentController::updateAgents() {
-    for (auto &a : agents) {
+    for (auto& a : agents) {
         a.update();
     }
 }
 
-void AgentController::renderAgents(sf::RenderWindow &window) {
-    for (auto &a : agents) {
+void AgentController::renderAgents(sf::RenderWindow& window) {
+    for (auto& a : agents) {
         a.render(window);
     }
 }

@@ -10,7 +10,7 @@ class AgentController {
         AgentController();
         void addAgent(Agent a);
         void updateAgents();
-        void renderAgents(sf::RenderWindow &window);
+        void renderAgents(sf::RenderWindow& window);
     private:
         std::vector<Agent> agents;
 };

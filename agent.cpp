@@ -11,6 +11,6 @@ void Agent::update() {
     pos_y += vel_y;
 }
 
-void Agent::render(sf::RenderWindow &window) {
+void Agent::render(sf::RenderWindow& window) {
 
 }
