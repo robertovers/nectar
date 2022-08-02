@@ -1,1 +1,8 @@
 .DS_Store
+.vscode
+
+*.sh
+*.exe
+*.o
+
+main
