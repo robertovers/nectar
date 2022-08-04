@@ -8,11 +8,11 @@
 class AgentController {
     public:
         AgentController();
-        void addAgent(Agent a);
+        void addAgent(Agent& a);
         void updateAgents();
         void renderAgents(sf::RenderWindow& window);
     private:
-        std::vector<Agent> agents;
+        std::vector<std::reference_wrapper<Agent>> agents;
 };
 
 #endif

@@ -4,18 +4,18 @@ AgentController::AgentController() {
 
 }
 
-void AgentController::addAgent(Agent a) {
+void AgentController::addAgent(Agent& a) {
     agents.push_back(a);
 }
 
 void AgentController::updateAgents() {
     for (auto& a : agents) {
-        a.update();
+        a.get().update();
     }
 }
 
 void AgentController::renderAgents(sf::RenderWindow& window) {
     for (auto& a : agents) {
-        a.render(window);
+        a.get().render(window);
     }
 }
