@@ -5,7 +5,7 @@
 
 class Agent {
     public:
-        Agent(float x, float y);
+        virtual ~Agent();
         virtual void update() = 0;
         virtual void render(sf::RenderWindow& window) = 0;
     protected:
