@@ -9,7 +9,7 @@ AgentController::AgentController(int n) {
 
 void AgentController::addHoneyBees() {
     for (auto& a : agents) {
-        a=std::make_unique<HoneyBee>();
+        a = std::make_unique<HoneyBee>();
     }
 }
 
