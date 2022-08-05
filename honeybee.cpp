@@ -18,5 +18,9 @@ void HoneyBee::update() {
 }
 
 void HoneyBee::render(sf::RenderWindow &window) {
-
+    sf::CircleShape c;
+    c.setPosition(pos_x, pos_y);
+    c.setRadius(5);
+    c.setFillColor(sf::Color::White);
+    window.draw(c);
 }
