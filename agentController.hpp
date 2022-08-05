@@ -2,17 +2,18 @@
 #define agentcontroller_hpp
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 #include <vector>
 #include "agent.hpp"
 
 class AgentController {
     public:
-        AgentController();
-        void addAgent(Agent& a);
+        AgentController(int n);
         void updateAgents();
         void renderAgents(sf::RenderWindow& window);
     private:
-        std::vector<std::reference_wrapper<Agent>> agents;
+        int num_agents;
+        std::vector<std::unique_ptr<Agent>> agents;
 };
 
 #endif

@@ -6,6 +6,7 @@
 
 class HoneyBee : public Agent {
     public:
+        HoneyBee();
         HoneyBee(float x, float y);
         virtual void update() override;
         virtual void render(sf::RenderWindow& window) override;

@@ -2,6 +2,11 @@
 #include "agent.hpp"
 #include "honeybee.hpp"
 
+HoneyBee::HoneyBee() {
+    pos_x = 0;
+    pos_y = 0;
+}
+
 HoneyBee::HoneyBee(float x, float y) {
     pos_x = x;
     pos_y = y;
