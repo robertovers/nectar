@@ -9,6 +9,7 @@
 class AgentController {
     public:
         AgentController(int n);
+        void addHoneyBees();
         void updateAgents();
         void renderAgents(sf::RenderWindow& window);
     private:
