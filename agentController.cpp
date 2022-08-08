@@ -15,12 +15,16 @@ void AgentController::addHoneyBees() {
 
 void AgentController::updateAgents() {
     for (auto& a : agents) {
-        a->update();
+        if (a != NULL) {
+            a->update();
+        }
     }
 }
 
 void AgentController::renderAgents(sf::RenderWindow& window) {
     for (auto& a : agents) {
-        a->render(window);
+        if (a != NULL) {
+            a->render(window);
+        }
     }
 }
