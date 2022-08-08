@@ -1,4 +1,3 @@
-#include <SFML/Graphics.hpp>
 #include "agent.hpp"
 #include "honeybee.hpp"
 

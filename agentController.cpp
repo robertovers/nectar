@@ -1,4 +1,3 @@
-#include <memory>
 #include "agentController.hpp"
 #include "honeybee.hpp"
 
