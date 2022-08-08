@@ -14,7 +14,7 @@ class AgentController {
         void renderAgents(sf::RenderWindow& window);
     private:
         int num_agents;
-        std::vector<std::unique_ptr<Agent>> agents;
+        std::vector<std::shared_ptr<Agent>> agents;
 };
 
 #endif

@@ -4,12 +4,12 @@
 
 AgentController::AgentController(int n) {
     num_agents = n;
-    agents = std::vector<std::unique_ptr<Agent>>(num_agents);
+    agents = std::vector<std::shared_ptr<Agent>>(num_agents);
 }
 
 void AgentController::addHoneyBees() {
     for (auto& a : agents) {
-        a = std::make_unique<HoneyBee>();
+        a = std::make_shared<HoneyBee>();
     }
 }
 
