@@ -1,10 +1,9 @@
+/*
+
+*/
 #include "mapObject.hpp"
 
-
-void MapObject::MapObject(){
-
-};
-
-void MapObject::update(){
-    
+MapObject::MapObject(Location location){
+    MapObject mapObject;
+    mapObject.location = location;
 };
