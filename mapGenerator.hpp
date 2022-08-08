@@ -23,5 +23,7 @@ private:
 public:
 	BasicMapGenerator(int envSizeX, int envSizeY, int beeCount, int waspCount, int flowerCount, int cropCount, int caterpillarCount);
 	Environment generateEnvironment();
+	int totalPlants();
+	int totalAgents();
 };
 #endif
