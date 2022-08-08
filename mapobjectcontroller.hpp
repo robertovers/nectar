@@ -1,4 +1,4 @@
-#ifndef mapobjectcontroller_hpp
-#define mapobjectcontroller_hpp
+#ifndef mapObjectController_hpp
+#define mapObjectController_hpp
 
 #endif

@@ -1,4 +1,4 @@
-#ifndef mapobject_hpp
-#define mapobject_hpp
+#ifndef mapObject_hpp
+#define mapObject_hpp
 
 #endif

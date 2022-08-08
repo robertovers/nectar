@@ -1,1 +1,1 @@
-#include "mapGenerator.hpp"
+#include "mapObject.hpp"
