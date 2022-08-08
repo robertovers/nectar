@@ -3,13 +3,13 @@ Controller for updating or rendering to UI, the general status of MapObjects
 */
 #include "mapObjectController.hpp"
 
-MapObjectController::MapObjectController(int *object_arr) { 
-    objects = object_arr;
-    // TODO: Complete constructor
+MapObjectController::MapObjectController(std::vector<std::unique_ptr<MapObject> > objects_) { 
+    objects = std::move(objects_);
 };
+// Reference: https://www.reddit.com/r/cpp_questions/comments/7yvu89/stdvector_of_unique_ptr/ 
 
 void MapObjectController::updateObjects(void){
-    for (int i=0; i<objects.size; i++) objects[i].update();
+    //for (int i=0; i<objects.size; i++) objects[i].update();
 };
 
 // Use still uncertain
