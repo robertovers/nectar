@@ -1,0 +1,16 @@
+on:
+  push:
+    branches: ["cicd-setup"]
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+     runs-on: ubuntu-latest
+     steps:
+      - uses: actions/checkout@v3
+
+      - name: Run a one-line script
+        run: echo test
