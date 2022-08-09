@@ -12,6 +12,7 @@ void Application::run() {
 
     BasicMapGenerator mapGenerator = BasicMapGenerator(0, 0, 0, 0, 0, 0, 0);
     AgentController agentController = AgentController();
+    // MapObjectController objectController = MapObjectController();
     
     Environment environment = mapGenerator.generateEnvironment(agentController);
 
@@ -26,7 +27,8 @@ void Application::run() {
 
         window.clear();
 
-        // update and draw objects here
+        agentController.updateAgents(environment);
+        agentController.renderAgents(window);
 
         window.display();
     }

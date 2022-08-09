@@ -11,7 +11,7 @@ HoneyBee::HoneyBee(float x, float y) {
     pos_y = y;
 }
 
-void HoneyBee::update() {
+void HoneyBee::update(Environment env) {
     pos_x += vel_x;
     pos_y += vel_y;
 }

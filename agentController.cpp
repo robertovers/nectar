@@ -11,10 +11,10 @@ void AgentController::addHoneyBees() {
     }
 }
 
-void AgentController::updateAgents() {
+void AgentController::updateAgents(Environment env) {
     for (auto& a : agents) {
         if (a != NULL) {
-            a->update();
+            a->update(env);
         }
     }
 }

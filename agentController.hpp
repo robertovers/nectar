@@ -11,7 +11,7 @@ class AgentController {
     public:
         AgentController();
         void addHoneyBees();
-        void updateAgents();
+        void updateAgents(Environment env);
         void renderAgents(sf::RenderWindow& window);
     private:
         int num_agents;
