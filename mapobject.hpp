@@ -1,20 +1,13 @@
-class Environment{};
-class Location{};
-/*
-Added in location attribute 'loc' as well as 'render' - may or may not be needed.  
-*/
-
-#ifndef mapObject_hpp
-#define mapObject_hpp
+#ifndef mapobject_hpp
+#define mapobject_hpp
 
 #include <SFML/Graphics.hpp>
-#include "location.cpp"
+#include "location.hpp"
 
 class MapObject {
     public:
-        MapObject(Location location);
-        virtual void update();
-        virtual void render();  
+        virtual void update() = 0;
+        virtual void render() = 0;  
     protected:
         Location location; 
 };

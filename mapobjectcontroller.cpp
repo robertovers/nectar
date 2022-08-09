@@ -3,12 +3,7 @@ Controller for updating or rendering to UI, the general status of MapObjects
 */
 #include "mapObjectController.hpp"
 
-MapObjectController::MapObjectController(std::vector<std::shared_ptr<MapObject> >& objects_) { 
-    objects = std::vector<std::shared_ptr<MapObject> >(10);  //Temporary solution/Placeholder
-    //objects = *objects_;
-};
-
-void MapObjectController::updateObjects(void){
+void MapObjectController::updateObjects(void) {
     for (std::shared_ptr<MapObject> o : objects) {
         if (o != NULL) {
             o->update();

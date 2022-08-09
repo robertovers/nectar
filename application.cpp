@@ -3,6 +3,7 @@
 #include "environment.hpp"
 #include "mapGenerator.hpp"
 #include "agentController.hpp"
+#include "mapObjectController.hpp"
 
 Application::Application() { }
 
@@ -12,9 +13,9 @@ void Application::run() {
 
     BasicMapGenerator mapGenerator = BasicMapGenerator(0, 0, 0, 0, 0, 0, 0);
     AgentController agentController = AgentController();
-    // MapObjectController objectController = MapObjectController();
+    MapObjectController objectController = MapObjectController();
     
-    Environment environment = mapGenerator.generateEnvironment(agentController);
+    Environment environment = mapGenerator.generateEnvironment(agentController, objectController);
 
     while (window.isOpen()) {
 
@@ -29,6 +30,9 @@ void Application::run() {
 
         agentController.updateAgents(environment);
         agentController.renderAgents(window);
+
+        objectController.updateObjects();
+        objectController.renderObjects();
 
         window.display();
     }

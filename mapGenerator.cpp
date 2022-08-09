@@ -48,7 +48,7 @@ int BasicMapGenerator::totalAgents() {
     return waspCount + beeCount + caterpillarCount;
 }
 
-Environment BasicMapGenerator::generateEnvironment(AgentController& agentController) {
+Environment BasicMapGenerator::generateEnvironment(AgentController& agentController, MapObjectController& objectController) {
     Environment generatedEnvironment = Environment();
     // randomly scatter insects
     // TODO: more than bees
@@ -57,6 +57,7 @@ Environment BasicMapGenerator::generateEnvironment(AgentController& agentControl
         float trueX = rand() / (static_cast <float> (RAND_MAX / envSizeX));
         float trueY = rand() / (static_cast <float> (RAND_MAX / envSizeY));
         // TODO: create bee with given x, y
+        placedBees++;
     }
 
     int placedCrops = 0;
