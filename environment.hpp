@@ -1,7 +1,9 @@
 #ifndef environment_hpp
 #define environment_hpp
 
-class Environment : public sf::Drawable, public sf::Transformable {
+#include <SFML/Graphics.hpp>
+
+class Environment {
     public:
         int getSize() { return 0; };
 };
