@@ -2,7 +2,6 @@ on:
   push:
     branches: ["cicd-setup"]
 
-on:
   pull_request:
     branches: ["main"]
 
