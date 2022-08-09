@@ -3,7 +3,7 @@
 #include "environment.hpp"
 #include "location.hpp"
 
-BasicMapGenerator::BasicMapGenerator(int envSizeX = 1, int envSizeY = 1,
+BasicMapGenerator::BasicMapGenerator(int envSizeX, int envSizeY,
                       int beeCount = 0, int waspCount = 0, int caterpillarCount = 0,
                       int flowerCount = 0, int cropCount = 0) {
     // determines map size
