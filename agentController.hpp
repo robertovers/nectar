@@ -5,10 +5,11 @@
 #include <memory>
 #include <vector>
 #include "agent.hpp"
+#include "environment.hpp"
 
 class AgentController {
     public:
-        AgentController(int n);
+        AgentController();
         void addHoneyBees();
         void updateAgents();
         void renderAgents(sf::RenderWindow& window);

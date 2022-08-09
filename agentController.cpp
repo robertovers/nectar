@@ -1,9 +1,8 @@
 #include "agentController.hpp"
 #include "honeybee.hpp"
 
-AgentController::AgentController(int n) {
-    num_agents = n;
-    agents = std::vector<std::shared_ptr<Agent>>(num_agents);
+AgentController::AgentController() {
+    agents = std::vector<std::shared_ptr<Agent>>(100);
 }
 
 void AgentController::addHoneyBees() {

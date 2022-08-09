@@ -48,7 +48,7 @@ int BasicMapGenerator::totalAgents() {
     return waspCount + beeCount + caterpillarCount;
 }
 
-Environment BasicMapGenerator::generateEnvironment() {
+Environment BasicMapGenerator::generateEnvironment(AgentController& agentController) {
     Environment generatedEnvironment = Environment();
     // randomly scatter insects
     // TODO: more than bees
