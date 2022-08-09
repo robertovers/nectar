@@ -3,22 +3,26 @@ Controller for updating or rendering to UI, the general status of MapObjects
 */
 #include "mapObjectController.hpp"
 
-MapObjectController::MapObjectController(std::vector<std::unique_ptr<MapObject> > objects_) { 
-    objects = std::move(objects_);
+MapObjectController::MapObjectController(std::vector<std::shared_ptr<MapObject> >& objects_) { 
+    objects = std::vector<std::shared_ptr<MapObject> >(10);  //Temporary solution/Placeholder
+    //objects = *objects_;
 };
-// Reference: https://www.reddit.com/r/cpp_questions/comments/7yvu89/stdvector_of_unique_ptr/ 
 
 void MapObjectController::updateObjects(void){
-    //for (int i=0; i<objects.size; i++) objects[i].update();
+    for (std::shared_ptr<MapObject> o : objects) {
+        if (o != NULL) {
+            o->update();
+        }
+    }
 };
 
 // Use still uncertain
-void MapObjectController::addToObjects(MapObject object) { 
+void MapObjectController::addToObjects(MapObject& object) { 
     // TODO: Add given object to objects - depends on resizable array implementation.
 };
 
 // Use still uncertain
-void MapObjectController::rmvFromObjects(MapObject object) {
+void MapObjectController::rmvFromObjects(MapObject& object) {
     // TODO: Remove given object from objects - depends on resizable array implementation.
 };
 
@@ -27,6 +31,6 @@ void MapObjectController::loadObjects(Environment environment) {
     // Need to reference environment implementation.. - mayber better implemented in 
 };
 
-void MapObjectController::renderObjects(Environment environment) {
+void MapObjectController::renderObjects() {
     // TODO
 };

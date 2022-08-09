@@ -1,3 +1,5 @@
+class Environment{};
+class Location{};
 /*
 Added in location attribute 'loc' as well as 'render' - may or may not be needed.  
 */
@@ -10,7 +12,7 @@ Added in location attribute 'loc' as well as 'render' - may or may not be needed
 
 class MapObject {
     public:
-        MapObject();
+        MapObject(Location location);
         virtual void update();
         virtual void render();  
     protected:

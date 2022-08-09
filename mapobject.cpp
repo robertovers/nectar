@@ -3,7 +3,6 @@
 */
 #include "mapObject.hpp"
 
-MapObject::MapObject(Location location){
-    MapObject mapObject;
-    mapObject.location = location;
+MapObject::MapObject(Location location_){
+    location = location_;
 };
