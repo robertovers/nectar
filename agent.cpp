@@ -2,3 +2,7 @@
 #include "agent.hpp"
 
 Agent::~Agent() { }
+
+Location Agent::getLocation(Environment env) {
+    
+}
