@@ -12,6 +12,7 @@ class Agent {
         virtual void update(Environment env) = 0;
         virtual void render(sf::RenderWindow& window) = 0;
         std::shared_ptr<Location> getLocation(Environment env);
+        std::shared_ptr<Location> getTarget();
     protected:
         float pos_x;
         float pos_y;
@@ -19,6 +20,7 @@ class Agent {
         float vel_y = 0;
         int display_width = 10;
         int display_height = 10;
+        std::shared_ptr<Location> target = nullptr;
 };
 
 #endif

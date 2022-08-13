@@ -9,12 +9,16 @@ std::shared_ptr<Location> Agent::getLocation(Environment env) {
         int tile_y = loc->getY()*loc->getHeight();
         if ( 
             pos_x+display_width > tile_x and 
-            pos_x+display_width < tile_x + loc->getWidth() and
+            pos_x+display_width <= tile_x + loc->getWidth() and
             pos_y+display_height > tile_y and 
-            pos_y+display_height < tile_y + loc->getHeight() 
-            ){
+            pos_y+display_height <= tile_y + loc->getHeight() )
+            {
                 return loc;
             }
     }
     return std::make_shared<Location>(); 
+}
+
+std::shared_ptr<Location> Agent::getTarget() {
+    return target;
 }
