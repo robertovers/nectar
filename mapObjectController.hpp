@@ -3,9 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 #include "mapObject.hpp"
-#include "environment.hpp"
-#include <memory>
-#include <vector>
 
 
 template <typename T> using shared_ptr = std::shared_ptr<T>;
