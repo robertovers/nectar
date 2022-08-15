@@ -1,0 +1,23 @@
+# from https://semgrep.dev/docs/semgrep-ci/sample-ci-configs/#github-actions
+
+on:
+  push: 
+    branches: ["cicd-setup"]
+
+  pull_request: {}
+
+jobs:
+  semgrep:
+    name: build-ubuntu
+    runs-on: ubuntu-latest
+
+    # Skip any PR created by dependabot to avoid permission issues
+    if: (github.actor != 'dependabot[bot]')
+    steps:
+      # Fetch project source with GitHub Actions Checkout.
+      - uses: actions/checkout@v3
+
+      # Run the "semgrep ci" command on the command line of the docker image.
+      - run: cmake -S . -B build
+             cmake --build build
+             cd build && ctest
