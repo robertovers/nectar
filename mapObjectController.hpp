@@ -6,17 +6,18 @@
 #include "environment.hpp"
 #include <memory>
 #include <vector>
+#include "util.cpp"
 
 
 class MapObjectController {
     public:
         MapObjectController() { };
         void updateObjects();
-        void addToObjects(std::shared_ptr<MapObject>& object);
-        void rmvFromObjects(std::shared_ptr<MapObject>& object);
+        void addToObjects(mapObjectPtr& object);
+        int rmvFromObjects(mapObjectPtr object);
         void renderObjects();
     protected:
-        std::vector<std::shared_ptr<MapObject>> objects;  //Temporary solution/Placeholder
+        mapObjectPtrVector objects;
 };
 
 #endif
