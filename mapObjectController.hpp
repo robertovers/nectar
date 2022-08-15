@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include "mapObject.hpp"
 
-
 template <typename T> using shared_ptr = std::shared_ptr<T>;
 template <typename T> using shared_ptr_vector = std::vector<std::shared_ptr<T>>;
 
@@ -18,6 +17,7 @@ class MapObjectController {
         void renderObjects(sf::RenderWindow& window);
     protected:
         shared_ptr_vector<MapObject> objects;
+
 };
 
 #endif
