@@ -1,9 +1,6 @@
 # from https://semgrep.dev/docs/semgrep-ci/sample-ci-configs/#github-actions
 
 on:
-  push: 
-    branches: ["cicd-setup"]
-
   pull_request: {}
 
 jobs:
