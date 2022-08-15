@@ -1,5 +1,5 @@
-#ifndef mapobject_hpp
-#define mapobject_hpp
+#ifndef MAPOBJECT_HPP
+#define MAPOBJECT_HPP
 
 #include <SFML/Graphics.hpp>
 #include "location.hpp"

@@ -1,5 +1,5 @@
-#ifndef mapobjectcontroller_hpp
-#define mapobjectcontroller_hpp
+#ifndef MAPOBJECTCONTROLLER_HPP
+#define MAPOBJECTCONTROLLER_HPP
 
 #include <SFML/Graphics.hpp>
 #include "mapObject.hpp"
@@ -7,13 +7,13 @@
 #include <memory>
 #include <vector>
 
+
 class MapObjectController {
     public:
         MapObjectController() { };
-        void updateObjects(void);
-        void addToObjects(MapObject& object);
-        void rmvFromObjects(MapObject& object);
-        void loadObjects(Environment environment); // TBD
+        void updateObjects();
+        void addToObjects(std::shared_ptr<MapObject>& object);
+        void rmvFromObjects(std::shared_ptr<MapObject>& object);
         void renderObjects();
     protected:
         std::vector<std::shared_ptr<MapObject>> objects;  //Temporary solution/Placeholder
