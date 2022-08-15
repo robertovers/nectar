@@ -7,12 +7,16 @@ on:
 jobs:
   buil:
     name: test-ubuntu
-    runs-on: ubuntu-18.04  # will change to latest when mesa is set up
+    runs-on: ubuntu-latest
 
     steps:
       # Fetch project source with GitHub Actions Checkout.
       - uses: actions/checkout@v3
-      - uses: openrndr/setup-opengl@v1.1
+
+      - name: install mesa
+        run: sudo add-apt-repository ppa:kisak/kisak-mesa
+        run: sudo apt update
+        run: sudo apt upgrade
 
       - name: Configure CMake
         run: cmake -S . -B build
