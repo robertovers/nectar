@@ -29,3 +29,5 @@ void MapObjectController::rmvFromObjects(std::shared_ptr<MapObject>& object) {
 void MapObjectController::renderObjects() {
     // TODO
 };
+
+#endif

@@ -2,3 +2,5 @@
 #define MAPOBJECT_CPP
 
 #include "mapObject.hpp"
+
+#endif
