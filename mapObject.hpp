@@ -7,7 +7,7 @@
 class MapObject {
     public:
         virtual void update() = 0;
-        virtual void render() = 0;  
+        virtual void render(sf::RenderWindow& window) = 0;  
     protected:
         Location location; 
 };

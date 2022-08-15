@@ -1,51 +1,43 @@
 /*
-Controller for updating or rendering to UI, the general status of MapObjects 
+Controller for calling updates or rendering to MapObjects.
+Above functions, are called to all MapObjects that are referenced by a list of shared_ptr's - the mapObjectController attribute - "objects". 
 */
+
 #ifndef MAPOBJECTCONTROLLER_CPP
 #define MAPOBJECTCONTROLLER_CPP
 
 #include "mapObjectController.hpp"
 
-/// Util Functions
-void swap_itr(mapObjectPtrVector::iterator a, mapObjectPtrVector::iterator b){
-    mapObjectPtr temp;
-    temp = *a;
-    *a = *b;
-    *b = temp;
+//-- Non-member functions
+void swap(shared_ptr<MapObject> &a, shared_ptr<MapObject> &b){
+    shared_ptr<MapObject> temp = a;
+    a = b;
+    b = temp;
 };
-///
 
+//-- Member functions 
 void MapObjectController::updateObjects() {
-    for (mapObjectPtr p : objects) if (p != nullptr) p->update();;
+    for (shared_ptr<MapObject> p : objects) if (p != nullptr) p->update();;
 };
 
-void MapObjectController::addToObjects(mapObjectPtr& object) { 
+void MapObjectController::addToObjects(shared_ptr<MapObject>& object) { 
     objects.push_back(object);
 };
 
-/*
-Attempts to remove a given mapObject shared_pointer 'object_ptr" from the list of mapObjects pointers 'objects' owned by the mapObjectController.
-Returns error int 1 if mapObject is not found, and 0 is object is found and succesfully removed.
-*/
-int MapObjectController::rmvFromObjects(mapObjectPtr object_ptr) {
-    mapObjectPtr temp = nullptr;
-    mapObjectPtrVector::iterator it_lim = objects.end();
-
-    for (mapObjectPtrVector::iterator it = objects.begin(); it != it_lim; ++it) {
+void MapObjectController::rmvFromObjects(shared_ptr<MapObject> object_ptr) {
+    auto it_lim = objects.end();                                                // shared_ptr_vector<MapObject>::iterator it_lim = objects.end();
+    for (auto it = objects.begin(); it != it_lim; ++it) {
         if (*it == object_ptr){
             it_lim--;               // Decrementing it_lim to get iterator for last element in vector - Bad practice.. 
-            swap_itr(it, it_lim);
+            swap(*it, *it_lim);
             objects.pop_back();
             break;
         } 
     }
-
-    if (temp == nullptr) return 1;
-    else return 0;
 };
 
-void MapObjectController::renderObjects() {
-    // TODO
+void MapObjectController::renderObjects(sf::RenderWindow& window) {
+    for (shared_ptr<MapObject> p : objects) if (p != nullptr) p->render(window);;
 };
 
 #endif
