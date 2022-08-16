@@ -36,5 +36,3 @@ void MapObjectController::rmvFromObjects(shared_ptr<MapObject> object_ptr) {
     }
 };
 
-#endif
-
