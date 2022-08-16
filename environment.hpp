@@ -7,13 +7,15 @@
 
 class Location;
 
-// Temporary Environment class
 class Environment {
+    private:
+        int width;
+        int height;
+        std::vector<std::shared_ptr<Location>> locations;
     public:
+        Environment(int width, int height);
         int getSize() { return 0; };
         std::vector<std::shared_ptr<Location>>& getLocations() { return locations; }
-    private:
-        std::vector<std::shared_ptr<Location>> locations;
 };
 
 #endif
