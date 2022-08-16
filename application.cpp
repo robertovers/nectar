@@ -36,7 +36,7 @@ void Application::run() {
         objectController.updateObjects();
         agentController.updateAgents(environment);
         
-        objectController.renderObjects();
+        objectController.renderObjects(window);
         agentController.renderAgents(window);
         
         window.display();

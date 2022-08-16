@@ -1,22 +1,23 @@
-#ifndef mapobjectcontroller_hpp
-#define mapobjectcontroller_hpp
+#ifndef MAPOBJECTCONTROLLER_HPP
+#define MAPOBJECTCONTROLLER_HPP
 
 #include <SFML/Graphics.hpp>
 #include "mapObject.hpp"
-#include "environment.hpp"
-#include <memory>
-#include <vector>
+
+template <typename T> using shared_ptr = std::shared_ptr<T>;
+template <typename T> using shared_ptr_vector = std::vector<std::shared_ptr<T>>;
+
 
 class MapObjectController {
     public:
         MapObjectController() { };
-        void updateObjects(void);
-        void addToObjects(MapObject& object);
-        void rmvFromObjects(MapObject& object);
-        void loadObjects(Environment environment); // TBD
-        void renderObjects();
+        void updateObjects();
+        void addToObjects(shared_ptr<MapObject>& object);
+        void rmvFromObjects(shared_ptr<MapObject> object);
+        void renderObjects(sf::RenderWindow& window);
     protected:
-        std::vector<std::shared_ptr<MapObject>> objects;  //Temporary solution/Placeholder
+        shared_ptr_vector<MapObject> objects;
+
 };
 
 #endif
