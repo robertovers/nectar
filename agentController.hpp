@@ -2,20 +2,21 @@
 #define agentcontroller_hpp
 
 #include <SFML/Graphics.hpp>
-#include <memory>
-#include <vector>
 #include "agent.hpp"
 #include "environment.hpp"
+#include "templates.hpp"
 
 class AgentController {
     public:
         AgentController();
         void addHoneyBees();
         void updateAgents(Environment env);
-        void renderAgents(sf::RenderWindow& window);
+        void drawAgents(sf::RenderWindow& window);
+        void addAgentPtr(shared_ptr<Agent> agent);
+        void removeAgentPtr(shared_ptr<Agent> agent);
     private:
         int num_agents;
-        std::vector<std::shared_ptr<Agent>> agents;
+        vector_shared_ptr<Agent> agents;
 };
 
 #endif
