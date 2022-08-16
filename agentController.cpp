@@ -19,7 +19,7 @@ void AgentController::updateAgents(Environment env) {
     }
 }
 
-void AgentController::renderAgents(sf::RenderWindow& window) {
+void AgentController::drawAgents(sf::RenderWindow& window) {
     for (auto& a : agents) {
         if (a != nullptr) {
             a->render(window);

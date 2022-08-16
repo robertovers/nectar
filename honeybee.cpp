@@ -20,7 +20,7 @@ void HoneyBee::update(Environment env) {
     pos_y += vel_y;
 }
 
-void HoneyBee::render(sf::RenderWindow &window) {
+void HoneyBee::draw(sf::RenderWindow &window) {
     sf::CircleShape c;
     c.setPosition(pos_x, pos_y);
     c.setRadius(5);

@@ -10,7 +10,7 @@ class Agent {
     public:
         virtual ~Agent();
         virtual void update(Environment env) = 0;
-        virtual void render(sf::RenderWindow& window) = 0;
+        virtual void draw(sf::RenderWindow& window) = 0;
         std::shared_ptr<Location> getLocation(Environment env);
         std::shared_ptr<Location> getTarget();
     protected:

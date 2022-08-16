@@ -9,7 +9,7 @@ class HoneyBee : public Agent {
         HoneyBee();
         HoneyBee(float x, float y);
         virtual void update(Environment env) override;
-        virtual void render(sf::RenderWindow& window) override;
+        virtual void draw(sf::RenderWindow& window) override;
 };
 
 #endif
