@@ -13,7 +13,7 @@ void AgentController::addHoneyBees() {
 
 void AgentController::updateAgents(Environment env) {
     for (auto& a : agents) {
-        if (a != NULL) {
+        if (a != nullptr) {
             a->update(env);
         }
     }
@@ -21,8 +21,30 @@ void AgentController::updateAgents(Environment env) {
 
 void AgentController::renderAgents(sf::RenderWindow& window) {
     for (auto& a : agents) {
-        if (a != NULL) {
+        if (a != nullptr) {
             a->render(window);
         }
     }
 }
+
+void AgentController::addAgentPtr(shared_ptr<Agent> agent) {
+
+}
+
+void AgentController::removeAgentPtr(shared_ptr<Agent> agent) {
+    auto itr_lim = agents.end();;                                       // Auto can be replaced with shared_ptr_vector<MapObject>::iterator
+    for (auto itr = agents.begin(); itr != itr_lim; ++itr) {
+        if (*itr == agent){
+            itr_lim--;               // Decrementing it_lim to get iterator for last element in vector - Bad practice.. 
+            swap(*itr, *itr_lim);
+            agents.pop_back();
+            break;
+        } 
+    }
+};
+
+void swap(auto& a, auto& b){ 
+    auto temp = a;
+    a = b;
+    b = temp;
+};

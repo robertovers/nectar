@@ -3,12 +3,11 @@
 
 #include "environment.hpp"
 #include "agentController.hpp"
-#include "mapObjectController.hpp"
 
 // Generates a populated map for the simulation to run on
 class MapGenerator {
 public:
-	virtual Environment generateEnvironment(AgentController& agentController, MapObjectController& objectController) = 0;
+	virtual Environment generateEnvironment(AgentController& agentController) = 0;
 };
 
 // Generates an environment with agents and objects randomly scattered around
@@ -24,7 +23,7 @@ private:
 
 public:
 	BasicMapGenerator(int envSizeX, int envSizeY, int beeCount, int waspCount, int flowerCount, int cropCount, int caterpillarCount);
-	Environment generateEnvironment(AgentController& agentController, MapObjectController& objectController);
+	Environment generateEnvironment(AgentController& agentController);
 	int totalPlants();
 	int totalAgents();
 };

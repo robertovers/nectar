@@ -3,7 +3,6 @@
 #include "environment.hpp"
 #include "mapGenerator.hpp"
 #include "agentController.hpp"
-#include "mapObjectController.hpp"
 
 Application::Application() { }
 
@@ -13,9 +12,8 @@ void Application::run() {
 
     BasicMapGenerator mapGenerator = BasicMapGenerator(0, 0, 0, 0, 0, 0, 0);
     AgentController agentController = AgentController();
-    MapObjectController objectController = MapObjectController();
     
-    Environment environment = mapGenerator.generateEnvironment(agentController, objectController);
+    Environment environment = mapGenerator.generateEnvironment(agentController);
     
     /**
      * At this point, each controller should contain all pointers to the objects
@@ -33,10 +31,8 @@ void Application::run() {
 
         window.clear();
 
-        objectController.updateObjects();
         agentController.updateAgents(environment);
         
-        objectController.renderObjects(window);
         agentController.renderAgents(window);
         
         window.display();
