@@ -2,7 +2,7 @@
 #include "honeybee.hpp"
 
 AgentController::AgentController() {
-    agents = std::vector<std::shared_ptr<Agent>>(100);
+    agents = std::vector<shared_ptr<Agent>>(100);
 }
 
 void AgentController::addHoneyBees() {
@@ -22,7 +22,7 @@ void AgentController::updateAgents(Environment env) {
 void AgentController::drawAgents(sf::RenderWindow& window) {
     for (auto& a : agents) {
         if (a != nullptr) {
-            a->render(window);
+            a->draw(window);
         }
     }
 }

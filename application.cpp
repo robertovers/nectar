@@ -33,7 +33,7 @@ void Application::run() {
 
         agentController.updateAgents(environment);
         
-        agentController.renderAgents(window);
+        agentController.drawAgents(window);
         
         window.display();
     }
