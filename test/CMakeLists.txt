@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
 
-set(CMAKE_INSTALL_PREFIX "C:/Users/Lucille/Documents/uni/sci_proj/Insect-Simulator")
 project(Insect_Sim)
 
 # GoogleTest requires at least C++14
