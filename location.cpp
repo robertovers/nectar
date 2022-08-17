@@ -23,11 +23,3 @@ int Location::getX() {
 int Location::getY() {
     return y;
 }
-
-int Location::getWidth() {
-    return width;
-}
-
-int Location::getHeight() {
-    return height;
-}
