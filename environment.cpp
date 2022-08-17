@@ -5,7 +5,7 @@ Environment::Environment() : width(0), height(0) { }
 Environment::Environment(int w, int h) : width(w), height(h) {
     for (int y=0; y<height; y++) {
         for (int x=0; x<width; x++) {
-            //locations[x][y] = std::make_shared<Location>(x, y);
+            locations[x][y] = std::make_shared<Location>(x, y);
         }
     }
 }

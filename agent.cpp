@@ -1,13 +1,22 @@
 #include <math.h>
+#include <memory>
 #include "agent.hpp"
+#include <iostream>
 
 Agent::~Agent() { }
 
-std::shared_ptr<Location>& Agent::getLocation(Environment env) {
+std::shared_ptr<Location> Agent::getLocation(Environment env) {
     vector2D_shared_ptr<Location>& locations = env.getLocations();
-    return locations[floor(pos_y)][floor(pos_x)]; 
+    int tile_x = floor(pos_x);
+    int tile_y = floor(pos_y);
+    std::cout << tile_x << " " << tile_y << std::endl;
+    if ( tile_x >= 0 && tile_x < env.getWidth() &&
+         tile_y >= 0 && tile_y < env.getHeight() ) {
+        return locations[tile_y][tile_x]; 
+    };
+    return std::make_shared<Location>();
 }
 
-std::shared_ptr<Location>& Agent::getTarget() {
+std::shared_ptr<Location> Agent::getTarget() {
     return target;
 }

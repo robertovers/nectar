@@ -14,6 +14,7 @@ class AgentController {
         void drawAgents(sf::RenderWindow& window);
         void addAgentPtr(shared_ptr<Agent> agent);
         void removeAgentPtr(shared_ptr<Agent> agent);
+        vector_shared_ptr<Agent>& getAgents();
     private:
         int num_agents;
         vector_shared_ptr<Agent> agents;

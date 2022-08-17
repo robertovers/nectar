@@ -3,9 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "location.hpp"
 #include "templates.hpp"
-
-class Location;
 
 // Temporary Environment class
 class Environment {

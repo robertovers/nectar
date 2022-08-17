@@ -36,8 +36,11 @@ void Application::run() {
 
         window.clear();
 
+        for (auto a : agentController.getAgents()) {
+            //a->getLocation(environment);
+        }
+
         agentController.updateAgents(environment);
-        
         agentController.drawAgents(window);
         
         window.display();
