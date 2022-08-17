@@ -14,6 +14,8 @@ class Environment {
         Environment(int w, int h);
         vector2D_shared_ptr<Location>& getLocations();
         int getSize();
+        int getWidth();
+        int getHeight();
     private:
         int width;
         int height;

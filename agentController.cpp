@@ -5,9 +5,12 @@ AgentController::AgentController() {
     agents = std::vector<shared_ptr<Agent>>(100);
 }
 
-void AgentController::addHoneyBees() {
+void AgentController::addHoneyBees(Environment env) {
+    int rand_x, rand_y;
     for (auto& a : agents) {
-        a = std::make_shared<HoneyBee>();
+        rand_x = rand() % env.getWidth();
+        rand_y = rand() % env.getHeight();
+        a = std::make_shared<HoneyBee>(rand_x, rand_y);
     }
 }
 
@@ -32,10 +35,10 @@ void AgentController::addAgentPtr(shared_ptr<Agent> agent) {
 }
 
 void AgentController::removeAgentPtr(shared_ptr<Agent> agent) {
-    auto itr_lim = agents.end();;                                       // Auto can be replaced with shared_ptr_vector<MapObject>::iterator
+    auto itr_lim = agents.end(); // Auto can be replaced with shared_ptr_vector<MapObject>::iterator
     for (auto itr = agents.begin(); itr != itr_lim; ++itr) {
         if (*itr == agent){
-            itr_lim--;               // Decrementing it_lim to get iterator for last element in vector - Bad practice.. 
+            itr_lim--; // Decrementing it_lim to get iterator for last element in vector - Bad practice.. 
             swap(*itr, *itr_lim);
             agents.pop_back();
             break;

@@ -17,3 +17,11 @@ vector2D_shared_ptr<Location>& Environment::getLocations() {
 int Environment::getSize() {
     return width * height;
 }
+
+int Environment::getWidth() {
+    return width;
+}
+
+int Environment::getHeight() {
+    return height;
+}
