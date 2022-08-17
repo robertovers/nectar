@@ -13,11 +13,11 @@ jobs:
       # Fetch project source with GitHub Actions Checkout.
       - uses: actions/checkout@v3
 
-      - name: install mesa
-        run: |
-          sudo add-apt-repository ppa:kisak/kisak-mesa
-          sudo apt update
-          sudo apt upgrade
+#       - name: install mesa
+#         run: |
+#           sudo add-apt-repository ppa:kisak/kisak-mesa
+#           sudo apt update
+#           sudo apt upgrade
 
       - name: Configure CMake
         run: cmake -S . -B build
