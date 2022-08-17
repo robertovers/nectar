@@ -9,8 +9,8 @@ class Agent;
 // Temporary Location class
 class Location {
     public:
-        Location() : x(0), y(0), width(0), height(0) { }
-        Location(int x, int y, int w, int h) : x(x), y(y), width(w), height(h) { }
+        Location() : x(0), y(0) { };
+        Location(int x, int y) : x(x), y(y) { }
         void draw(sf::RenderWindow& window);
         void addAgent(Agent& a);
         void clearAgents();
@@ -22,8 +22,6 @@ class Location {
     private:
         int x;
         int y;
-        int width;
-        int height;
         std::vector<std::reference_wrapper<Agent>> agents;
 };
 

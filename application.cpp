@@ -1,7 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "application.hpp"
 #include "environment.hpp"
-#include "mapGenerator.hpp"
 #include "agentController.hpp"
 
 Application::Application() { }
@@ -10,10 +9,11 @@ void Application::run() {
 
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "Insect Simulations");
 
-    BasicMapGenerator mapGenerator = BasicMapGenerator(0, 0, 0, 0, 0, 0, 0);
+    // BasicMapGenerator mapGenerator = BasicMapGenerator(0, 0, 0, 0, 0, 0, 0);
     AgentController agentController = AgentController();
-    
-    Environment environment = mapGenerator.generateEnvironment(agentController);
+
+    // Environment environment = mapGenerator.generateEnvironment(); 
+    Environment environment = Environment(100, 100);
     
     /**
      * At this point, each controller should contain all pointers to the objects
@@ -31,9 +31,9 @@ void Application::run() {
 
         window.clear();
 
-        agentController.updateAgents(environment);
+        //agentController.updateAgents(environment);
         
-        agentController.drawAgents(window);
+        //agentController.drawAgents(window);
         
         window.display();
     }
