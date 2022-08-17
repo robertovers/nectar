@@ -11,14 +11,14 @@ class Location {
     public:
         Location() : x(0), y(0), width(0), height(0) { }
         Location(int x, int y, int w, int h) : x(x), y(y), width(w), height(h) { }
-        void render(sf::RenderWindow& window);
-        void addAgent(Agent& a) { agents.push_back(a); };
-        void clearAgents() { agents.clear(); };
-        int numAgents() { return agents.size(); };
-        int getX() { return x; };
-        int getY() { return y; };
-        int getWidth() { return width; }
-        int getHeight() { return height; }
+        void draw(sf::RenderWindow& window);
+        void addAgent(Agent& a);
+        void clearAgents();
+        int numAgents();
+        int getX();
+        int getY();
+        int getWidth();
+        int getHeight();
     private:
         int x;
         int y;
