@@ -8,6 +8,7 @@ Application::Application() { }
 void Application::run() { 
 
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "Insect Simulations");
+    window.setFramerateLimit(60);
 
     srand(time(NULL));
 
@@ -19,7 +20,7 @@ void Application::run() {
     // -- BEGIN CODE FOR TESTING PURPOSES --
 
     AgentController agentController = AgentController();
-    Environment environment = Environment(100, 100);    
+    Environment environment = Environment(50, 50);    
     agentController.addHoneyBees(environment);
 
     // -- END OF TESTING CODE --

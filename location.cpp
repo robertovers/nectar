@@ -2,8 +2,8 @@
 
 void Location::draw(sf::RenderWindow& window) {
     sf::RectangleShape r;
-    r.setSize(sf::Vector2f(10, 10));
-    r.setPosition(x * 10, y * 10);
+    r.setSize(sf::Vector2f(20, 20));
+    r.setPosition(x * 20, y * 20);
     r.setFillColor(sf::Color::Blue);
     window.draw(r);
 }
