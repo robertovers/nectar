@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 project(Insect_Sim)
 
-# allows auto type parameters
+# allow auto type parameters
 set(CMAKE_CXX_STANDARD 20)
 set(MSVC_VERSION 1920)
 
@@ -12,7 +12,7 @@ FetchContent_Declare(SFML
 )
 FetchContent_MakeAvailable(SFML)
 
-# Building simulator
+# Build simulator
 add_executable(
   Insect_Sim 
   main.cpp
@@ -26,8 +26,9 @@ add_executable(
 )
 target_link_libraries(Insect_Sim PRIVATE sfml-graphics)
 target_compile_features(Insect_Sim PRIVATE cxx_std_17)
+
+# copy SFML dlls, for windows
 if (WIN32 AND BUILD_SHARED_LIBS)
-  # copied dlls
   add_custom_command(TARGET Insect_Sim POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:Insect_Sim> $<TARGET_FILE_DIR:Insect_Sim> COMMAND_EXPAND_LISTS)
 endif()
