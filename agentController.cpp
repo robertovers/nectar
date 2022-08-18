@@ -2,7 +2,7 @@
 #include "honeybee.hpp"
 
 AgentController::AgentController() {
-    agents = std::vector<shared_ptr<Agent>>(1);
+    agents = std::vector<shared_ptr<Agent>>(10);
 }
 
 void AgentController::addHoneyBees(Environment env) {

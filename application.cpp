@@ -37,7 +37,8 @@ void Application::run() {
         window.clear();
 
         for (auto a : agentController.getAgents()) {
-            //a->getLocation(environment);
+            shared_ptr<Location> loc = a->getLocation(environment);
+            loc->draw(window);
         }
 
         agentController.updateAgents(environment);
