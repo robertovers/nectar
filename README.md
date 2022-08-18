@@ -2,6 +2,7 @@
 
 ## How to use
 Install [cmake](https://cmake.org)
+
 Navigate to project folder
 ```
 cmake -S . -B build
