@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.14)
 project(Insect_Sim)
 
-set(CMAKE_CXX_STANDARD 14)
+# allows auto type parameters
+set(CMAKE_CXX_STANDARD 20)
+set(MSVC_VERSION 1920)
 
 include(FetchContent)
 FetchContent_Declare(SFML
