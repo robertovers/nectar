@@ -16,7 +16,8 @@ void Location::addAgent(Agent& a) {
 void Location::removeAgent(Agent& a) {
     int id_a = a.getID();
     auto equal_id = [id_a](Agent& b) { return b.getID() == id_a; };
-    agents.erase(std::remove_if(agents.begin(), agents.end(), equal_id));
+    auto it = std::remove_if(agents.begin(), agents.end(), equal_id);
+    if (it != agents.end()) agents.erase(it);
 }
 
 void Location::clearAgents() {
