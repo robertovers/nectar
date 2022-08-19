@@ -13,6 +13,7 @@ class Location {
         Location(int x, int y) : x(x), y(y) { }
         void draw(sf::RenderWindow& window);
         void addAgent(Agent& a);
+        void removeAgent(Agent& a);
         void clearAgents();
         int numAgents();
         int getX();
