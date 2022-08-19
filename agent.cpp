@@ -1,7 +1,13 @@
+#include <atomic>
 #include <math.h>
 #include <memory>
 #include "agent.hpp"
 #include <iostream>
+
+
+Agent::Agent() {
+    id = generateID();
+}
 
 Agent::~Agent() { }
 
@@ -18,4 +24,13 @@ std::shared_ptr<Location> Agent::getLocation(Environment env) {
 
 std::shared_ptr<Location> Agent::getTarget() {
     return target;
+}
+
+int Agent::generateID() {
+    static std::atomic<std::uint8_t> id { 0 };
+    return id++;
+}
+
+int Agent::getID() {
+    return id;
 }
