@@ -45,7 +45,7 @@ void Application::run() {
 
         for (auto row : environment.getLocations()) {
             for (auto loc : row) {
-                if (loc->numAgents() > 0) {
+                if (loc->numAgents() == 1) {
                     loc->draw(window);
                 }
             }
