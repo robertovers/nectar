@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "application.hpp"
 #include "environment.hpp"
+#include "location.hpp"
 #include "agentController.hpp"
 
 Application::Application() { }
@@ -37,9 +38,17 @@ void Application::run() {
 
         window.clear();
 
-        for (auto a : agentController.getAgents()) {
-            shared_ptr<Location> loc = a->getLocation(environment);
-            loc->draw(window);
+        //for (auto a : agentController.getAgents()) {
+        //    shared_ptr<Location> loc = a->getLocation(environment);
+        //    loc->draw(window);
+        //}
+
+        for (auto row : environment.getLocations()) {
+            for (auto loc : row) {
+                if (loc->numAgents() > 0) {
+                    loc->draw(window);
+                }
+            }
         }
 
         agentController.updateAgents(environment);

@@ -2,8 +2,6 @@
 #include <math.h>
 #include <memory>
 #include "agent.hpp"
-#include <iostream>
-
 
 Agent::Agent() {
     id = generateID();

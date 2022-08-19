@@ -3,8 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 #include "environment.hpp"
-#include "location.hpp"
 #include "templates.hpp"
+
+class Location;
 
 class Agent {
     public:
