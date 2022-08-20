@@ -30,7 +30,7 @@ int Location::numAgents() {
 
 int Location::getX() {
     return x;
-};
+}
 
 int Location::getY() {
     return y;
