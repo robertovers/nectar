@@ -24,9 +24,7 @@ class Agent {
         int id;
         float pos_x;
         float pos_y;
-        float vel_x = 0;
-        float vel_y = 0;
-        float vel_factor = 0.1;
+        float velocity = 0.1;
         int display_width = 10;
         int display_height = 10;
         shared_ptr<Location> target = nullptr;

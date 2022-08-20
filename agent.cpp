@@ -38,11 +38,8 @@ int Agent::getID() {
 }
 
 void Agent::moveRandomWalk() {
-    vel_x = (rand() % 3 - 1);
-    vel_y = (rand() % 3 - 1);
-
-    pos_x += vel_x * vel_factor;
-    pos_y += vel_y * vel_factor;
+    pos_x += (rand() % 3 - 1) * velocity;
+    pos_y += (rand() % 3 - 1) * velocity;
 }
 
 void Agent::moveToTarget() {
@@ -50,9 +47,6 @@ void Agent::moveToTarget() {
     float dy = target->getY() - pos_y;
     float theta = atan(dy/dx);
 
-    vel_x = ((dx > 0) - (dx < 0)) * cos(theta);
-    vel_y = ((dx > 0) - (dx < 0)) * sin(theta);
-
-    pos_x += vel_x * vel_factor;
-    pos_y += vel_y * vel_factor;
+    pos_x += ((dx > 0) - (dx < 0)) * cos(theta) * velocity;
+    pos_y += ((dx > 0) - (dx < 0)) * sin(theta) * velocity;
 }
