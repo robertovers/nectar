@@ -34,24 +34,31 @@ vector_shared_ptr<Agent>& AgentController::getAgents() {
     return agents;
 }
 
-void AgentController::addAgentPtr(shared_ptr<Agent> agent) {
-
+void AgentController::addAgent(shared_ptr<Agent> agent) {
+    agents.push_back(agent);
 }
 
-void AgentController::removeAgentPtr(shared_ptr<Agent> agent) {
-    auto itr_lim = agents.end(); // Auto can be replaced with shared_ptr_vector<MapObject>::iterator
-    for (auto itr = agents.begin(); itr != itr_lim; ++itr) {
-        if (*itr == agent){
-            itr_lim--; // Decrementing it_lim to get iterator for last element in vector - Bad practice.. 
-            swap(*itr, *itr_lim);
-            agents.pop_back();
-            break;
-        } 
-    }
-};
+void AgentController::removeAgent(shared_ptr<Agent> agent) {
+    int id_a = agent->getID();
+    auto equal_id = [id_a](shared_ptr<Agent> b) { return b->getID() == id_a; };
+    auto it = std::remove_if(agents.begin(), agents.end(), equal_id);
+    if (it != agents.end()) agents.erase(it);
+}
 
-void swap(auto& a, auto& b){ 
-    auto temp = a;
-    a = b;
-    b = temp;
-};
+//void AgentController::removeAgentPtr(shared_ptr<Agent> agent) {
+//    auto itr_lim = agents.end(); // Auto can be replaced with shared_ptr_vector<MapObject>::iterator
+//    for (auto itr = agents.begin(); itr != itr_lim; ++itr) {
+//        if (*itr == agent){
+//            itr_lim--; // Decrementing it_lim to get iterator for last element in vector - Bad practice.. 
+//            swap(*itr, *itr_lim);
+//            agents.pop_back();
+//            break;
+//        } 
+//    }
+//}
+//
+//void swap(auto& a, auto& b){ 
+//    auto temp = a;
+//    a = b;
+//    b = temp;
+//}
