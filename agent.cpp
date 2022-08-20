@@ -24,6 +24,10 @@ std::shared_ptr<Location> Agent::getTarget() {
     return target;
 }
 
+void Agent::setTarget(shared_ptr<Location> t) {
+    target = t;
+}
+
 int Agent::generateID() {
     static std::atomic<std::uint8_t> id { 0 };
     return id++;
@@ -31,4 +35,24 @@ int Agent::generateID() {
 
 int Agent::getID() {
     return id;
+}
+
+void Agent::moveRandomWalk() {
+    vel_x = (rand() % 3 - 1);
+    vel_y = (rand() % 3 - 1);
+
+    pos_x += vel_x * vel_factor;
+    pos_y += vel_y * vel_factor;
+}
+
+void Agent::moveToTarget() {
+    float dx = target->getX() - pos_x;
+    float dy = target->getY() - pos_y;
+    float theta = atan(dy/dx);
+
+    vel_x = ((dx > 0) - (dx < 0)) * cos(theta);
+    vel_y = ((dx > 0) - (dx < 0)) * sin(theta);
+
+    pos_x += vel_x * vel_factor;
+    pos_y += vel_y * vel_factor;
 }

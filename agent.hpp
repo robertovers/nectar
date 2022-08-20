@@ -17,12 +17,16 @@ class Agent {
         shared_ptr<Location> getTarget();
         int generateID();
         int getID();
+        void setTarget(shared_ptr<Location> t);
+        void moveRandomWalk();
+        void moveToTarget();
     protected:
         int id;
         float pos_x;
         float pos_y;
         float vel_x = 0;
         float vel_y = 0;
+        float vel_factor = 0.1;
         int display_width = 10;
         int display_height = 10;
         shared_ptr<Location> target = nullptr;

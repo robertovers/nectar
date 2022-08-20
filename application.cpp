@@ -16,16 +16,14 @@ void Application::run() {
     // BasicMapGenerator mapGenerator = BasicMapGenerator(0, 0, 0, 0, 0, 0, 0);
     // AgentController agentController = AgentController(); 
     // Environment environment = mapGenerator.generateEnvironment(); 
-    
-
-    // -- BEGIN CODE FOR TESTING PURPOSES --
 
     AgentController agentController = AgentController();
     Environment environment = Environment(50, 50);    
     agentController.addHoneyBees(environment);
 
-    // -- END OF TESTING CODE --
-
+    for (auto a : agentController.getAgents()) {
+        a->setTarget(environment.getLocations()[25][25]);
+    }
 
     while (window.isOpen()) {
 
