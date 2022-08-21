@@ -38,12 +38,21 @@ int Agent::getID() {
 }
 
 void Agent::moveRandomWalk() {
-    direction_u = sf::Vector2f((rand() % 3 - 1) * velocity, (rand() % 3 - 1) * velocity);
+    float dx = rand() % 3 - 1;
+    float dy = rand() % 3 - 1;
+
+    direction_u = sf::Vector2f(dx, dy);
 }
 
 void Agent::moveToTarget() {
-    sf::Vector2f target_v = sf::Vector2f(target->getX() + 0.5, target->getY() + 0.5) - pos;
-    sf::Vector2f target_u = target_v / (float) sqrt(pow(target_v.x, 2) + pow(target_v.y, 2));
+    // compute vector from current pos to target
+    float target_x = target->getX() + 0.5; // offset by 0.5 to get center
+    float target_y = target->getY() + 0.5;
+    sf::Vector2f target_v = sf::Vector2f(target_x, target_y) - pos;
+
+    // normalise to unit vector
+    float dist = sqrt(pow(target_v.x, 2) + pow(target_v.y, 2));
+    sf::Vector2f target_u = target_v / dist; 
 
     direction_u = target_u;
 }
