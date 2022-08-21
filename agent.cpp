@@ -11,8 +11,8 @@ Agent::~Agent() { }
 
 std::shared_ptr<Location> Agent::getLocation(Environment env) {
     vector2D_shared_ptr<Location>& locations = env.getLocations();
-    int tile_x = floor(pos_x);
-    int tile_y = floor(pos_y);
+    int tile_x = floor(pos.x);
+    int tile_y = floor(pos.y);
     if ( tile_x >= 0 && tile_x < env.getWidth() &&
          tile_y >= 0 && tile_y < env.getHeight() ) {
         return locations[tile_y][tile_x]; 
@@ -38,15 +38,12 @@ int Agent::getID() {
 }
 
 void Agent::moveRandomWalk() {
-    pos_x += (rand() % 3 - 1) * velocity;
-    pos_y += (rand() % 3 - 1) * velocity;
+    direction_u = sf::Vector2f((rand() % 3 - 1) * velocity, (rand() % 3 - 1) * velocity);
 }
 
 void Agent::moveToTarget() {
-    float dx = target->getX() - pos_x;
-    float dy = target->getY() - pos_y;
-    float theta = atan(dy/dx);
+    sf::Vector2f target_v = sf::Vector2f(target->getX() + 0.5, target->getY() + 0.5) - pos;
+    sf::Vector2f target_u = target_v / (float) sqrt(pow(target_v.x, 2) + pow(target_v.y, 2));
 
-    pos_x += ((dx > 0) - (dx < 0)) * cos(theta) * velocity;
-    pos_y += ((dx > 0) - (dx < 0)) * sin(theta) * velocity;
+    direction_u = target_u;
 }

@@ -22,8 +22,8 @@ class Agent {
         void moveToTarget();
     protected:
         int id;
-        float pos_x;
-        float pos_y;
+        sf::Vector2f pos;
+        sf::Vector2f direction_u;
         float velocity = 0.1;
         int display_width = 10;
         int display_height = 10;
