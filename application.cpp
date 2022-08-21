@@ -8,6 +8,10 @@ Application::Application() { }
 
 void Application::run() { 
 
+    sf::Clock clock;
+    float last_t = clock.getElapsedTime().asSeconds();
+    float current_t;
+
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "Insect Simulations");
     window.setFramerateLimit(60);
 
@@ -21,8 +25,9 @@ void Application::run() {
     Environment environment = Environment(50, 50);    
     agentController.addHoneyBees(environment);
 
+    shared_ptr<Location> target_t = environment.getLocations()[rand() % 50][rand() % 50];
     for (auto a : agentController.getAgents()) {
-        a->setTarget(environment.getLocations()[25][25]);
+        a->setTarget(target_t);
     }
 
     while (window.isOpen()) {
@@ -36,18 +41,23 @@ void Application::run() {
 
         window.clear();
 
-        //for (auto a : agentController.getAgents()) {
-        //    shared_ptr<Location> loc = a->getLocation(environment);
-        //    loc->draw(window);
-        //}
+        current_t = clock.getElapsedTime().asSeconds();
+        if (current_t - last_t > 5) {
+            target_t = environment.getLocations()[rand() % 50][rand() % 50];
+            for (auto a : agentController.getAgents()) {
+                a->setTarget(target_t);
+            }
+            last_t = current_t;
+        }
 
         for (auto row : environment.getLocations()) {
             for (auto loc : row) {
-                if (loc->numAgents() == 1) {
-                    loc->draw(window);
+                if (loc->numAgents() > 0) {
+                    loc->draw(window, sf::Color::Blue);
                 }
             }
         }
+        target_t->draw(window, sf::Color::Red);
 
         agentController.updateAgents(environment);
         agentController.drawAgents(window);
