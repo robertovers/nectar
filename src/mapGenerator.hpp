@@ -16,10 +16,10 @@ private:
 	int envSizeX;
 	int envSizeY;
 	int beeCount;
-	int cropCount;
+	int cropChance;
 
 public:
-	BasicMapGenerator(int envSizeX, int envSizeY, int beeCount, int cropCount);
+	BasicMapGenerator(int envSizeX, int envSizeY, int beeCount, int cropChance);
 	Environment generateEnvironment(AgentController& agentController);
 };
 
