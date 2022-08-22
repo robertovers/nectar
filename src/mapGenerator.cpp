@@ -1,10 +1,18 @@
 #include <algorithm>
+#include <stdexcept>
 #include "mapGenerator.hpp"
 #include "environment.hpp"
 #include "location.hpp"
+#include "honeybee.hpp"
 
 BasicMapGenerator::BasicMapGenerator(int envSizeX, int envSizeY, int beeCount = 0, int cropCount = 0) {
-    // determines map size
+    if (envSizeX <= 0) {
+        throw std::invalid_argument("X value must be positive integer");
+    }
+    if (envSizeY <= 0) {
+        throw std::invalid_argument("Y value must be positive integer");
+    }
+
     this->envSizeX = envSizeX;
     this->envSizeY = envSizeY;
     this->beeCount = beeCount;
