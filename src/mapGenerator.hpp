@@ -16,16 +16,11 @@ private:
 	int envSizeX;
 	int envSizeY;
 	int beeCount;
-	int waspCount;
-	int flowerCount;
 	int cropCount;
-	int caterpillarCount;
 
 public:
-	BasicMapGenerator(int envSizeX, int envSizeY, int beeCount, int waspCount, int flowerCount, int cropCount, int caterpillarCount);
+	BasicMapGenerator(int envSizeX, int envSizeY, int beeCount, int cropCount);
 	Environment generateEnvironment(AgentController& agentController);
-	int totalPlants();
-	int totalAgents();
 };
 
 #endif
