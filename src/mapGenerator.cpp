@@ -27,12 +27,13 @@ Environment BasicMapGenerator::generateEnvironment(AgentController& agentControl
     while (placedBees <= beeCount) {
         float trueX = rand() / (static_cast <float> (RAND_MAX / envSizeX));
         float trueY = rand() / (static_cast <float> (RAND_MAX / envSizeY));
-        // TODO: create bee with given x, y
+        auto bee = shared_ptr<HoneyBee>(new HoneyBee(trueX, trueY));
+        agentController.addAgentPtr(bee);
+
         placedBees++;
     }
 
     int placedCrops = 0;
-    
     // place plants on locations
     for (int tilesLeft = generatedEnvironment.getSize(); tilesLeft > 0; tilesLeft -= 1) {
         // TODO: properly iterate through tiles in environment
