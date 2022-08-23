@@ -3,7 +3,7 @@
 
 Agent::~Agent() { }
 
-std::shared_ptr<Location> Agent::getLocation(Environment env) {
+shared_ptr<Location> Agent::getLocation(Environment env) {
     for (auto loc : env.getLocations()) {
         int tile_x = loc->getX()*loc->getWidth();
         int tile_y = loc->getY()*loc->getHeight();
@@ -19,6 +19,6 @@ std::shared_ptr<Location> Agent::getLocation(Environment env) {
     return std::make_shared<Location>(); 
 }
 
-std::shared_ptr<Location> Agent::getTarget() {
+shared_ptr<Location> Agent::getTarget() {
     return target;
 }
