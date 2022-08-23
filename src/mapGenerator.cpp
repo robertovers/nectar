@@ -24,7 +24,7 @@ Environment BasicMapGenerator::generateEnvironment(AgentController& agentControl
     Environment generatedEnvironment = Environment();
     // randomly scatter bees throughout map
     int placedBees = 0;
-    while (placedBees <= beeCount) {
+    while (placedBees < beeCount) {
         float trueX = rand() / (static_cast <float> (RAND_MAX / envSizeX));
         float trueY = rand() / (static_cast <float> (RAND_MAX / envSizeY));
         auto bee = shared_ptr<HoneyBee>(new HoneyBee(trueX, trueY));
