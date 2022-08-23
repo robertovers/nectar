@@ -4,16 +4,19 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <vector>
+#include "templates.hpp"
 
 class Location;
 
-// Temporary Environment class
 class Environment {
-    public:
-        int getSize() { return 0; };
-        std::vector<std::shared_ptr<Location>>& getLocations() { return locations; }
     private:
+        int width;
+        int height;
         std::vector<std::shared_ptr<Location>> locations;
+    public:
+        Environment(int width, int height);
+        int getSize();
+        std::vector<std::shared_ptr<Location>>& getLocations() { return locations; }
 };
 
 #endif
