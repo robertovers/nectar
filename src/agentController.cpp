@@ -5,9 +5,12 @@ AgentController::AgentController() {
     agents = std::vector<shared_ptr<Agent>>(0);
 }
 
-void AgentController::addHoneyBees() {
+void AgentController::addHoneyBees(Environment env) {
+    int rand_x, rand_y;
     for (auto& a : agents) {
-        a = std::make_shared<HoneyBee>();
+        rand_x = rand() % env.getWidth();
+        rand_y = rand() % env.getHeight();
+        a = std::make_shared<HoneyBee>(rand_x, rand_y);
     }
 }
 
@@ -27,24 +30,17 @@ void AgentController::drawAgents(sf::RenderWindow& window) {
     }
 }
 
-void AgentController::addAgentPtr(shared_ptr<Agent> agent) {
+vector_shared_ptr<Agent>& AgentController::getAgents() {
+    return agents;
+}
+
+void AgentController::addAgent(shared_ptr<Agent> agent) {
     agents.push_back(agent);
 }
 
-void AgentController::removeAgentPtr(shared_ptr<Agent> agent) {
-    auto itr_lim = agents.end();;                                       // Auto can be replaced with shared_ptr_vector<MapObject>::iterator
-    for (auto itr = agents.begin(); itr != itr_lim; ++itr) {
-        if (*itr == agent){
-            itr_lim--;               // Decrementing it_lim to get iterator for last element in vector - Bad practice.. 
-            swap(*itr, *itr_lim);
-            agents.pop_back();
-            break;
-        } 
-    }
-};
-
-void swap(auto& a, auto& b){ 
-    auto temp = a;
-    a = b;
-    b = temp;
-};
+void AgentController::removeAgent(shared_ptr<Agent> agent) {
+    int id_a = agent->getID();
+    auto equal_id = [id_a](shared_ptr<Agent> b) { return b->getID() == id_a; };
+    auto it = std::remove_if(agents.begin(), agents.end(), equal_id);
+    if (it != agents.end()) agents.erase(it);
+}

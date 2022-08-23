@@ -9,11 +9,12 @@
 class AgentController {
     public:
         AgentController();
-        void addHoneyBees();
+        void addHoneyBees(Environment env);
         void updateAgents(Environment env);
         void drawAgents(sf::RenderWindow& window);
-        void addAgentPtr(shared_ptr<Agent> agent);
-        void removeAgentPtr(shared_ptr<Agent> agent);
+        void addAgent(shared_ptr<Agent> agent);
+        void removeAgent(shared_ptr<Agent> agent);
+        vector_shared_ptr<Agent>& getAgents();
     private:
         // int num_agents;
         vector_shared_ptr<Agent> agents;

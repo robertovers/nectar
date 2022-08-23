@@ -1,17 +1,28 @@
 #include "environment.hpp"
-#include "location.hpp"
 
-Environment::Environment(int width, int height) {
-    this->width = width;
-    this->height = height;
-    this->locations = std::vector<shared_ptr<Location>>(0);
-    for (int i = 0; i < width * height; i++) {
-        locations.push_back(shared_ptr<Location>(new Location()));
+Environment::Environment() : width(0), height(0) { }
+
+Environment::Environment(int w, int h) : width(w), height(h) {
+    for (int y=0; y<height; y++) {
+        locations.push_back(vector_shared_ptr<Location>(width));
+        for (int x=0; x<width; x++) {
+            locations[y][x] = std::make_shared<Location>(x, y);
+        }
     }
-    /*this->locations = locations[width][height];*/
 }
 
-int Environment::getSize()
-{
-    return locations.size();
+vector2D_shared_ptr<Location>& Environment::getLocations() { 
+    return locations; 
+}
+
+int Environment::getSize() {
+    return width * height;
+}
+
+int Environment::getWidth() {
+    return width;
+}
+
+int Environment::getHeight() {
+    return height;
 }
