@@ -2,7 +2,7 @@
 #include "honeybee.hpp"
 
 AgentController::AgentController() {
-    agents = std::vector<shared_ptr<Agent>>(10);
+    agents = std::vector<shared_ptr<Agent>>(0);
 }
 
 void AgentController::addHoneyBees(Environment env) {
@@ -44,21 +44,3 @@ void AgentController::removeAgent(shared_ptr<Agent> agent) {
     auto it = std::remove_if(agents.begin(), agents.end(), equal_id);
     if (it != agents.end()) agents.erase(it);
 }
-
-//void AgentController::removeAgentPtr(shared_ptr<Agent> agent) {
-//    auto itr_lim = agents.end(); // Auto can be replaced with shared_ptr_vector<MapObject>::iterator
-//    for (auto itr = agents.begin(); itr != itr_lim; ++itr) {
-//        if (*itr == agent){
-//            itr_lim--; // Decrementing it_lim to get iterator for last element in vector - Bad practice.. 
-//            swap(*itr, *itr_lim);
-//            agents.pop_back();
-//            break;
-//        } 
-//    }
-//}
-//
-//void swap(auto& a, auto& b){ 
-//    auto temp = a;
-//    a = b;
-//    b = temp;
-//}
