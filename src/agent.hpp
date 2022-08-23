@@ -5,9 +5,12 @@
 #include "environment.hpp"
 #include "location.hpp"
 #include "templates.hpp"
+#include <iostream>
 
 class Agent {
     public:
+        Agent();
+        Agent(float x, float y);
         virtual ~Agent();
         virtual void update(Environment env) = 0;
         virtual void draw(sf::RenderWindow& window) = 0;

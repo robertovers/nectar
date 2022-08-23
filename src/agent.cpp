@@ -1,7 +1,14 @@
 #include <SFML/Graphics.hpp>
 #include "agent.hpp"
 
-Agent::~Agent() { }
+Agent::~Agent(){}
+
+Agent::Agent(){}
+
+Agent::Agent(float x, float y) {
+    pos_x = x;
+    pos_y = y;
+}
 
 shared_ptr<Location> Agent::getLocation(Environment env) {
     for (auto loc : env.getLocations()) {
