@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <vector>
+#include "templates.hpp"
 
 class Location;
 

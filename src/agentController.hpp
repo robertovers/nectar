@@ -15,7 +15,7 @@ class AgentController {
         void addAgentPtr(shared_ptr<Agent> agent);
         void removeAgentPtr(shared_ptr<Agent> agent);
     private:
-        int num_agents;
+        // int num_agents;
         vector_shared_ptr<Agent> agents;
 };
 

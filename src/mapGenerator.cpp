@@ -29,7 +29,7 @@ Environment BasicMapGenerator::generateEnvironment(AgentController& agentControl
         float trueY = rand() / (static_cast <float> (RAND_MAX / envSizeY));
         auto bee = shared_ptr<HoneyBee>(new HoneyBee(trueX, trueY));
         agentController.addAgentPtr(bee);
-
+        // TODO: add to location?
         placedBees++;
     }
 
