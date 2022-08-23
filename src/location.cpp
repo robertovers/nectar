@@ -1,11 +1,11 @@
 #include "agent.hpp"
 #include "location.hpp"
 
-void Location::draw(sf::RenderWindow& window, sf::Color col) {
+void Location::draw(sf::RenderWindow& window) {
     sf::RectangleShape r;
     r.setSize(sf::Vector2f(20, 20));
     r.setPosition(x * 20, y * 20);
-    r.setFillColor(col);
+    r.setFillColor(sf::Color::Blue);
     window.draw(r);
 }
 

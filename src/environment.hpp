@@ -6,7 +6,6 @@
 #include "location.hpp"
 #include "templates.hpp"
 
-// Temporary Environment class
 class Environment {
     public:
         Environment();

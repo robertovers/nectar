@@ -6,12 +6,11 @@
 
 class Agent;
 
-// Temporary Location class
 class Location {
     public:
         Location() : x(0), y(0) { };
         Location(int x, int y) : x(x), y(y) { }
-        void draw(sf::RenderWindow& window, sf::Color col);
+        void draw(sf::RenderWindow& window);
         void addAgent(Agent& a);
         void removeAgent(Agent& a);
         void clearAgents();
