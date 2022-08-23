@@ -21,7 +21,7 @@ BasicMapGenerator::BasicMapGenerator(int envSizeX, int envSizeY, int beeCount = 
 
 
 Environment BasicMapGenerator::generateEnvironment(AgentController& agentController) {
-    Environment generatedEnvironment = Environment();
+    Environment generatedEnvironment = Environment(envSizeX, envSizeY);
     // randomly scatter bees throughout map
     int placedBees = 0;
     while (placedBees < beeCount) {
@@ -35,9 +35,7 @@ Environment BasicMapGenerator::generateEnvironment(AgentController& agentControl
 
     // place plants on locations
     float placeChance = cropChance / 100.0;
-    for (int tilesLeft = generatedEnvironment.getSize(); tilesLeft > 0; tilesLeft -= 1) {
-        // TODO: properly iterate through tiles in environment
-        Location currentLocation = Location();
+    for (auto& location : generatedEnvironment.getLocations()) {
 
         float rolledChance = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);  // 0.0 - 1.0
         if (placeChance >= rolledChance) {

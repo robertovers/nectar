@@ -14,7 +14,7 @@ class Environment {
         std::vector<std::shared_ptr<Location>> locations;
     public:
         Environment(int width, int height);
-        int getSize() { return 0; };
+        int getSize();
         std::vector<std::shared_ptr<Location>>& getLocations() { return locations; }
 };
 

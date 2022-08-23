@@ -6,3 +6,8 @@ Environment::Environment(int width, int height) {
     this->height = height;
     /*this->locations = locations[width][height];*/
 }
+
+int Environment::getSize()
+{
+    return locations.size();
+}
