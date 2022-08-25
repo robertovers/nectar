@@ -3,17 +3,21 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include <vector>
+#include "location.hpp"
+#include "templates.hpp"
 
-class Location;
-
-// Temporary Environment class
 class Environment {
     public:
-        int getSize() { return 0; };
-        std::vector<std::shared_ptr<Location>>& getLocations() { return locations; }
+        Environment();
+        Environment(int w, int h);
+        vector2D_shared_ptr<Location>& getLocations();
+        int getSize();
+        int getWidth();
+        int getHeight();
     private:
-        std::vector<std::shared_ptr<Location>> locations;
+        int width;
+        int height;
+        vector2D_shared_ptr<Location> locations;
 };
 
 #endif
