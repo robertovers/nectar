@@ -10,10 +10,6 @@ Plant::Plant(){
     pollinated=INITIAL_POLLINATION_STATUS;
 }
 
-Plant::Plant(float x, float y): Agent(x,y){
-    pollinated=INITIAL_POLLINATION_STATUS;
-}
-
 void Plant::pollinate(){
     pollinated=true;
 }

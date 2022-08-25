@@ -4,10 +4,9 @@
 
 #include "agent.hpp"
 
-class Plant : public Agent{
+class Plant{
     public:
         Plant();
-        Plant(float x, float y);
         virtual ~Plant();
         void pollinate();
     protected:
