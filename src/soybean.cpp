@@ -13,8 +13,9 @@ Soybean::Soybean(){
 void Soybean::tick(){
 }
 
+/*
 void Soybean::draw(sf::RenderWindow& window){
-    float diameter = 35;
+    float d = 35;
     sf::ConvexShape c;
     c.setPointCount(12);
     c.setPoint(0, sf::Vector2f(pos_x - d/6,pos_y - d/2));
@@ -32,6 +33,7 @@ void Soybean::draw(sf::RenderWindow& window){
     c.setFillColor(sf::Color(100, 250, 50));
     window.draw(c);
 }
+*/
 
 
 
