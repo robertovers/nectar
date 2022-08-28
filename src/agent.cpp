@@ -20,7 +20,7 @@ std::shared_ptr<Location> Agent::getLocation(Environment env) {
     return std::make_shared<Location>();
 }
 
-std::shared_ptr<Location> Agent::getTarget() {
+shared_ptr<Location> Agent::getTarget() {
     return target;
 }
 

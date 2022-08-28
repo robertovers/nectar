@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "environment.hpp"
 #include "templates.hpp"
+#include <iostream>
 
 class Location;
 
