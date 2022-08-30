@@ -6,7 +6,7 @@
 
 class Soybean : public Plant{
     public:
-        Soybean();
+        Soybean(int x, int y);
         ~Soybean();
         virtual void tick();
         void draw(sf::RenderWindow& window);

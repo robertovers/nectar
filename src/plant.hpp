@@ -5,7 +5,7 @@
 
 class Plant: public Location{
     public:
-        Plant();
+        Plant(int x, int y);
         virtual ~Plant();
         void pollinate();
     protected:

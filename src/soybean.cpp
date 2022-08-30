@@ -6,7 +6,7 @@
 
 Soybean::~Soybean(){}
 
-Soybean::Soybean(){
+Soybean::Soybean(int x, int y) : Plant(x, y) {
     gender=GENDER;
 }
 
