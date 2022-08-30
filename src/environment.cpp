@@ -19,6 +19,7 @@ shared_ptr<Location> Environment::getLocation(int x, int y)
 {
     return locations[x][y];
 }
+
 int Environment::getSize() {
     return width * height;
 }
