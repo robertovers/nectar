@@ -17,7 +17,7 @@ vector2D_shared_ptr<Location>& Environment::getLocations() {
 
 shared_ptr<Location> Environment::getLocation(int x, int y)
 {
-    return locations[x][y];
+    return locations[y][x];
 }
 
 int Environment::getSize() {
@@ -34,5 +34,5 @@ int Environment::getHeight() {
 
 void Environment::changeLocation(int x, int y, shared_ptr<Location> newLocation)
 {
-    locations[x][y] = newLocation;
+    locations[y][x] = newLocation;
 }
