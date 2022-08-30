@@ -33,13 +33,15 @@ Environment BasicMapGenerator::generateEnvironment(AgentController& agentControl
         placedBees++;
     }
 
-    // place plants on locations
+    // replace locations with plants
     float placeChance = cropChance / 100.0;
-    for (auto& location : generatedEnvironment.getLocations()) {
-
-        float rolledChance = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);  // 0.0 - 1.0
-        if (placeChance >= rolledChance) {
-            // TODO: place crop
+    for (auto& locationRow : generatedEnvironment.getLocations()) {
+        for (auto& location : locationRow) {
+            float rolledChance = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);  // 0.0 - 1.0
+            if (placeChance >= rolledChance) {
+                auto plant = shared_ptr<Soybean>(std::make_shared<Soybean>());
+                generatedEnvironment.changeLocation(location->getX(), location->getY(), plant);
+            }
         }
     }
     return generatedEnvironment;
