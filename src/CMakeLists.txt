@@ -21,6 +21,7 @@ add_executable(
   environment.cpp
   location.cpp
   basicMapGenerator.cpp
+  rowMapGenerator.cpp
   agentController.cpp
   honeybee.cpp
   soybean.cpp
