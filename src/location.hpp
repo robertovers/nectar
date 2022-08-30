@@ -17,7 +17,7 @@ class Location {
         int numAgents();
         int getX();
         int getY();
-    private:
+    protected:
         int x;
         int y;
         std::vector<std::reference_wrapper<Agent>> agents;
