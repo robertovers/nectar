@@ -24,6 +24,7 @@ add_executable(
   rowMapGenerator.cpp
   agentController.cpp
   honeybee.cpp
+  hive.cpp
   soybean.cpp
   plant.cpp
 )
