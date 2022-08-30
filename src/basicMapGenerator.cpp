@@ -1,10 +1,4 @@
-#include <algorithm>
-#include <stdexcept>
-#include "mapGenerator.hpp"
-#include "environment.hpp"
-#include "location.hpp"
-#include "honeybee.hpp"
-#include "soybean.hpp"
+#include "basicMapGenerator.hpp"
 
 BasicMapGenerator::BasicMapGenerator(int envSizeX, int envSizeY, int beeCount = 0, int cropChance = 0) {
     if (envSizeX <= 0) {

@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "application.hpp"
 #include "environment.hpp"
-#include "mapGenerator.hpp"
+#include "basicMapGenerator.hpp"
 #include "agentController.hpp"
 
 Application::Application() { }
