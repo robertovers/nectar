@@ -9,6 +9,12 @@ Environment::Environment(int w, int h) : width(w), height(h) {
             locations[y][x] = std::make_shared<Location>(x, y);
         }
     }
+
+    int hive_x = rand() % w;
+    int hive_y = rand() % h;
+    hive = std::make_shared<Hive>(hive_x, hive_y);
+
+    locations[hive_y][hive_x] = hive;
 }
 
 vector2D_shared_ptr<Location>& Environment::getLocations() { 
@@ -18,6 +24,10 @@ vector2D_shared_ptr<Location>& Environment::getLocations() {
 shared_ptr<Location> Environment::getLocation(int x, int y)
 {
     return locations[y][x];
+}
+
+shared_ptr<Location>& Environment::getHive() {
+    return hive;
 }
 
 int Environment::getSize() {

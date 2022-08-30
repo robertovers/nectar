@@ -8,7 +8,7 @@ class Agent;
 
 class Location {
     public:
-        Location() : x(0), y(0) { };
+        Location() : x(0), y(0) { }
         Location(int x, int y) : x(x), y(y) { }
         virtual void draw(sf::RenderWindow& window);
         void addAgent(Agent& a);
@@ -17,6 +17,8 @@ class Location {
         int numAgents();
         int getX();
         int getY();
+        int getWidth();
+        int getHeight();
     protected:
         int x;
         int y;
