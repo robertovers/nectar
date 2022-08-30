@@ -9,6 +9,7 @@ class Soybean : public Plant{
         Soybean();
         ~Soybean();
         virtual void tick();
+        void draw(sf::RenderWindow& window);
         //virtual void draw(sf::RenderWindow& window);
 };
 
