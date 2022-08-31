@@ -5,7 +5,7 @@ void Location::draw(sf::RenderWindow& window) {
     sf::RectangleShape r;
     r.setSize(sf::Vector2f(20, 20));
     r.setPosition(x * 20, y * 20);
-    r.setFillColor(sf::Color::Blue);
+    r.setFillColor(sf::Color::Black);
     window.draw(r);
 }
 
@@ -34,4 +34,8 @@ int Location::getX() {
 
 int Location::getY() {
     return y;
+}
+
+bool Location::hasNectar() {
+    return false;
 }

@@ -19,6 +19,7 @@ class Location {
         int getY();
         int getWidth();
         int getHeight();
+        virtual bool hasNectar();
     protected:
         int x;
         int y;
