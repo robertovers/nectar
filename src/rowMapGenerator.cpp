@@ -1,4 +1,4 @@
-#include "RowMapGenerator.hpp"
+#include "rowMapGenerator.hpp"
 
 RowMapGenerator::RowMapGenerator(int envSizeX, int envSizeY, int beeCount)
 {
