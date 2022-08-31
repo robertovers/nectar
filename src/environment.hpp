@@ -12,10 +12,12 @@ class Environment {
         Environment();
         Environment(int w, int h);
         vector2D_shared_ptr<Location>& getLocations();
+        shared_ptr<Location> getLocation(int x, int y);
         shared_ptr<Location>& getHive();
         int getSize();
         int getWidth();
         int getHeight();
+        void changeLocation(int x, int y, shared_ptr<Location> newLocation);
     private:
         int width;
         int height;

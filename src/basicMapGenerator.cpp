@@ -1,9 +1,4 @@
-#include <algorithm>
-#include <stdexcept>
-#include "mapGenerator.hpp"
-#include "environment.hpp"
-#include "location.hpp"
-#include "honeybee.hpp"
+#include "basicMapGenerator.hpp"
 
 BasicMapGenerator::BasicMapGenerator(int envSizeX, int envSizeY, int beeCount = 0, int cropChance = 0) {
     if (envSizeX <= 0) {
@@ -33,13 +28,15 @@ Environment BasicMapGenerator::generateEnvironment(AgentController& agentControl
         placedBees++;
     }
 
-    // place plants on locations
+    // replace locations with plants
     float placeChance = cropChance / 100.0;
-    for (auto& location : generatedEnvironment.getLocations()) {
-
-        float rolledChance = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);  // 0.0 - 1.0
-        if (placeChance >= rolledChance) {
-            // TODO: place crop
+    for (auto& locationRow : generatedEnvironment.getLocations()) {
+        for (auto& location : locationRow) {
+            float rolledChance = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);  // 0.0 - 1.0
+            if (placeChance >= rolledChance) {
+                auto plant = shared_ptr<Soybean>(std::make_shared<Soybean>(location->getX(), location->getY()));
+                generatedEnvironment.changeLocation(location->getX(), location->getY(), plant);
+            }
         }
     }
     return generatedEnvironment;

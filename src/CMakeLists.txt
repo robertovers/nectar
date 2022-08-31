@@ -20,9 +20,13 @@ add_executable(
   agent.cpp
   environment.cpp
   location.cpp
-  mapGenerator.cpp
+  basicMapGenerator.cpp
+  rowMapGenerator.cpp
   agentController.cpp
   honeybee.cpp
+  hive.cpp
+  soybean.cpp
+  plant.cpp
 )
 target_link_libraries(Insect_Sim PRIVATE sfml-graphics)
 target_compile_features(Insect_Sim PRIVATE cxx_std_17)

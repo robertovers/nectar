@@ -21,6 +21,11 @@ vector2D_shared_ptr<Location>& Environment::getLocations() {
     return locations; 
 }
 
+shared_ptr<Location> Environment::getLocation(int x, int y)
+{
+    return locations[y][x];
+}
+
 shared_ptr<Location>& Environment::getHive() {
     return hive;
 }
@@ -35,4 +40,9 @@ int Environment::getWidth() {
 
 int Environment::getHeight() {
     return height;
+}
+
+void Environment::changeLocation(int x, int y, shared_ptr<Location> newLocation)
+{
+    locations[y][x] = newLocation;
 }

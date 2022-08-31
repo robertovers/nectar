@@ -1,12 +1,11 @@
 #ifndef PLANT_HPP
 #define PLANT_HPP
 
-
 #include "agent.hpp"
 
-class Plant{
+class Plant: public Location{
     public:
-        Plant();
+        Plant(int x, int y);
         virtual ~Plant();
         void pollinate();
     protected:
