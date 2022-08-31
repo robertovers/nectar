@@ -9,7 +9,7 @@ Agent::Agent() {
 
 Agent::~Agent() { }
 
-std::shared_ptr<Location> Agent::getLocation(Environment env) {
+shared_ptr<Location> Agent::getLocation(Environment env) {
     vector2D_shared_ptr<Location>& locations = env.getLocations();
     int tile_x = floor(pos.x);
     int tile_y = floor(pos.y);
@@ -17,7 +17,7 @@ std::shared_ptr<Location> Agent::getLocation(Environment env) {
          tile_y >= 0 && tile_y < env.getHeight() ) {
         return locations[tile_y][tile_x]; 
     };
-    return std::make_shared<Location>();
+    return nullptr;
 }
 
 shared_ptr<Location> Agent::getTarget() {
