@@ -1,5 +1,6 @@
 #include "agent.hpp"
 #include "honeybee.hpp"
+#include "plant.hpp"
 #include <iostream>
 
 HoneyBee::HoneyBee() {
@@ -19,17 +20,32 @@ void HoneyBee::update(Environment env) {
     shared_ptr<Location> cur_loc = getLocation(env);
 
     if (target == nullptr and cur_loc != nullptr) { 
+
         auto found = scan(env);
+
         if (found == nullptr) {
             moveRandomWalk();
         } else {
             target = found;
         }
-    } else if (getLocation(env) == target) {
-        target = nullptr;
-        moveRandomWalk();
-    } else {
+
+    } else if (cur_loc == target) {
+
+        if (target == env.getHive()) {
+            target = nullptr;
+            moveRandomWalk();
+        } else {
+            target = env.getHive();
+        }
+
+    } else if (target != nullptr) {
+
         moveToTarget();
+
+    } else {
+
+        moveRandomWalk();
+
     }
 
     pos += direction_u * velocity;
@@ -54,7 +70,7 @@ shared_ptr<Location> HoneyBee::scan(Environment env) {
                  tile_y >= 0 && tile_y < env.getHeight() ) 
             {
                 auto loc = locations[tile_y][tile_x]; 
-                if (loc->hasNectar()) return loc;
+                if (loc->isPlant()) return loc;
             }
         }
     }
