@@ -2,18 +2,32 @@
 #define PLANT_CPP
 
 #include "plant.hpp"
-#define INITIAL_POLLINATION_STATUS false;
-#define DEFAULT_GENDER 0;
 
-Plant::~Plant(){}
+Plant::~Plant() { }
 
 Plant::Plant(int x, int y) : Location(x, y) {
-    pollinated=INITIAL_POLLINATION_STATUS;
-    gender = 0;
 }
 
-void Plant::pollinate(){
-    pollinated=true;
+bool Plant::isPlant() {
+    return false;
+}
+
+void Plant::pollinate(float amount) {
+    pollen += amount;
+}
+
+bool Plant::hasNectar() {
+    return nectar > 0;
+}
+
+float Plant::harvestNectar() {
+    if (hasNectar()) {
+        float amount = 0.1;
+        nectar -= amount;
+        return amount;
+    } else {
+        return 0;
+    }
 }
 
 #endif

@@ -9,6 +9,10 @@ void Location::draw(sf::RenderWindow& window) {
     window.draw(r);
 }
 
+bool Location::isPlant() {
+    return false;
+}
+
 void Location::addAgent(Agent& a) {
     agents.push_back(a);
 }
@@ -36,6 +40,14 @@ int Location::getY() {
     return y;
 }
 
+void Location::pollinate(float amount) {
+    pollen += 0;
+}
+
 bool Location::hasNectar() {
-    return false;
+    return nectar > 0;
+}
+
+float Location::harvestNectar() {
+    return 0;
 }

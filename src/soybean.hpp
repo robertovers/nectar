@@ -4,13 +4,13 @@
 #include "plant.hpp"
 #include <SFML/Graphics.hpp>
 
-class Soybean : public Plant{
+class Soybean : public Plant {
     public:
-        Soybean(int x, int y);
         ~Soybean();
+        Soybean(int x, int y);
         virtual void tick();
-        void draw(sf::RenderWindow& window);
-        //virtual void draw(sf::RenderWindow& window);
+        virtual void draw(sf::RenderWindow& window) override;
+        virtual bool isPlant() override;
 };
 
 #endif
