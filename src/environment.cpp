@@ -24,6 +24,10 @@ shared_ptr<Location>& Environment::getHive() {
     return hive;
 }
 
+void Environment::setHive(shared_ptr<Location> h) {
+    hive = h;
+}
+
 int Environment::getSize() {
     return width * height;
 }

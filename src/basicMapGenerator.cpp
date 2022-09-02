@@ -45,6 +45,7 @@ Environment BasicMapGenerator::generateEnvironment(AgentController& agentControl
     int hive_y = rand() % envSizeY;
     auto hive = shared_ptr<Hive>(std::make_shared<Hive>(hive_x, hive_y));
     generatedEnvironment.changeLocation(hive_x, hive_y, hive);
+    generatedEnvironment.setHive(hive);
 
     return generatedEnvironment;
 }
