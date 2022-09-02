@@ -14,7 +14,7 @@ TEST(BasicMapGeneratorTest, MapSize) {
     int y = 4;
     int bees = 3;
     int cropChance = 50;
-    Environment env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment()
+    Environment env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
     EXPECT_EQ(env.getSize(), x * y);
     EXPECT_EQ(env.getWidth(), x);
     EXPECT_EQ(env.getHeight(), y);
