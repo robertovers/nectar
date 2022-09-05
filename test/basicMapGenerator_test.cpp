@@ -61,7 +61,7 @@ TEST(BasicMapGeneratorTest, BeeCount) {
 //
 //    for (int cropChance : cropChances) {
 //        Environment env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
-//        // TODO: figure out appropriate test
+//        // TODO: figure out appropriate test - ASSERT_NEAR?
 //        // TODO: add when advanced bee behavior branch is merged, or use of env.plantCount()
 //    }
 //}
