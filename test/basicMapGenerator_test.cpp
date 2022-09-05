@@ -47,3 +47,17 @@ TEST(BasicMapGeneratorTest, BeeCount) {
         EXPECT_EQ(env.agentCount(), bees);
     }
 }
+
+// Environment contains appropriate amount of crops
+//TEST(BasicMapGeneratorTest, PlantCount) {
+//    int x = 5;
+//    int y = 10;
+//    int bees = 3;
+//    int cropChances = [0, 50, 100];
+//
+//    for (int cropChance : cropChances) {
+//        Environment env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
+//        // TODO: figure out appropriate test
+//        // TODO: add when advanced bee behavior branch is merged, or use of env.plantCount()
+//    }
+//}
