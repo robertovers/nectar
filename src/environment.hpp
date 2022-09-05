@@ -18,7 +18,7 @@ class Environment {
         int getWidth();
         int getHeight();
         int agentCount();
-        int plantCount();
+        // int plantCount(); // TODO: add when advanced bee behavior branch is merged
         void changeLocation(int x, int y, shared_ptr<Location> newLocation);
     private:
         int width;
