@@ -9,8 +9,9 @@ Application::Application() { }
 void Application::run() { 
 
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "Insect Simulations");
+    window.setFramerateLimit(30);
 
-    BasicMapGenerator mapGenerator = BasicMapGenerator(50, 50, 5, 50);
+    BasicMapGenerator mapGenerator = BasicMapGenerator(50, 50, 50, 1);
     AgentController agentController = AgentController();
     
     Environment environment = mapGenerator.generateEnvironment(agentController);
@@ -28,6 +29,7 @@ void Application::run() {
 
         agentController.updateAgents(environment);
         
+        environment.draw(window);
         agentController.drawAgents(window);
         
         window.display();

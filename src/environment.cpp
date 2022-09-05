@@ -11,6 +11,14 @@ Environment::Environment(int w, int h) : width(w), height(h) {
     }
 }
 
+void Environment::draw(sf::RenderWindow &window) {
+    for (auto row : locations) {
+            for (auto loc : row) {
+                loc->draw(window);
+            }
+        }
+}
+
 vector2D_shared_ptr<Location>& Environment::getLocations() { 
     return locations; 
 }
