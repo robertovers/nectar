@@ -3,14 +3,14 @@
 
 #include "agent.hpp"
 
-class Plant: public Location{
+class Plant : public Location {
     public:
         Plant(int x, int y);
         virtual ~Plant();
-        void pollinate();
-    protected:
-        int gender;
-        bool pollinated;
+        bool isPlant() override;
+        void pollinate(float amount) override;
+        float harvestNectar() override;
+        bool hasNectar() override;
 };
 
 

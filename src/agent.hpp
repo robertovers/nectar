@@ -25,7 +25,7 @@ class Agent {
         int id;
         sf::Vector2f pos;
         sf::Vector2f direction_u;
-        float velocity = 0.1;
+        float velocity = 0.2;
         int display_width = 10;
         int display_height = 10;
         shared_ptr<Location> target = nullptr;
