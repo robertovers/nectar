@@ -21,6 +21,7 @@ enable_testing()
 add_executable(
   insect_test
   basicMapGenerator_test.cpp
+  # location_test.cpp
 )
 
 target_link_libraries(
