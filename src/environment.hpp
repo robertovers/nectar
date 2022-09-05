@@ -17,6 +17,7 @@ class Environment {
         int getSize();
         int getWidth();
         int getHeight();
+        int agentCount(Environment env);
         void changeLocation(int x, int y, shared_ptr<Location> newLocation);
     private:
         int width;

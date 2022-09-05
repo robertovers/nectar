@@ -42,6 +42,17 @@ int Environment::getHeight() {
     return height;
 }
 
+// manually iterates through locations to count agents.
+int Environment::agentCount(Environment env) {
+    int count = 0;
+    for (auto& row : env.getLocations()) {
+        for (auto& location : row) {
+            count += location->numAgents();
+        }
+    }
+    return count;
+}
+
 void Environment::changeLocation(int x, int y, shared_ptr<Location> newLocation)
 {
     locations[y][x] = newLocation;
