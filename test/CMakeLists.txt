@@ -20,7 +20,7 @@ enable_testing()
 
 add_executable(
   insect_test
-  mapgenerator_test.cc
+  basicMapGenerator_test.cc
 )
 
 target_link_libraries(
