@@ -1,15 +1,16 @@
 #include <gtest/gtest.h>
 #include "../src/basicMapGenerator.hpp"
 
-
-TEST(BasicMapGeneratorTest, MapSize) {
-    // Invalid map size options
+// Invalid map size options
+TEST(BasicMapGeneratorTest, InvalidMapSize) {
     EXPECT_THROW(BasicMapGenerator(-1, 1, 0, 0), std::invalid_argument);
     EXPECT_THROW(BasicMapGenerator(0, 1, 0, 0), std::invalid_argument);
     EXPECT_THROW(BasicMapGenerator(1, -1, 0, 0), std::invalid_argument);
     EXPECT_THROW(BasicMapGenerator(-1, 0, 0, 0), std::invalid_argument);
-    
-    // Check that generated environment is right size
+}
+
+// Generated environment is right size
+TEST(BasicMapGeneratorTest, CorrectMapSize) {
     int x = 3;
     int y = 4;
     int bees = 3;
@@ -20,16 +21,29 @@ TEST(BasicMapGeneratorTest, MapSize) {
     EXPECT_EQ(env.getHeight(), y);
 }
 
-TEST(BasicMapGeneratorTest, BeeCount) {
-    // Expect two strings not to be equal.
-    EXPECT_STRNE("hello", "world");
-    // Expect equality.
-    EXPECT_EQ(7 * 6, 42);
+// AgentController is controlling bees
+TEST(BasicMapGeneratorTest, AgentControllerBeeCount) {
+    int x = 3;
+    int y = 4;
+    int beeValues = [3, 0, x * y, x * y + 5];
+    int cropChance = 50;
+
+    for (int bees : beeValues) {
+        AgentController controller = AgentController();
+        BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(controller);
+        EXPECT_EQ(controller.getAgents().size(), bees);
+    }
 }
 
-TEST(BasicMapGeneratorTest, SoybeanCount) {
-    // Expect two strings not to be equal.
-    EXPECT_STRNE("hello", "world");
-    // Expect equality.
-    EXPECT_EQ(7 * 6, 42);
+// Environment contains bees
+TEST(BasicMapGeneratorTest, BeeCount) {
+    int x = 3;
+    int y = 4;
+    int beeValues = [3, 0, x * y, x * y + 5];
+    int cropChance = 50;
+
+    for (int bees : beeValues) {
+        Environment env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
+        EXPECT_EQ(env.agentCount(), bees);
+    }
 }
