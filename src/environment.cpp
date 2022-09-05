@@ -48,7 +48,6 @@ int Environment::getHeight() {
     return height;
 }
 
-// manually iterates through locations to count agents.
 int Environment::agentCount() {
     int count = 0;
     for (auto& row : getLocations()) {
@@ -59,15 +58,15 @@ int Environment::agentCount() {
     return count;
 }
 
-// TODO: add when advanced bee behavior branch is merged
-//int Environment::plantCount() {
-//    int count = 0;
-//    for (auto& row : getLocations()) {
-//        for (auto& location : row) {
-//            count += location.isPlant();
-//        }
-//    }
-//}
+int Environment::plantCount() {
+    int count = 0;
+    for (auto& row : getLocations()) {
+        for (auto& location : row) {
+            count += location->isPlant();
+        }
+    }
+    return count;
+}
 
 void Environment::changeLocation(int x, int y, shared_ptr<Location> newLocation)
 {

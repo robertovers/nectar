@@ -19,8 +19,10 @@ class Environment {
         int getSize();
         int getWidth();
         int getHeight();
+        // manually iterates through locations to count agents.
         int agentCount();
-        // int plantCount(); // TODO: add when advanced bee behavior branch is merged
+        // manually iterate through locations, counting plants
+        int plantCount(); 
         void changeLocation(int x, int y, shared_ptr<Location> newLocation);
     private:
         int width;
