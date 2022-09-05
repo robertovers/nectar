@@ -4,16 +4,19 @@
 #include "soybean.hpp"
 #define GENDER 3
 
-Soybean::~Soybean(){}
+Soybean::~Soybean() { }
 
 Soybean::Soybean(int x, int y) : Plant(x, y) {
-    gender=GENDER;
 }
 
-void Soybean::tick(){
+bool Soybean::isPlant() {
+    return true;
 }
 
-void Soybean::draw(sf::RenderWindow& window){
+void Soybean::tick() {
+}
+
+void Soybean::draw(sf::RenderWindow& window) {
     /*float d = 35;
     sf::ConvexShape c;
     c.setPointCount(12);
@@ -34,7 +37,7 @@ void Soybean::draw(sf::RenderWindow& window){
     sf::RectangleShape r;
     r.setSize(sf::Vector2f(20, 20));
     r.setPosition(x * 20, y * 20);
-    r.setFillColor(sf::Color::Green);
+    r.setFillColor(sf::Color(0, 50, 0));
     window.draw(r);
 }
 

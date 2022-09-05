@@ -5,8 +5,12 @@ void Location::draw(sf::RenderWindow& window) {
     sf::RectangleShape r;
     r.setSize(sf::Vector2f(20, 20));
     r.setPosition(x * 20, y * 20);
-    r.setFillColor(sf::Color::Blue);
+    r.setFillColor(sf::Color::Black);
     window.draw(r);
+}
+
+bool Location::isPlant() {
+    return false;
 }
 
 void Location::addAgent(Agent& a) {
@@ -34,4 +38,16 @@ int Location::getX() {
 
 int Location::getY() {
     return y;
+}
+
+void Location::pollinate(float amount) {
+    pollen += 0;
+}
+
+bool Location::hasNectar() {
+    return nectar > 0;
+}
+
+float Location::harvestNectar() {
+    return 0;
 }
