@@ -53,15 +53,23 @@ TEST(BasicMapGeneratorTest, BeeCount) {
 }
 
 // Environment contains appropriate amount of crops
-//TEST(BasicMapGeneratorTest, PlantCount) {
-//    int x = 5;
-//    int y = 10;
-//    int bees = 3;
-//    vector<int> cropChances{0, 50, 100};
-//
-//    for (int cropChance : cropChances) {
-//        Environment env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
-//        // TODO: figure out appropriate test - ASSERT_NEAR?
-//        // TODO: add when advanced bee behavior branch is merged, or use of env.plantCount()
-//    }
-//}
+TEST(BasicMapGeneratorTest, PlantCount) {
+    int x = 5;
+    int y = 10;
+    int bees = 3;
+
+    // no crops
+    int cropChance = 0;
+    Environment env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
+    EXPECT_EQ(0, env.plantCount());
+
+    // some crops
+    cropChance = 50;
+    env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
+    EXPECT_NEAR(env.plantCount(), (x * y) / 2, (x * y) / 4); // TODO: determine if margin of error is appropriate
+    
+    // all crops
+    cropChance = 100;
+    env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
+    EXPECT_EQ(env.plantCount(), x*y);
+}
