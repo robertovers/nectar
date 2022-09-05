@@ -13,15 +13,15 @@ TEST(BasicMapGeneratorTest, InvalidMapSize) {
 TEST(BasicMapGeneratorTest, CorrectMapSize) {
     int bees = 3;
     int cropChance = 50;
-    int xs = [1, 3, 50];
-    int ys = [1, 4, 50];
-    for (int x : xs) {
-        for (int y : ys) {
-            Environment env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
-            EXPECT_EQ(env.getSize(), x * y);
-            EXPECT_EQ(env.getWidth(), x);
-            EXPECT_EQ(env.getHeight(), y);
-        }
+    std::vector<int> xs{ 1, 1, 3, 3, 50 };
+    std::vector<int> ys{ 1, 4, 1, 4, 50 };
+    for (int i = 0; i = xs.size(); i++) {
+        int x = xs[i];
+        int y = ys[i];
+        Environment env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
+        EXPECT_EQ(env.getSize(), x * y);
+        EXPECT_EQ(env.getWidth(), x);
+        EXPECT_EQ(env.getHeight(), y);
     }
 }
 
@@ -29,7 +29,7 @@ TEST(BasicMapGeneratorTest, CorrectMapSize) {
 TEST(BasicMapGeneratorTest, AgentControllerBeeCount) {
     int x = 3;
     int y = 4;
-    int beeValues = [0, 3, x * y, x * y + 5];
+    std::vector<int> beeValues{ 0, 3, x * y, x * y + 5 };
     int cropChance = 50;
 
     for (int bees : beeValues) {
@@ -43,7 +43,7 @@ TEST(BasicMapGeneratorTest, AgentControllerBeeCount) {
 TEST(BasicMapGeneratorTest, BeeCount) {
     int x = 3;
     int y = 4;
-    int beeValues = [0, 3, x * y, x * y + 5];
+    std::vector<int> beeValues{ 0, 3, x * y, x * y + 5 };
     int cropChance = 50;
 
     for (int bees : beeValues) {
@@ -57,7 +57,7 @@ TEST(BasicMapGeneratorTest, BeeCount) {
 //    int x = 5;
 //    int y = 10;
 //    int bees = 3;
-//    int cropChances = [0, 50, 100];
+//    vector<int> cropChances{0, 50, 100};
 //
 //    for (int cropChance : cropChances) {
 //        Environment env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
