@@ -6,7 +6,7 @@ TEST(BasicMapGeneratorTest, InvalidMapSize) {
     EXPECT_THROW(BasicMapGenerator(-1, 1, 0, 0), std::invalid_argument);
     EXPECT_THROW(BasicMapGenerator(0, 1, 0, 0), std::invalid_argument);
     EXPECT_THROW(BasicMapGenerator(1, -1, 0, 0), std::invalid_argument);
-    EXPECT_THROW(BasicMapGenerator(-1, 0, 0, 0), std::invalid_argument);
+    EXPECT_THROW(BasicMapGenerator(1, 0, 0, 0), std::invalid_argument);
 }
 
 // Generated environment is right size
@@ -59,6 +59,9 @@ TEST(BasicMapGeneratorTest, PlantCount) {
     int bees = 3;
 
     // no crops
+    int cropChance = -1;
+    Environment env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
+    EXPECT_EQ(0, env.plantCount());
     int cropChance = 0;
     Environment env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
     EXPECT_EQ(0, env.plantCount());
@@ -72,4 +75,8 @@ TEST(BasicMapGeneratorTest, PlantCount) {
     cropChance = 100;
     env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
     EXPECT_EQ(env.plantCount(), x*y);
+    cropChance = 110;
+    env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
+    EXPECT_EQ(env.plantCount(), x * y);
+}
 }
