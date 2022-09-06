@@ -48,6 +48,26 @@ int Environment::getHeight() {
     return height;
 }
 
+int Environment::agentCount() {
+    int count = 0;
+    for (auto& row : getLocations()) {
+        for (auto& location : row) {
+            count += location->numAgents();
+        }
+    }
+    return count;
+}
+
+int Environment::plantCount() {
+    int count = 0;
+    for (auto& row : getLocations()) {
+        for (auto& location : row) {
+            count += location->isPlant();
+        }
+    }
+    return count;
+}
+
 void Environment::changeLocation(int x, int y, shared_ptr<Location> newLocation)
 {
     locations[y][x] = newLocation;

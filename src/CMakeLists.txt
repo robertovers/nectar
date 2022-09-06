@@ -12,11 +12,9 @@ FetchContent_Declare(SFML
 )
 FetchContent_MakeAvailable(SFML)
 
-# Build simulator
-add_executable(
-  Insect_Sim 
-  main.cpp
-  application.cpp
+# library, for reuse with tests
+add_library(
+  insect_lib STATIC 
   agent.cpp
   environment.cpp
   location.cpp
@@ -28,7 +26,17 @@ add_executable(
   soybean.cpp
   plant.cpp
 )
-target_link_libraries(Insect_Sim PRIVATE sfml-graphics)
+
+target_link_libraries(insect_lib PUBLIC sfml-graphics)
+
+# Build simulator
+add_executable(
+  Insect_Sim 
+  main.cpp
+  application.cpp
+)
+target_link_libraries(Insect_Sim PUBLIC insect_lib)
+#target_link_libraries(Insect_Sim PRIVATE sfml-graphics)
 target_compile_features(Insect_Sim PRIVATE cxx_std_17)
 
 # copy SFML dlls, for windows
