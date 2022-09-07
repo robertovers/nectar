@@ -34,9 +34,12 @@ void Soybean::draw(sf::RenderWindow& window) {
     c.setPoint(11, sf::Vector2f(x - d/6, y - d/6));
     c.setFillColor(sf::Color(100, 250, 50));
     window.draw(c);*/
+    auto windowSize = window.getSize();
+    float width = drawWidth * windowSize.x;
+    float height = drawWidth * windowSize.y;
     sf::RectangleShape r;
-    r.setSize(sf::Vector2f(20, 20));
-    r.setPosition(x * 20, y * 20);
+    r.setSize(sf::Vector2f(width, height));
+    r.setPosition(x * width, y * height);
     r.setFillColor(sf::Color(0, 50, 0));
     window.draw(r);
 }

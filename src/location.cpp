@@ -2,9 +2,12 @@
 #include "location.hpp"
 
 void Location::draw(sf::RenderWindow& window) {
+    auto windowSize = window.getSize();
+    float width = drawWidth * windowSize.x;
+    float height = drawWidth * windowSize.y;
     sf::RectangleShape r;
-    r.setSize(sf::Vector2f(20, 20));
-    r.setPosition(x * 20, y * 20);
+    r.setSize(sf::Vector2f(width, height));
+    r.setPosition(x * width, y * height);
     r.setFillColor(sf::Color::Black);
     window.draw(r);
 }

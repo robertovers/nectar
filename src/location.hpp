@@ -26,6 +26,9 @@ class Location {
     protected:
         int x;
         int y;
+        // width of the location, as a fraction of the window size. Since locations are drawn as squares,
+        // this is also the locations "drawHeight"
+        double drawWidth = 0.02;  // 20/1000
         std::vector<std::reference_wrapper<Agent>> agents;
         float nectar = 1;
         float pollen = 0;
