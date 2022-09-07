@@ -23,6 +23,11 @@ void Application::run() {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
+            else if (event.type == sf::Event::Resized) {
+                // update view to new window size
+                sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+                window.setView(sf::View(visibleArea));
+            }
         }
 
         window.clear();

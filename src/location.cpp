@@ -3,11 +3,17 @@
 
 void Location::draw(sf::RenderWindow& window) {
     auto windowSize = window.getSize();
-    float width = drawWidth * windowSize.x;
-    float height = drawWidth * windowSize.y;
+    float width = 0;
+    // set square to fit smallest window dimension
+    if (windowSize.x < windowSize.y) {
+        width = drawWidth * windowSize.x;
+    }
+    else {
+        width = drawWidth * windowSize.y;
+    }
     sf::RectangleShape r;
-    r.setSize(sf::Vector2f(width, height));
-    r.setPosition(x * width, y * height);
+    r.setSize(sf::Vector2f(width, width));
+    r.setPosition(x * width, y * width);
     r.setFillColor(sf::Color::Black);
     window.draw(r);
 }
