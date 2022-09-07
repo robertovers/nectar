@@ -4,7 +4,6 @@
 #include "basicMapGenerator.hpp"
 #include "agentController.hpp"
 #include "utility.hpp"
-#include <iostream> 
 
 Application::Application() { }
 
@@ -40,10 +39,6 @@ void Application::run() {
         
         window.display();
 
-        std::cout << metrics.timeString();
-        for (int i=0; i<32; i++) {
-            std::cout << "\b";
-        }
-        std::cout << std::flush;
+        metrics.toConsole();
     }
 }

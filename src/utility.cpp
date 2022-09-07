@@ -1,3 +1,4 @@
+#include <iostream>
 #include "utility.hpp"
 
 void Metrics::updateMetrics(Environment&env, sf::Time time) {
@@ -14,4 +15,15 @@ std::string Metrics::timeString() {
                       std::to_string(mins)  + "m : " +
                       std::to_string(secs)  + "s";
     return res;
+}
+
+void Metrics::toConsole() {
+    std::string s = "Simulation running for " + timeString();
+    std::cout << s;
+
+    for (int i=0; i<s.length(); i++) {
+        std::cout << "\b";
+    }
+
+    std::cout << std::flush;
 }

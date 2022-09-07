@@ -13,6 +13,7 @@ struct Metrics {
 
     void updateMetrics(Environment& env, sf::Time time);
     std::string timeString();
+    void toConsole();
 };
 
 #endif
