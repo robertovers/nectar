@@ -2,7 +2,7 @@
 #include "utility.hpp"
 
 void Metrics::updateMetrics(Environment&env, sf::Time time) {
-    int current_secs = time.asSeconds() * env.getTimeScale();
+    int current_secs = time.asSeconds();
     days = current_secs / 86400;
     hours = (current_secs / 3600) % 24;
     mins = (current_secs / 60) % 60;

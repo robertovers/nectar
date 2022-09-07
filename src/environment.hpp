@@ -24,13 +24,11 @@ class Environment {
         // manually iterate through locations, counting plants
         int plantCount(); 
         void changeLocation(int x, int y, shared_ptr<Location> newLocation);
-        float getTimeScale();
     private:
         int width;
         int height;
         vector2D_shared_ptr<Location> locations;
         shared_ptr<Location> hive;
-        float time_scale = 1;
 };
 
 #endif

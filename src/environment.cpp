@@ -72,7 +72,3 @@ void Environment::changeLocation(int x, int y, shared_ptr<Location> newLocation)
 {
     locations[y][x] = newLocation;
 }
-
-float Environment::getTimeScale() {
-    return time_scale;
-}
