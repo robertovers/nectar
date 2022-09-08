@@ -18,8 +18,6 @@ class Location {
         int numAgents();
         int getX();
         int getY();
-        int getWidth();
-        int getHeight();
         virtual void pollinate(float amount);
         virtual float harvestNectar();
         virtual bool hasNectar();
