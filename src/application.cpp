@@ -7,13 +7,16 @@
 Application::Application() { }
 
 void Application::run() { 
+    float initialWindowWidth = 1000;
+    float initialWindowHeight = 1000;
+    int rows = 50; int columns = 50;
 
-    sf::RenderWindow window(sf::VideoMode(1000, 1000), "Insect Simulations");
+    sf::RenderWindow window(sf::VideoMode(initialWindowWidth, initialWindowHeight), "Insect Simulations");
     window.setFramerateLimit(30);
 
-    BasicMapGenerator mapGenerator = BasicMapGenerator(50, 50, 50, 1);
+    // set up environment
+    BasicMapGenerator mapGenerator = BasicMapGenerator(rows, columns, 50, 1);
     AgentController agentController = AgentController();
-    
     Environment environment = mapGenerator.generateEnvironment(agentController);
 
     while (window.isOpen()) {
