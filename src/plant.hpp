@@ -10,9 +10,12 @@ class Plant : public Location {
         virtual ~Plant();
         void draw(sf::RenderWindow& window) override;
         bool isPlant() override;
-        void pollinate(float amount) override;
-        float harvestNectar() override;
-        bool hasNectar() override;
+        bool hasNectar();
+        void pollinate(float amount);
+        float harvestNectar();
+    protected:
+        float pollen = 1;
+        float nectar = 1;
 };
 
 

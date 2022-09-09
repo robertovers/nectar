@@ -20,15 +20,10 @@ class Location {
         int getY();
         int getWidth();
         int getHeight();
-        virtual void pollinate(float amount);
-        virtual float harvestNectar();
-        virtual bool hasNectar();
     protected:
         int x;
         int y;
         std::vector<std::reference_wrapper<Agent>> agents;
-        float nectar = 1;
-        float pollen = 0;
 };
 
 #endif

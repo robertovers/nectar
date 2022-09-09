@@ -8,7 +8,8 @@ class Hive : public Location {
     public:
         Hive() : Location(0, 0) { }
         Hive(int x, int y) : Location(x, y) { }
-        virtual void draw(sf::RenderWindow& window) override;
+        void draw(sf::RenderWindow& window) override;
+        bool isPlant() override;
 };
 
 #endif

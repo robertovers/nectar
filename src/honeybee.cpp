@@ -17,7 +17,7 @@ HoneyBee::HoneyBee(float x, float y) {
 
 void HoneyBee::update(Environment env) {
 
-    shared_ptr<Location> cur_loc = getLocation(env);
+    auto cur_loc = getLocation(env);
 
     if (target == nullptr and cur_loc != nullptr) { 
 
@@ -50,7 +50,7 @@ void HoneyBee::update(Environment env) {
 
     pos += direction_u * velocity;
 
-    shared_ptr<Location> new_loc = getLocation(env);
+    auto new_loc = getLocation(env);
 
     if (new_loc != nullptr && cur_loc != nullptr && new_loc != cur_loc) {
         cur_loc->removeAgent(*this);
