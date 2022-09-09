@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <iostream>
 #define PARAMETERS 1
-#define LINEHEIGHT 200
-#define WINDOWWIDTH 500
+#define LINEHEIGHT 50
+#define WINDOWWIDTH 800
 
 int main(){
     // Basic Simulation Params
@@ -15,7 +15,7 @@ int main(){
     sf::Text instructions, p1, confirm;
 
     //Window for setting simulation parameters - extra space for line for comfirm button (1) and instructions (3)
-    sf::RenderWindow window(sf::VideoMode((PARAMETERS+5)*LINEHEIGHT, WINDOWWIDTH), "Simulation Parameters");
+    sf::RenderWindow window(sf::VideoMode(WINDOWWIDTH, (PARAMETERS+5)*LINEHEIGHT), "Simulation Parameters");
     
     // Set Font
     sf::Font font;     
@@ -30,11 +30,11 @@ int main(){
     // When confirm is highlighted press enter to start simulation
     instructions.setFont(font);
     instructions.setString("Instructions Placeholder\n.\n.\n");
-    instructions.setPosition(WINDOWWIDTH/10 , LINEHEIGHT/2);
+    instructions.setPosition(WINDOWWIDTH/20 , LINEHEIGHT/2);
 
     p1.setFont(font);
     p1.setString("Tiles: ");
-    p1.setPosition(WINDOWWIDTH/10, LINEHEIGHT*7/2);
+    p1.setPosition(WINDOWWIDTH/20, LINEHEIGHT*7/2);
     
     //text.setCharacterSize(10);
     //text.setFillColor(sf::Color::Green);
@@ -50,7 +50,7 @@ int main(){
                     std::cout << "ASCII character typed: " << static_cast<char>(event.text.unicode) << std::endl;
             }
         }
-        window.clear( sf::Color(127,127,127));
+        window.clear(sf::Color(127,127,127));
         window.draw(instructions);
         window.draw(p1);
 
