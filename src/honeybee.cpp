@@ -1,3 +1,4 @@
+#include <math.h>
 #include "honeybee.hpp"
 #include "plant.hpp"
 #include "hive.hpp"

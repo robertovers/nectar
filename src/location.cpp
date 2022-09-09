@@ -11,7 +11,7 @@ Location::Location(int x, int y) : x(x), y(y) {
     sprite = rectangle;
 }
 
-void Location::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+void Location::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     // add offset to existing transformations
     states.transform.translate(sf::Vector2f(x, y));
 

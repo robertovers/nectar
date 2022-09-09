@@ -8,7 +8,6 @@ class Plant : public Location {
     public:
         Plant(int x, int y);
         virtual ~Plant();
-        void draw(sf::RenderWindow& window) override;
         bool isPlant() override;
         bool hasNectar();
         bool isPollinated();

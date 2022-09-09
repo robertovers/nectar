@@ -5,14 +5,6 @@ Plant::~Plant() { }
 Plant::Plant(int x, int y) : Location(x, y) {
 }
 
-void Plant::draw(sf::RenderWindow& window) {
-    sf::RectangleShape r;
-    r.setSize(sf::Vector2f(20, 20));
-    r.setPosition(x * 20, y * 20);
-    r.setFillColor(sf::Color(0, 50, 0));
-    window.draw(r);
-}
-
 bool Plant::isPlant() {
     return true;
 }

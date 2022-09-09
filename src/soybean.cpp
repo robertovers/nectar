@@ -38,5 +38,3 @@ Soybean::Soybean(int x, int y) : Plant(x, y) {
 //    r.setFillColor(sf::Color(0, 50, 0));
 //    window.draw(r);
 //}
-
-#endif
