@@ -69,6 +69,7 @@ void HoneyBee::draw(sf::RenderTarget& target, sf::RenderStates states) const
     sf::CircleShape c;
     c.setRadius(circleRadius);
     c.setFillColor(sf::Color::White);
+    c.setOrigin(sf::Vector2f(circleRadius, circleRadius));
     target.draw(c, states);
     
     // draw vector
@@ -79,7 +80,6 @@ void HoneyBee::draw(sf::RenderTarget& target, sf::RenderStates states) const
     r.setFillColor(sf::Color::White);
     r.setSize(sf::Vector2f(vectorLength, vectorThickness));
     float vectorOrigin = circleRadius - vectorThickness / 2;
-    r.setPosition(sf::Vector2f(vectorOrigin, vectorOrigin));
     target.draw(r, states);
 
 }
