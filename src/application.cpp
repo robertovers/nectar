@@ -3,6 +3,7 @@
 #include "environment.hpp"
 #include "basicMapGenerator.hpp"
 #include "agentController.hpp"
+#include "utility.hpp"
 
 Application::Application() { }
 
@@ -11,7 +12,11 @@ void Application::run() {
     float initialWindowHeight = 1000;
     int rows = 50; int columns = 50;
 
+    sf::Clock clock;
+    Metrics metrics;
+
     sf::RenderWindow window(sf::VideoMode(initialWindowWidth, initialWindowHeight), "Insect Simulations");
+
     window.setFramerateLimit(30);
 
     // set up environment
@@ -25,6 +30,7 @@ void Application::run() {
     while (window.isOpen()) {
 
         sf::Event event;
+        metrics.updateMetrics(environment, clock.getElapsedTime());
 
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
@@ -45,6 +51,8 @@ void Application::run() {
         agentController.draw(window, transformation); 
         
         window.display();
+
+        metrics.toConsole();
     }
 }
 
