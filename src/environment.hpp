@@ -24,11 +24,14 @@ class Environment {
         // manually iterate through locations, counting plants
         int plantCount(); 
         void changeLocation(int x, int y, shared_ptr<Location> newLocation);
+        void incPollinatedCount();
+        int getPollinatedCount();
     private:
         int width;
         int height;
         vector2D_shared_ptr<Location> locations;
         shared_ptr<Hive> hive;
+        int pollinated_count = 0;
 };
 
 #endif

@@ -72,3 +72,11 @@ void Environment::changeLocation(int x, int y, shared_ptr<Location> newLocation)
 {
     locations[y][x] = newLocation;
 }
+
+void Environment::incPollinatedCount() {
+    pollinated_count += 1;
+}
+
+int Environment::getPollinatedCount() {
+    return pollinated_count;
+}
