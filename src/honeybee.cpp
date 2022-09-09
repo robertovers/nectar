@@ -1,8 +1,5 @@
 #include "honeybee.hpp"
-#include "agent.hpp"
-#include "honeybee.hpp"
 #include "plant.hpp"
-#include <iostream>
 
 HoneyBee::HoneyBee() {
     pos.x = 0;
@@ -61,15 +58,25 @@ void HoneyBee::update(Environment env) {
 
 void HoneyBee::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+    float vectorThickness = .01;
+    float vectorLength = 1;
+    float circleRadius = 0.25;
+
     // add offset to existing transformations
     states.transform.translate(pos);
 
     sf::CircleShape c;
-    c.setRadius(0.25);
+    c.setRadius(circleRadius);
     c.setFillColor(sf::Color::White);
     target.draw(c, states);
     
-
+    // states.transform.rotate(std::atan(direction_u.y/direction_u.x));
+    sf::RectangleShape r;
+    r.setFillColor(sf::Color::White);
+    r.setSize(sf::Vector2f(vectorThickness, vectorLength));
+    int vectorOrigin = circleRadius - vectorThickness / 2;
+    r.setPosition(.25, .25);
+    target.draw(r, states);
     //sf::Vertex line[] = {
     //    sf::Vertex(sf::Vector2f(1,1)),
     //    sf::Vertex(direction_u)
