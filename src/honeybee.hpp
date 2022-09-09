@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include "agent.hpp"
 #include "location.hpp"
-#include <tgmath.h> 
 
 class HoneyBee : public Agent {
     public:

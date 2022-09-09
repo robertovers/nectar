@@ -58,30 +58,28 @@ void HoneyBee::update(Environment env) {
 
 void HoneyBee::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    float vectorThickness = .01;
+    float vectorThickness = .05;
     float vectorLength = 1;
     float circleRadius = 0.25;
 
-    // add offset to existing transformations
+    // add offset and direction to existing transformations
     states.transform.translate(pos);
+    float angle = std::atan2(direction_u.y, direction_u.x) * (180.0 / 3.141592653589793238463);
+    states.transform.rotate(angle);
 
+    // draw body
     sf::CircleShape c;
     c.setRadius(circleRadius);
     c.setFillColor(sf::Color::White);
     target.draw(c, states);
     
-    // states.transform.rotate(std::atan(direction_u.y/direction_u.x));
+    // draw vector
     sf::RectangleShape r;
     r.setFillColor(sf::Color::White);
-    r.setSize(sf::Vector2f(vectorThickness, vectorLength));
-    int vectorOrigin = circleRadius - vectorThickness / 2;
-    r.setPosition(.25, .25);
+    r.setSize(sf::Vector2f(vectorLength, vectorThickness));
+    float vectorOrigin = circleRadius - vectorThickness / 2;
+    r.setPosition(sf::Vector2f(vectorOrigin, vectorOrigin));
     target.draw(r, states);
-    //sf::Vertex line[] = {
-    //    sf::Vertex(sf::Vector2f(1,1)),
-    //    sf::Vertex(direction_u)
-    //};
-    //target.draw(line, 2, sf::Lines);
 }
 
 shared_ptr<Location> HoneyBee::scan(Environment env) {
