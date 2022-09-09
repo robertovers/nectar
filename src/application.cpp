@@ -42,7 +42,7 @@ void Application::run() {
         agentController.updateAgents(environment);
         
         environment.draw(window, transformation);
-        agentController.drawAgents(window, transformation); 
+        agentController.draw(window, transformation); 
         
         window.display();
     }

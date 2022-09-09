@@ -11,7 +11,7 @@ class AgentController {
         AgentController();
         void addHoneyBees(Environment env);
         void updateAgents(Environment env);
-        void drawAgents(sf::RenderTarget & target, sf::RenderStates states);
+        void draw(sf::RenderTarget & target, sf::RenderStates states);
         void addAgent(shared_ptr<Agent> agent);
         void removeAgent(shared_ptr<Agent> agent);
         vector_shared_ptr<Agent>& getAgents();
