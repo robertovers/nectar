@@ -14,7 +14,7 @@ class Plant : public Location {
         void pollinate(float amount);
         float harvestNectar();
     protected:
-        float pollen = 1;
+        float pollen = 0;
         float nectar = 1;
 };
 
