@@ -8,7 +8,7 @@
 #include "agentController.hpp"
 #include "location.hpp"
 #include "honeybee.hpp"
-#include "plant.hpp"
+#include "soybean.hpp"
 
 // Generates an environment with agents and objects randomly scattered around
 class BasicMapGenerator : MapGenerator {

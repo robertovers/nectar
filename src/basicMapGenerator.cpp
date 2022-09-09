@@ -14,7 +14,6 @@ BasicMapGenerator::BasicMapGenerator(int envSizeX, int envSizeY, int beeCount = 
     this->cropChance = cropChance;
 }
 
-
 Environment BasicMapGenerator::generateEnvironment(AgentController& agentController) {
     Environment generatedEnvironment = Environment(envSizeX, envSizeY);
     // randomly scatter bees throughout map
@@ -34,7 +33,7 @@ Environment BasicMapGenerator::generateEnvironment(AgentController& agentControl
         for (auto& location : locationRow) {
             float rolledChance = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);  // 0.0 - 1.0
             if (placeChance >= rolledChance) {
-                auto plant = shared_ptr<Plant>(std::make_shared<Plant>(location->getX(), location->getY()));
+                auto plant = shared_ptr<Soybean>(std::make_shared<Soybean>(location->getX(), location->getY()));
                 generatedEnvironment.changeLocation(location->getX(), location->getY(), plant);
             }
         }

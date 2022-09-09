@@ -3,7 +3,7 @@
 
 #include "mapGenerator.hpp"
 #include "honeybee.hpp"
-#include "plant.hpp"
+#include "soybean.hpp"
 
 // Generates an environment with Plants and locations in alternate rows. Agents are randomly scattered
 class RowMapGenerator : MapGenerator {
