@@ -25,9 +25,9 @@ add_library(
   hive.cpp
   soybean.cpp
   plant.cpp
-  statsBar.cpp
+  "display/statsBar.cpp"
   utility.cpp
-)
+ "display/simulationView.cpp")
 
 target_link_libraries(insect_lib PUBLIC sfml-graphics)
 
