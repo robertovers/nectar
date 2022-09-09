@@ -6,9 +6,8 @@
 
 class Hive : public Location {
     public:
-        Hive() : Location(0, 0) { }
-        Hive(int x, int y) : Location(x, y) { }
-        virtual void draw(sf::RenderWindow& window) override;
+        Hive() : Hive(0, 0) { };
+        Hive(int x, int y);
 };
 
 #endif
