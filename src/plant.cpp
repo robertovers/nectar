@@ -43,8 +43,8 @@ bool Plant::hasNectar() {
 }
 
 float Plant::harvestNectar() {
-    if (hasNectar()) {
-        float amount = 0.1;
+    float amount = 0.1;
+    if (nectar >= amount) {
         nectar -= amount;
         return amount;
     } else {
