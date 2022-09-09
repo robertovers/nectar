@@ -6,7 +6,7 @@
 
 Location::Location(int x, int y) : x(x), y(y) {
     auto rectangle = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
-    rectangle->setFillColor(sf::Color::Black);
+    rectangle->setFillColor(sf::Color(87,68,44));
     rectangle->setSize(sf::Vector2f(1, 1));
     sprite = rectangle;
 }
