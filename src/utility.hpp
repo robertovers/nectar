@@ -10,6 +10,8 @@ struct Metrics {
     int hours;
     int mins;
     int secs;
+    float hive_nectar;
+    float pollinated_count;
 
     void updateMetrics(Environment& env, sf::Time time);
     std::string timeString();
