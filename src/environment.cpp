@@ -11,10 +11,10 @@ Environment::Environment(int w, int h) : width(w), height(h) {
     }
 }
 
-void Environment::draw(sf::RenderWindow &window) {
+void Environment::draw(sf::RenderTarget & target, sf::RenderStates states) {
     for (auto row : locations) {
         for (auto loc : row) {
-            loc->draw(window);
+            target.draw(*loc, states);
         }
     }
 }

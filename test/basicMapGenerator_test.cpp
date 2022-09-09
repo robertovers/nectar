@@ -62,8 +62,8 @@ TEST(BasicMapGeneratorTest, PlantCount) {
     int cropChance = -1;
     Environment env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
     EXPECT_EQ(0, env.plantCount());
-    int cropChance = 0;
-    Environment env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
+    cropChance = 0;
+    env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
     EXPECT_EQ(0, env.plantCount());
 
     // some crops
@@ -78,5 +78,4 @@ TEST(BasicMapGeneratorTest, PlantCount) {
     cropChance = 110;
     env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(AgentController());
     EXPECT_EQ(env.plantCount(), x * y);
-}
 }

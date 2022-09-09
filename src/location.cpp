@@ -1,12 +1,21 @@
-#include "agent.hpp"
 #include "location.hpp"
+#include "location.hpp"
+#include "location.hpp"
+#include "agent.hpp"
 
-void Location::draw(sf::RenderWindow& window) {
-    sf::RectangleShape r;
-    r.setSize(sf::Vector2f(20, 20));
-    r.setPosition(x * 20, y * 20);
-    r.setFillColor(sf::Color::Black);
-    window.draw(r);
+
+Location::Location(int x, int y) : x(x), y(y) {
+    auto rectangle = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
+    rectangle->setFillColor(sf::Color(87,68,44));
+    rectangle->setSize(sf::Vector2f(1, 1));
+    sprite = rectangle;
+}
+
+void Location::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+    // add offset to existing transformations
+    states.transform.translate(sf::Vector2f(x, y));
+
+    target.draw(*sprite, states);
 }
 
 bool Location::isPlant() {

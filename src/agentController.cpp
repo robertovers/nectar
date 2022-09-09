@@ -22,10 +22,10 @@ void AgentController::updateAgents(Environment env) {
     }
 }
 
-void AgentController::drawAgents(sf::RenderWindow& window) {
+void AgentController::draw(sf::RenderTarget & target, sf::RenderStates states) {
     for (auto& a : agents) {
         if (a != nullptr) {
-            a->draw(window);
+            a->draw(target, states);
         }
     }
 }

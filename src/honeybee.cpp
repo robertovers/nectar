@@ -1,7 +1,5 @@
-#include "agent.hpp"
 #include "honeybee.hpp"
 #include "plant.hpp"
-#include <iostream>
 
 HoneyBee::HoneyBee() {
     pos.x = 0;
@@ -58,6 +56,34 @@ void HoneyBee::update(Environment env) {
     }
 }
 
+void HoneyBee::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    // add offset and direction to existing transformations
+    states.transform.translate(pos);
+    float angle = std::atan2(direction_u.y, direction_u.x) * (180.0 / 3.141592653589793238463);
+    states.transform.rotate(angle);
+
+    // draw body
+    float circleRadius = 0.25;
+
+    sf::CircleShape c;
+    c.setRadius(circleRadius);
+    c.setFillColor(sf::Color::White);
+    c.setOrigin(sf::Vector2f(circleRadius, circleRadius));
+    target.draw(c, states);
+    
+    // draw vector
+    float vectorThickness = .05;
+    float vectorLength = 1;
+
+    sf::RectangleShape r;
+    r.setFillColor(sf::Color::White);
+    r.setSize(sf::Vector2f(vectorLength, vectorThickness));
+    float vectorOrigin = circleRadius - vectorThickness / 2;
+    target.draw(r, states);
+
+}
+
 shared_ptr<Location> HoneyBee::scan(Environment env) {
     auto current_loc = getLocation(env);
     auto locations = env.getLocations();
@@ -76,17 +102,3 @@ shared_ptr<Location> HoneyBee::scan(Environment env) {
     }
     return nullptr;
 } 
-
-void HoneyBee::draw(sf::RenderWindow &window) {
-    sf::CircleShape c;
-    c.setPosition(pos.x * 20 - display_width/2, pos.y * 20 - display_height/2);
-    c.setRadius(5);
-    c.setFillColor(sf::Color::White);
-    window.draw(c);
-
-    sf::Vertex line[] = {
-        sf::Vertex(pos * (float) 20),
-        sf::Vertex((pos + direction_u) * (float) 20)
-    };
-    window.draw(line, 2, sf::Lines);
-}
