@@ -11,3 +11,7 @@ void Hive::draw(sf::RenderWindow& window) {
 bool Hive::isPlant() {
     return false;
 }
+
+void Hive::depositNectar(float amount) {
+    nectar += amount;
+}

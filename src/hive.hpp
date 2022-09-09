@@ -10,6 +10,9 @@ class Hive : public Location {
         Hive(int x, int y) : Location(x, y) { }
         void draw(sf::RenderWindow& window) override;
         bool isPlant() override;
+        void depositNectar(float amount);
+    private:
+        float nectar;
 };
 
 #endif
