@@ -28,11 +28,11 @@ shared_ptr<Location> Environment::getLocation(int x, int y)
     return locations[y][x];
 }
 
-shared_ptr<Location>& Environment::getHive() {
+shared_ptr<Hive> Environment::getHive() {
     return hive;
 }
 
-void Environment::setHive(shared_ptr<Location> h) {
+void Environment::setHive(shared_ptr<Hive> h) {
     hive = h;
 }
 

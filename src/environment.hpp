@@ -13,9 +13,9 @@ class Environment {
         Environment(int w, int h);
         vector2D_shared_ptr<Location>& getLocations();
         shared_ptr<Location> getLocation(int x, int y);
-        shared_ptr<Location>& getHive();
+        shared_ptr<Hive> getHive();
         void draw(sf::RenderWindow &window);
-        void setHive(shared_ptr<Location> h);
+        void setHive(shared_ptr<Hive> h);
         int getSize();
         int getWidth();
         int getHeight();
@@ -28,7 +28,7 @@ class Environment {
         int width;
         int height;
         vector2D_shared_ptr<Location> locations;
-        shared_ptr<Location> hive;
+        shared_ptr<Hive> hive;
 };
 
 #endif
