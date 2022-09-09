@@ -13,7 +13,7 @@ class Agent : public sf::Drawable {
         Agent();
         virtual ~Agent();
         virtual void update(Environment& env) = 0;
-        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) = 0;
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
         shared_ptr<Location> getLocation(Environment& env);
         shared_ptr<Location> getTarget();
         int generateID();

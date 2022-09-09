@@ -72,7 +72,7 @@ void HoneyBee::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     // add offset and direction to existing transformations
     states.transform.translate(pos);
-    float angle = std::atan2(direction_u.y, direction_u.x) * (180.0 / 3.141592653589793238463);
+    float angle = atan2(direction_u.y, direction_u.x) * (180.0 / 3.141592653589793238463);
     states.transform.rotate(angle);
 
     // draw body

@@ -14,7 +14,7 @@ class Environment {
         vector2D_shared_ptr<Location>& getLocations();
         shared_ptr<Location> getLocation(int x, int y);
         shared_ptr<Hive> getHive();
-        void draw(sf::RenderWindow &window);
+        void draw(sf::RenderTarget& target, sf::RenderStates states);
         void setHive(shared_ptr<Hive> h);
         int getSize();
         int getWidth();
