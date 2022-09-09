@@ -21,6 +21,6 @@ void Soybean::draw(sf::RenderWindow& window) {
     sf::RectangleShape r;
     r.setSize(sf::Vector2f(20, 20));
     r.setPosition(x * 20, y * 20);
-    r.setFillColor(sf::Color(0, 50, 0));
+    r.setFillColor(sf::Color(0, 100, 0));
     window.draw(r);
 }
