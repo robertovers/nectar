@@ -49,10 +49,10 @@ void Application::run() {
 }
 
 sf::Transform Application::spriteTransformation(int rows, int columns, int windowWidth, int windowHeight){
-    int rowWidth = windowWidth / rows;
-    int columnWidth = windowHeight / columns;
+    float rowWidth = static_cast<float>(windowWidth) / rows;
+    float columnWidth = static_cast<float>(windowHeight) / columns;
     // use smallest width, to fit on screen/avoid distortion
-    int displayWidth = rowWidth;
+    float displayWidth = rowWidth;
     if (rowWidth > columnWidth) {
         displayWidth = columnWidth;
     }
