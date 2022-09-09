@@ -11,6 +11,7 @@ class Hive : public Location {
         void draw(sf::RenderWindow& window) override;
         bool isPlant() override;
         void depositNectar(float amount);
+        float getNectar();
     private:
         float nectar;
 };

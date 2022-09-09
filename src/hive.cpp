@@ -15,3 +15,7 @@ bool Hive::isPlant() {
 void Hive::depositNectar(float amount) {
     nectar += amount;
 }
+
+float Hive::getNectar() {
+    return nectar;
+}
