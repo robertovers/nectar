@@ -32,17 +32,14 @@ void HoneyBee::update(Environment env) {
     } else if (cur_loc == target) {
 
         if (target == env.getHive()) {
-            auto hive = std::dynamic_pointer_cast<Hive>(cur_loc);
-            if (hive) {
-                hive->depositNectar(nectar);
-                nectar = 0;
-            };
+            env.getHive()->depositNectar(nectar);
+            nectar = 0;
             target = nullptr;
             moveRandomWalk();
         } else {
             auto plant = std::dynamic_pointer_cast<Plant>(cur_loc);
             if (plant) {
-                plant->pollinate(0.1);
+                plant->pollinate();
                 nectar += plant->harvestNectar();
             }
             target = env.getHive();
