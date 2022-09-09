@@ -1,8 +1,6 @@
 #include "agent.hpp"
 #include "location.hpp"
 
-#include <iostream>
-
 void Location::draw(sf::RenderWindow& window) {
     sf::RectangleShape r;
     r.setSize(sf::Vector2f(20, 20));

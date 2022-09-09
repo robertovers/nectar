@@ -1,5 +1,4 @@
 #include "plant.hpp"
-#include <iostream>
 
 Plant::~Plant() { }
 

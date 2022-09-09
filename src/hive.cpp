@@ -1,5 +1,4 @@
 #include "hive.hpp"
-#include <iostream>
 
 void Hive::draw(sf::RenderWindow& window) {
     sf::RectangleShape r;
