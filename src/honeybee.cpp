@@ -1,3 +1,4 @@
+#include "honeybee.hpp"
 #include "agent.hpp"
 #include "honeybee.hpp"
 #include "plant.hpp"
@@ -58,6 +59,24 @@ void HoneyBee::update(Environment env) {
     }
 }
 
+void HoneyBee::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    // add offset to existing transformations
+    states.transform.translate(pos);
+
+    sf::CircleShape c;
+    c.setRadius(0.25);
+    c.setFillColor(sf::Color::White);
+    target.draw(c, states);
+    
+
+    //sf::Vertex line[] = {
+    //    sf::Vertex(sf::Vector2f(1,1)),
+    //    sf::Vertex(direction_u)
+    //};
+    //target.draw(line, 2, sf::Lines);
+}
+
 shared_ptr<Location> HoneyBee::scan(Environment env) {
     auto current_loc = getLocation(env);
     auto locations = env.getLocations();
@@ -76,17 +95,3 @@ shared_ptr<Location> HoneyBee::scan(Environment env) {
     }
     return nullptr;
 } 
-
-void HoneyBee::draw(sf::RenderWindow &window) {
-    sf::CircleShape c;
-    c.setPosition(pos.x * 20 - display_width/2, pos.y * 20 - display_height/2);
-    c.setRadius(5);
-    c.setFillColor(sf::Color::White);
-    window.draw(c);
-
-    sf::Vertex line[] = {
-        sf::Vertex(pos * (float) 20),
-        sf::Vertex((pos + direction_u) * (float) 20)
-    };
-    window.draw(line, 2, sf::Lines);
-}
