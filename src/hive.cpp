@@ -1,16 +1,7 @@
 #include "hive.hpp"
+#include "hive.hpp"
 
-void Hive::draw(sf::RenderWindow& window) {
-    sf::RectangleShape r;
-    auto windowSize = window.getSize();
-    float width = 0;
-    // set square to fit smallest window dimension
-    if (windowSize.x < windowSize.y) {
-        width = drawWidth * windowSize.x;
-    }
-    else {
-        width = drawWidth * windowSize.y;
-    }
-    r.setFillColor(sf::Color::Red);
-    window.draw(r);
+Hive::Hive(int x, int y) : Location(x, y)
+{
+    sprite->setFillColor(sf::Color::Red);
 }

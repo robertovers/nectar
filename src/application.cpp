@@ -19,6 +19,9 @@ void Application::run() {
     AgentController agentController = AgentController();
     Environment environment = mapGenerator.generateEnvironment(agentController);
 
+    // set up view scale
+    sf::Transform transformation = spriteTransformation(rows, columns, initialWindowWidth, initialWindowHeight);
+
     while (window.isOpen()) {
 
         sf::Event event;
@@ -30,6 +33,7 @@ void Application::run() {
                 // update view to new window size
                 sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
                 window.setView(sf::View(visibleArea));
+                transformation = spriteTransformation(rows, columns, event.size.width, event.size.height);
             }
         }
 
@@ -37,9 +41,20 @@ void Application::run() {
 
         agentController.updateAgents(environment);
         
-        environment.draw(window);
-        agentController.drawAgents(window);
+        environment.draw(window, transformation);
+        agentController.drawAgents(window); // TODO: with transformation
         
         window.display();
     }
+}
+
+sf::Transform Application::spriteTransformation(int rows, int columns, int windowWidth, int windowHeight){
+    int rowWidth = windowWidth / rows;
+    int columnWidth = windowHeight / columns;
+    // use smallest width, to fit on screen/avoid distortion
+    int displayWidth = rowWidth;
+    if (rowWidth > columnWidth) {
+        displayWidth = columnWidth;
+    }
+    return sf::Transform().scale(displayWidth, displayWidth).translate(rowWidth, columnWidth);
 }

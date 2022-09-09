@@ -1,21 +1,18 @@
-#include "agent.hpp"
 #include "location.hpp"
+#include "location.hpp"
+#include "location.hpp"
+#include "agent.hpp"
 
-void Location::draw(sf::RenderWindow& window) {
-    auto windowSize = window.getSize();
-    float width = 0;
-    // set square to fit smallest window dimension
-    if (windowSize.x < windowSize.y) {
-        width = drawWidth * windowSize.x;
-    }
-    else {
-        width = drawWidth * windowSize.y;
-    }
-    sf::RectangleShape r;
-    r.setSize(sf::Vector2f(width, width));
-    r.setPosition(x * width, y * width);
-    r.setFillColor(sf::Color::Black);
-    window.draw(r);
+
+Location::Location(int x, int y) : x(x), y(y) {
+    auto rectangle = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
+    rectangle->setFillColor(sf::Color::Blue);
+    rectangle->setSize(sf::Vector2f(1, 1));
+    sprite = rectangle;
+}
+
+void Location::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+    target.draw(*sprite, states);
 }
 
 bool Location::isPlant() {

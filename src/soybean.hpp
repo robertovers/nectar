@@ -6,10 +6,9 @@
 
 class Soybean : public Plant {
     public:
-        ~Soybean();
+        Soybean() : Soybean(0, 0) {};
         Soybean(int x, int y);
         virtual void tick();
-        virtual void draw(sf::RenderWindow& window) override;
         virtual bool isPlant() override;
 };
 
