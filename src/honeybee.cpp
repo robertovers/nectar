@@ -15,7 +15,7 @@ HoneyBee::HoneyBee(float x, float y) {
     direction_u = sf::Vector2f(0, 0);
 }
 
-void HoneyBee::update(Environment env) {
+void HoneyBee::update(Environment& env) {
 
     auto cur_loc = getLocation(env);
 
@@ -39,8 +39,11 @@ void HoneyBee::update(Environment env) {
         } else {
             auto plant = std::dynamic_pointer_cast<Plant>(cur_loc);
             if (plant) {
-                plant->pollinate();
                 nectar += plant->harvestNectar();
+                if (!plant->isPollinated()) {
+                    plant->pollinate();
+                    env.incPollinatedCount();
+                }
             }
             target = env.getHive();
         }
