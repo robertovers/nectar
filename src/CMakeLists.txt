@@ -25,6 +25,7 @@ add_library(
   hive.cpp
   soybean.cpp
   plant.cpp
+  utility.cpp
 )
 
 target_link_libraries(insect_lib PUBLIC sfml-graphics)
