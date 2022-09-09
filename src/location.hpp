@@ -3,14 +3,14 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "templates.hpp"
 
 class Agent;
 
-class Location {
+class Location : public sf::Drawable {
     public:
-        Location() : x(0), y(0) { }
-        Location(int x, int y) : x(x), y(y) { }
-        virtual void draw(sf::RenderWindow& window);
+        Location() : Location(0, 0) {};
+        Location(int x, int y);
         virtual bool isPlant();
         void addAgent(Agent& a);
         void removeAgent(Agent& a);
@@ -21,9 +21,11 @@ class Location {
         int getWidth();
         int getHeight();
     protected:
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
         int x;
         int y;
         std::vector<std::reference_wrapper<Agent>> agents;
+        shared_ptr<sf::Shape> sprite = nullptr;
 };
 
 #endif

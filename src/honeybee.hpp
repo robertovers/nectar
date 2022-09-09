@@ -9,8 +9,8 @@ class HoneyBee : public Agent {
     public:
         HoneyBee();
         HoneyBee(float x, float y);
-        virtual void update(Environment& env) override;
-        virtual void draw(sf::RenderWindow& window) override;
+        void update(Environment& env) override;
+        void draw(sf::RenderWindow& window) override;
         shared_ptr<Location> scan(Environment env); 
     protected:
         float nectar;

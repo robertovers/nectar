@@ -1,4 +1,10 @@
 #include "hive.hpp"
+#include "hive.hpp"
+
+Hive::Hive(int x, int y) : Location(x, y)
+{
+    sprite->setFillColor(sf::Color::Red);
+}
 
 void Hive::draw(sf::RenderWindow& window) {
     sf::RectangleShape r;

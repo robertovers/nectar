@@ -8,7 +8,7 @@
 
 class Location;
 
-class Agent {
+class Agent : public sf::Drawable {
     public:
         Agent();
         virtual ~Agent();
@@ -26,8 +26,6 @@ class Agent {
         sf::Vector2f pos;
         sf::Vector2f direction_u;
         float velocity = 0.2;
-        int display_width = 10;
-        int display_height = 10;
         shared_ptr<Location> target = nullptr;
 };
 

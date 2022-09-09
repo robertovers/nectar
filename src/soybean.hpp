@@ -5,8 +5,8 @@
 
 class Soybean : public Plant {
     public:
-        using Plant::Plant;
-        void draw(sf::RenderWindow& window) override;
+        Soybean() : Soybean(0, 0) {};
+        Soybean(int x, int y);
 };
 
 #endif
