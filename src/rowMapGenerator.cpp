@@ -33,7 +33,7 @@ Environment RowMapGenerator::generateEnvironment(AgentController& agentControlle
     for (int i = 0; i < rows.size(); i += 2) {
         for (auto& location : rows[i]) {
             generatedEnvironment.changeLocation(location->getX(), location->getY(), 
-            shared_ptr<Soybean>(std::make_shared<Soybean>(location->getX(), location->getY())));
+            shared_ptr<Plant>(std::make_shared<Plant>(location->getX(), location->getY())));
         }
     }
 
