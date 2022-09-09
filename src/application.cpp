@@ -56,5 +56,5 @@ sf::Transform Application::spriteTransformation(int rows, int columns, int windo
     if (rowWidth > columnWidth) {
         displayWidth = columnWidth;
     }
-    return sf::Transform().scale(displayWidth, displayWidth).translate(rowWidth, columnWidth);
+    return sf::Transform().scale(displayWidth, displayWidth);
 }

@@ -6,12 +6,15 @@
 
 Location::Location(int x, int y) : x(x), y(y) {
     auto rectangle = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
-    rectangle->setFillColor(sf::Color::Blue);
+    rectangle->setFillColor(sf::Color::Black);
     rectangle->setSize(sf::Vector2f(1, 1));
     sprite = rectangle;
 }
 
 void Location::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+    // add offset to existing transformations
+    states.transform.translate(sf::Vector2f(x, y));
+
     target.draw(*sprite, states);
 }
 
