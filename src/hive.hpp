@@ -12,7 +12,7 @@ class Hive : public Location {
         void depositNectar(float amount);
         float getNectar();
     private:
-        float nectar;
+        float nectar = 0;
 };
 
 #endif
