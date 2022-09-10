@@ -13,9 +13,9 @@ class Environment {
         Environment(int w, int h);
         vector2D_shared_ptr<Location>& getLocations();
         shared_ptr<Location> getLocation(int x, int y);
-        shared_ptr<Location>& getHive();
-        void draw(sf::RenderTarget & target, sf::RenderStates states);
-        void setHive(shared_ptr<Location> h);
+        shared_ptr<Hive> getHive();
+        void draw(sf::RenderTarget& target, sf::RenderStates states);
+        void setHive(shared_ptr<Hive> h);
         int getSize();
         int getWidth();
         int getHeight();
@@ -24,11 +24,14 @@ class Environment {
         // manually iterate through locations, counting plants
         int plantCount(); 
         void changeLocation(int x, int y, shared_ptr<Location> newLocation);
+        void incPollinatedCount();
+        int getPollinatedCount();
     private:
         int width;
         int height;
         vector2D_shared_ptr<Location> locations;
-        shared_ptr<Location> hive;
+        shared_ptr<Hive> hive;
+        int pollinated_count = 0;
 };
 
 #endif

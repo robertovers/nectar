@@ -1,18 +1,8 @@
-#ifndef SOYBEAN_CPP
-#define SOYBEAN_CPP
-
 #include "soybean.hpp"
 #define GENDER 3
 
 Soybean::Soybean(int x, int y) : Plant(x, y) {
     sprite->setFillColor(sf::Color(0, 50, 0));
-}
-
-bool Soybean::isPlant() {
-    return true;
-}
-
-void Soybean::tick() {
 }
 
 //void Soybean::draw(sf::RenderTarget & target, sf::RenderStates states) {
@@ -48,5 +38,3 @@ void Soybean::tick() {
 //    r.setFillColor(sf::Color(0, 50, 0));
 //    window.draw(r);
 //}
-
-#endif

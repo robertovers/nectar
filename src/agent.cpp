@@ -9,7 +9,7 @@ Agent::Agent() {
 
 Agent::~Agent() { }
 
-shared_ptr<Location> Agent::getLocation(Environment env) {
+shared_ptr<Location> Agent::getLocation(Environment& env) {
     vector2D_shared_ptr<Location>& locations = env.getLocations();
     int tile_x = floor(pos.x);
     int tile_y = floor(pos.y);

@@ -14,7 +14,7 @@ void AgentController::addHoneyBees(Environment env) {
     }
 }
 
-void AgentController::updateAgents(Environment env) {
+void AgentController::updateAgents(Environment& env) {
     for (auto& a : agents) {
         if (a != nullptr) {
             a->update(env);

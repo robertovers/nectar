@@ -18,16 +18,11 @@ class Location : public sf::Drawable {
         int numAgents();
         int getX();
         int getY();
-        virtual void pollinate(float amount);
-        virtual float harvestNectar();
-        virtual bool hasNectar();
     protected:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
         int x;
         int y;
         std::vector<std::reference_wrapper<Agent>> agents;
-        float nectar = 1;
-        float pollen = 0;
         shared_ptr<sf::Shape> sprite = nullptr;
 };
 

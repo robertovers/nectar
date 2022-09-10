@@ -5,7 +5,7 @@
 #include "honeybee.hpp"
 #include "soybean.hpp"
 
-// Generates an environment with soybeans and locations in alternate rows. Agents are randomly scattered
+// Generates an environment with Plants and locations in alternate rows. Agents are randomly scattered
 class RowMapGenerator : MapGenerator {
 private:
 	int envSizeX;
