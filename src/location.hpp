@@ -18,8 +18,6 @@ class Location : public sf::Drawable {
         int numAgents();
         int getX();
         int getY();
-        int getWidth();
-        int getHeight();
     protected:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
         int x;
