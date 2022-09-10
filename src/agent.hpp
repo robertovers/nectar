@@ -56,7 +56,7 @@ class Agent : public sf::Drawable {
         /**
          * @brief Get the agent's location.
          * 
-         * @param env 
+         * @param env a reference to the simulation environment.
          * @return The agent's location of type shared_ptr<Location>.
          */
         shared_ptr<Location> getLocation(Environment& env);
