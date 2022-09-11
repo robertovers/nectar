@@ -1,3 +1,13 @@
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ * 
+ * @file honeybee.cpp
+ * @brief Honeybee class for instances of the honeybee agent in the simulation.
+ * @date 2022-09-11
+ */
+
 #include <math.h>
 #include "honeybee.hpp"
 #include "plant.hpp"
@@ -21,7 +31,7 @@ void HoneyBee::update(Environment& env) {
 
     if (target == nullptr and cur_loc != nullptr) { 
 
-        auto found = scan(env);
+        auto found = scanForPlants(env);
 
         if (found == nullptr) {
             moveRandomWalk();
@@ -96,7 +106,7 @@ void HoneyBee::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 }
 
-shared_ptr<Location> HoneyBee::scan(Environment env) {
+shared_ptr<Location> HoneyBee::scanForPlants(Environment env) {
     auto current_loc = getLocation(env);
     auto locations = env.getLocations();
 
