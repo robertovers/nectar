@@ -13,7 +13,7 @@ class HoneyBee : public Agent {
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
         shared_ptr<Location> scan(Environment env); 
     protected:
-        float nectar;
+        float nectar = 0;
 };
 
 #endif
