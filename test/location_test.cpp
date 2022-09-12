@@ -33,7 +33,7 @@ TEST(LocationTest, AddAgent) {
 
 // agent is removed
 TEST(LocationTest, RemoveAgent) {
-    location loc = Location();
+    Location loc = Location();
     HoneyBee agent = HoneyBee();
 
     // try to remove non-existing agent from empty
@@ -58,21 +58,24 @@ TEST(LocationTest, RemoveAgent) {
 
 // all agents are removed
 TEST(LocationTest, ClearAgents) {
+    Location loc;
+    HoneyBee agent = HoneyBee();
+
     // empty location
-    location loc = Location();
+    loc = Location();
     EXPECT_NO_THROW(loc.clearAgents());
     EXPECT_EQ(loc.numAgents(), 0);
 
     // containing one agent
-    location loc = Location();
-    loc.addAgent(HoneyBee());
+    loc = Location();
+    loc.addAgent(agent);
     EXPECT_NO_THROW(loc.clearAgents());
     EXPECT_EQ(loc.numAgents(), 0);
 
     // containing multiple agents
-    location loc = Location();
-    loc.addAgent(HoneyBee());
-    loc.addAgent(HoneyBee());
+    loc = Location();
+    loc.addAgent(agent);
+    loc.addAgent(agent);
     EXPECT_NO_THROW(loc.clearAgents());
     EXPECT_EQ(loc.numAgents(), 0);
 }
