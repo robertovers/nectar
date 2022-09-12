@@ -65,7 +65,7 @@ class HoneyBee : public Agent {
     protected:
 
         /// @brief The amount of nectar the agent is carrying.
-        float nectar;
+        float nectar = 0;
 };
 
 #endif
