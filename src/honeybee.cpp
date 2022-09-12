@@ -134,13 +134,17 @@ shared_ptr<Location> HoneyBee::scanForPlants(Environment env) {
 } 
 
 void HoneyBee::addMemory(shared_ptr<Location> plant) {
-    visited.push_front(plant);
-    if (visited.size() > memory_limit) {
-        visited.pop_back();
+    memory.push_front(plant);
+    if (memory.size() > memory_limit) {
+        memory.pop_back();
     }
 }
 
 bool HoneyBee::inMemory(shared_ptr<Location> plant) {
-    auto it = std::find(visited.begin(), visited.end(), plant);
-    return it != visited.end();
+    auto it = std::find(memory.begin(), memory.end(), plant);
+    return it != memory.end();
+}
+
+std::deque<shared_ptr<Location>> HoneyBee::getMemory() {
+    return memory;
 }

@@ -80,13 +80,18 @@ class HoneyBee : public Agent {
          */
         bool inMemory(shared_ptr<Location> plant);
 
+        /**
+         * @brief Gets the bee's memory of visited plants.
+         */
+        std::deque<shared_ptr<Location>> getMemory();
+
     protected:
 
         /// @brief The amount of nectar the agent is carrying.
         float nectar = 0;
 
         /// @brief First-in-first-out queue of most-recently visited plants.
-        std::deque<shared_ptr<Location>> visited;
+        std::deque<shared_ptr<Location>> memory;
 
         /// @brief The max no. of plants the bee will remember.
         const int memory_limit = 5;
