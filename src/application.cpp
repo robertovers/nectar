@@ -37,17 +37,18 @@ void Application::run() {
             if (event.type == sf::Event::Closed)
                 window.close();
             else if (event.type == sf::Event::Resized) {
-                // update view to new window size
-                sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
-                window.setView(sf::View(visibleArea));
-            }
+                simulationDisplay.updateViewport(event.size.width, event.size.height);
+             }
         }
 
         window.clear();
 
         agentController.updateAgents(environment);
+
+        window.setView(simulationDisplay.getView());
         simulationDisplay.draw(window, sf::RenderStates());
         
+        // TODO: set view for toolbar
         window.display();
 
         metrics.toConsole();
