@@ -148,3 +148,7 @@ bool HoneyBee::inMemory(shared_ptr<Location> plant) {
 std::deque<shared_ptr<Location>> HoneyBee::getMemory() {
     return memory;
 }
+
+int HoneyBee::getMemoryLimit() {
+    return memory_limit;
+}
