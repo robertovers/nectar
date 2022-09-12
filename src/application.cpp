@@ -4,6 +4,7 @@
 #include "basicMapGenerator.hpp"
 #include "agentController.hpp"
 #include "display/simulationDisplay.hpp"
+#include "display/statsBar.hpp"
 #include "utility.hpp"
 
 Application::Application() { }
@@ -27,6 +28,7 @@ void Application::run() {
 
     // set up display parts
     SimulationDisplay simulationDisplay(std::make_shared<AgentController>(agentController), std::make_shared<Environment>(environment));
+    StatsBar statisticsDisplay(std::make_shared<Metrics>(metrics));
 
     while (window.isOpen()) {
 
@@ -38,6 +40,7 @@ void Application::run() {
                 window.close();
             else if (event.type == sf::Event::Resized) {
                 simulationDisplay.updateViewport(event.size.width, event.size.height);
+                // TODO: update statistics bar?
              }
         }
 
@@ -48,10 +51,12 @@ void Application::run() {
         window.setView(simulationDisplay.getView());
         simulationDisplay.draw(window, sf::RenderStates());
         
-        // TODO: set view for toolbar
+        /*window.setView(statisticsDisplay.getView());
+        statisticsDisplay.draw(window, sf::RenderStates());*/
+
         window.display();
 
-        metrics.toConsole();
+        //metrics.toConsole();
     }
 }
 
