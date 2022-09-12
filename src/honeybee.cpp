@@ -60,6 +60,8 @@ void HoneyBee::update(Environment& env) {
                     env.incPollinatedCount();
                 }
             }
+            // Remember flower and go back to hive
+            addMemory(plant);
             target = env.getHive();
         }
 
@@ -124,9 +126,21 @@ shared_ptr<Location> HoneyBee::scanForPlants(Environment env) {
                  tile_y >= 0 && tile_y < env.getHeight() ) 
             {
                 auto loc = locations[tile_y][tile_x]; 
-                if (loc->isPlant()) return loc;
+                if (loc->isPlant() && !inMemory(loc)) return loc;
             }
         }
     }
     return nullptr;
 } 
+
+void HoneyBee::addMemory(shared_ptr<Location> plant) {
+    visited.push_front(plant);
+    if (visited.size() > memory_limit) {
+        visited.pop_back();
+    }
+}
+
+bool HoneyBee::inMemory(shared_ptr<Location> plant) {
+    auto it = std::find(visited.begin(), visited.end(), plant);
+    return it != visited.end();
+}
