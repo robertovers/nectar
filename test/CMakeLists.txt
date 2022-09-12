@@ -21,8 +21,8 @@ enable_testing()
 add_executable(
   insect_test
   honeybee_test.cpp
-  # basicMapGenerator_test.cpp
-  # location_test.cpp
+  basicMapGenerator_test.cpp
+  location_test.cpp
 )
 
 target_link_libraries(
