@@ -12,6 +12,7 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 private:
     shared_ptr<Metrics> metrics;
+    sf::Font font;
 };
 
 #endif
