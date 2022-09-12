@@ -27,7 +27,7 @@ add_library(
   plant.cpp
   "display/statsBar.cpp"
   utility.cpp
- "display/simulationView.cpp")
+ "display/simulationDisplay.cpp")
 
 target_link_libraries(insect_lib PUBLIC sfml-graphics)
 
