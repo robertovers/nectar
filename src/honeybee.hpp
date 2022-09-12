@@ -85,6 +85,13 @@ class HoneyBee : public Agent {
          */
         std::deque<shared_ptr<Location>> getMemory();
 
+        /**
+         * @brief Get the bee's memory limit
+         * 
+         * @return int 
+         */
+        int getMemoryLimit();
+
     protected:
 
         /// @brief The amount of nectar the agent is carrying.
