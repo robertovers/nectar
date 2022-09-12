@@ -12,8 +12,10 @@
 #define honeybee_hpp
 
 #include <SFML/Graphics.hpp>
+#include <queue>
 #include "agent.hpp"
 #include "location.hpp"
+#include "plant.hpp"
 
 /**
  * @brief Honeybee class for instances of the honeybee agent in the simulation.
@@ -66,6 +68,12 @@ class HoneyBee : public Agent {
 
         /// @brief The amount of nectar the agent is carrying.
         float nectar = 0;
+
+        /// @brief A queue of most-recently visited flowers.
+        std::queue<Plant> visited;
+
+        /// @brief The max no. of flowers the bee will remember.
+        const int memory_limit = 5;
 };
 
 #endif
