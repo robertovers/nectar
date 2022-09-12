@@ -47,4 +47,6 @@ if (WIN32 AND BUILD_SHARED_LIBS)
     COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:Insect_Sim> $<TARGET_FILE_DIR:Insect_Sim> COMMAND_EXPAND_LISTS)
 endif()
 
+# TODO: copy font to exe location
+
 install(TARGETS Insect_Sim)
