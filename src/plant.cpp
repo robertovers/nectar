@@ -1,6 +1,3 @@
-#ifndef PLANT_CPP
-#define PLANT_CPP
-
 #include "plant.hpp"
 
 Plant::~Plant() { }
@@ -9,11 +6,15 @@ Plant::Plant(int x, int y) : Location(x, y) {
 }
 
 bool Plant::isPlant() {
-    return false;
+    return true;
 }
 
-void Plant::pollinate(float amount) {
-    pollen += amount;
+bool Plant::isPollinated() {
+    return pollinated;
+}
+
+void Plant::pollinate() {
+    pollinated = true;
 }
 
 bool Plant::hasNectar() {
@@ -21,13 +22,11 @@ bool Plant::hasNectar() {
 }
 
 float Plant::harvestNectar() {
-    if (hasNectar()) {
-        float amount = 0.1;
+    float amount = 0.1;
+    if (nectar >= amount) {
         nectar -= amount;
         return amount;
     } else {
         return 0;
     }
 }
-
-#endif

@@ -7,6 +7,8 @@ void Metrics::updateMetrics(Environment&env, sf::Time time) {
     hours = (current_secs / 3600) % 24;
     mins = (current_secs / 60) % 60;
     secs = current_secs % 60;
+    hive_nectar = env.getHive()->getNectar();
+    pollinated_count = env.getPollinatedCount();
 }
 
 std::string Metrics::timeString() {
@@ -18,7 +20,9 @@ std::string Metrics::timeString() {
 }
 
 void Metrics::toConsole() {
-    std::string s = "Simulation running for " + timeString();
+    std::string s = "Simulation running for " + timeString() + 
+                    " , Nectar in Hive: " + std::to_string(hive_nectar) + 
+                    ", Flowers Pollinated: " + std::to_string(pollinated_count);
     std::cout << s;
 
     for (int i=0; i<s.length(); i++) {

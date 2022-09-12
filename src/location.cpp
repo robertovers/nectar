@@ -11,15 +11,11 @@ Location::Location(int x, int y) : x(x), y(y) {
     sprite = rectangle;
 }
 
-void Location::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+void Location::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     // add offset to existing transformations
     states.transform.translate(sf::Vector2f(x, y));
 
     target.draw(*sprite, states);
-}
-
-bool Location::isPlant() {
-    return false;
 }
 
 void Location::addAgent(Agent& a) {
@@ -49,14 +45,6 @@ int Location::getY() {
     return y;
 }
 
-void Location::pollinate(float amount) {
-    pollen += 0;
-}
-
-bool Location::hasNectar() {
-    return nectar > 0;
-}
-
-float Location::harvestNectar() {
-    return 0;
+bool Location::isPlant() {
+    return false;
 }

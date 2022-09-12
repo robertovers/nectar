@@ -1,5 +1,7 @@
+#include <math.h>
 #include "honeybee.hpp"
 #include "plant.hpp"
+#include "hive.hpp"
 
 HoneyBee::HoneyBee() {
     pos.x = 0;
@@ -13,9 +15,9 @@ HoneyBee::HoneyBee(float x, float y) {
     direction_u = sf::Vector2f(0, 0);
 }
 
-void HoneyBee::update(Environment env) {
+void HoneyBee::update(Environment& env) {
 
-    shared_ptr<Location> cur_loc = getLocation(env);
+    auto cur_loc = getLocation(env);
 
     if (target == nullptr and cur_loc != nullptr) { 
 
@@ -30,9 +32,19 @@ void HoneyBee::update(Environment env) {
     } else if (cur_loc == target) {
 
         if (target == env.getHive()) {
+            env.getHive()->depositNectar(nectar);
+            nectar = 0;
             target = nullptr;
             moveRandomWalk();
         } else {
+            auto plant = std::dynamic_pointer_cast<Plant>(cur_loc);
+            if (plant) {
+                nectar += plant->harvestNectar();
+                if (!plant->isPollinated()) {
+                    plant->pollinate();
+                    env.incPollinatedCount();
+                }
+            }
             target = env.getHive();
         }
 
@@ -48,7 +60,7 @@ void HoneyBee::update(Environment env) {
 
     pos += direction_u * velocity;
 
-    shared_ptr<Location> new_loc = getLocation(env);
+    auto new_loc = getLocation(env);
 
     if (new_loc != nullptr && cur_loc != nullptr && new_loc != cur_loc) {
         cur_loc->removeAgent(*this);
@@ -60,7 +72,7 @@ void HoneyBee::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     // add offset and direction to existing transformations
     states.transform.translate(pos);
-    float angle = std::atan2(direction_u.y, direction_u.x) * (180.0 / 3.141592653589793238463);
+    float angle = atan2(direction_u.y, direction_u.x) * (180.0 / 3.141592653589793238463);
     states.transform.rotate(angle);
 
     // draw body

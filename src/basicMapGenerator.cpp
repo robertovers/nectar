@@ -14,7 +14,6 @@ BasicMapGenerator::BasicMapGenerator(int envSizeX, int envSizeY, int beeCount = 
     this->cropChance = cropChance;
 }
 
-
 Environment BasicMapGenerator::generateEnvironment(AgentController& agentController) {
     Environment generatedEnvironment = Environment(envSizeX, envSizeY);
     // randomly scatter bees throughout map
