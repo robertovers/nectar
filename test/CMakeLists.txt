@@ -20,7 +20,8 @@ enable_testing()
 
 add_executable(
   insect_test
-  basicMapGenerator_test.cpp
+  honeybee_test.cpp
+  # basicMapGenerator_test.cpp
   # location_test.cpp
 )
 
