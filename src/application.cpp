@@ -3,8 +3,6 @@
 #include "environment.hpp"
 #include "basicMapGenerator.hpp"
 #include "agentController.hpp"
-#include "display/simulationDisplay.hpp"
-#include "display/statsBar.hpp"
 #include "utility.hpp"
 
 Application::Application() { }
@@ -27,8 +25,8 @@ void Application::run() {
     auto environment = std::make_shared< Environment>(mapGenerator.generateEnvironment(*agentController));
 
     // set up display parts
-    SimulationDisplay simulationDisplay(agentController, environment);
-    StatsBar statisticsDisplay(metrics);
+    simDisplay = SimulationDisplay(agentController, environment);
+    statsDisplay = StatsBar(metrics);
 
     while (window.isOpen()) {
 
@@ -39,8 +37,7 @@ void Application::run() {
             if (event.type == sf::Event::Closed)
                 window.close();
             else if (event.type == sf::Event::Resized) {
-                simulationDisplay.updateViewport(event.size.width, event.size.height);
-                statisticsDisplay.updateViewport(event.size.width, event.size.height);
+                updateDisplays(event.size.width, event.size.height);
              }
         }
 
@@ -48,15 +45,20 @@ void Application::run() {
 
         agentController->updateAgents(*environment);
 
-        window.setView(simulationDisplay.getView());
-        simulationDisplay.draw(window, sf::RenderStates());
+        window.setView(simDisplay.getView());
+        simDisplay.draw(window, sf::RenderStates());
         
-        window.setView(statisticsDisplay.getView());
-        statisticsDisplay.draw(window, sf::RenderStates());
+        window.setView(statsDisplay.getView());
+        statsDisplay.draw(window, sf::RenderStates());
 
         window.display();
 
         // freezes simulation when enabled
         //metrics.toConsole();
     }
+}
+
+void Application::updateDisplays(int windowX, int windowY) {
+    simDisplay.updateViewport(windowX, windowY);
+    statsDisplay.updateViewport(windowX, windowY);
 }
