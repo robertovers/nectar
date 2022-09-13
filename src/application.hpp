@@ -12,7 +12,6 @@
 #define application_hpp
 
 #include "display/simulationDisplay.hpp"
-#include "display/statsBar.hpp"
 
 /**
  * @brief Application class that initiates and controls the simulation.
@@ -36,7 +35,6 @@ class Application {
         void updateDisplays(int windowX, int windowY);
     private:
         SimulationDisplay simDisplay;
-        StatsBar statsDisplay;
 };
 
 #endif

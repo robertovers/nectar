@@ -36,7 +36,6 @@ void Application::run() {
 
     // set up display parts
     simDisplay = SimulationDisplay(agentController, environment);
-    //statsDisplay = StatsBar(metrics);
 
     while (window.isOpen()) {
 
@@ -57,18 +56,13 @@ void Application::run() {
 
         window.setView(simDisplay.getView());
         simDisplay.draw(window, sf::RenderStates());
-        
-        //window.setView(statsDisplay.getView());
-        //statsDisplay.draw(window, sf::RenderStates());
 
         window.display();
 
-        // freezes simulation when enabled
-        //metrics.toConsole();
+        metrics->toConsole();
     }
 }
 
 void Application::updateDisplays(int windowX, int windowY) {
     simDisplay.updateViewport(windowX, windowY);
-    statsDisplay.updateViewport(windowX, windowY);
 }

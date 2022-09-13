@@ -42,7 +42,6 @@ add_library(
   hive.cpp
   soybean.cpp
   plant.cpp
-  "display/statsBar.cpp"
   utility.cpp
  "display/simulationDisplay.cpp")
 
