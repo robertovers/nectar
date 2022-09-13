@@ -12,8 +12,10 @@
 #define honeybee_hpp
 
 #include <SFML/Graphics.hpp>
+#include <deque>
 #include "agent.hpp"
 #include "location.hpp"
+#include "plant.hpp"
 
 /**
  * @brief Honeybee class for instances of the honeybee agent in the simulation.
@@ -62,10 +64,44 @@ class HoneyBee : public Agent {
          */
         shared_ptr<Location> scanForPlants(Environment env); 
 
+        /**
+         * @brief Adds a plant to the bee's memory, and updates the queue.
+         * 
+         * @param plant the most-recently visited plant.
+         */
+        void addMemory(shared_ptr<Location> plant);
+
+        /**
+         * @brief Checks if a plant is in the bee's memory.
+         * 
+         * @param plant 
+         * @return true if the plant is in its memory.
+         * @return false if the plant is not in its memory.
+         */
+        bool inMemory(shared_ptr<Location> plant);
+
+        /**
+         * @brief Gets the bee's memory of visited plants.
+         */
+        std::deque<shared_ptr<Location>> getMemory();
+
+        /**
+         * @brief Get the bee's memory limit
+         * 
+         * @return int 
+         */
+        int getMemoryLimit();
+
     protected:
 
         /// @brief The amount of nectar the agent is carrying.
         float nectar = 0;
+
+        /// @brief First-in-first-out queue of most-recently visited plants.
+        std::deque<shared_ptr<Location>> memory;
+
+        /// @brief The max no. of plants the bee will remember.
+        const int memory_limit = 5;
 };
 
 #endif
