@@ -7,11 +7,13 @@ Nectar is a simulation tool used to study Honeybee pollination behaviour. It is 
 The project was developed as part of the final-year Computer Science project at Monash University, during 2022. The project team consists of Jireh Chen, Ethan Cheng, Lucille Grasso & Robert Overs.
 
 ## Features
-- TODO
-- TODO
-- TODO
+- *TODO*
+- *TODO*
+- *TODO*
 
 ## Install
+
+*TODO: Add more detail, include UNIX.*
 
 [CMake](https://cmake.org) is required to build nectar, and optionally, [Doxygen](https://doxygen.nl/download.html) for generating documentation.
 
@@ -42,6 +44,8 @@ git clone https://github.com/robertovers/nectar.git
 ```
 
 ## Usage
+
+*TODO: Add info about Doxygen and options.*
 
 Navigate to the `nectar` directory and run:
 
