@@ -1,17 +1,18 @@
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ * 
+ * @file agentController.cpp
+ * @brief A controller class that manages all agents in the simulation.
+ * @date 2022-09-11
+ */
+
 #include "agentController.hpp"
 #include "honeybee.hpp"
 
 AgentController::AgentController() {
     agents = std::vector<shared_ptr<Agent>>(0);
-}
-
-void AgentController::addHoneyBees(Environment env) {
-    int rand_x, rand_y;
-    for (auto& a : agents) {
-        rand_x = rand() % env.getWidth();
-        rand_y = rand() % env.getHeight();
-        a = std::make_shared<HoneyBee>(rand_x, rand_y);
-    }
 }
 
 void AgentController::updateAgents(Environment& env) {

@@ -1,3 +1,13 @@
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ * 
+ * @file application.cpp
+ * @brief Application class that initiates and controls the simulation.
+ * @date 2022-09-10
+ */
+
 #include <SFML/Graphics.hpp>
 #include "imgui.h"
 #include "imgui-SFML.h"
@@ -28,8 +38,8 @@ void Application::run() {
 
     // set up display parts
     simDisplay = SimulationDisplay(agentController, environment);
+
     ImGui::SFML::Init(window);
-    //statsDisplay = StatsBar(metrics);
 
     while (window.isOpen()) {
 
@@ -59,20 +69,16 @@ void Application::run() {
 
         window.setView(simDisplay.getView());
         simDisplay.draw(window, sf::RenderStates());
-        
-        //window.setView(statsDisplay.getView());
-        //statsDisplay.draw(window, sf::RenderStates());
+
         ImGui::SFML::Render(window);
 
         window.display();
 
-        // freezes simulation when enabled
-        //metrics.toConsole();
+        metrics->toConsole();
     }
     ImGui::SFML::Shutdown();
 }
 
 void Application::updateDisplays(int windowX, int windowY) {
     simDisplay.updateViewport(windowX, windowY);
-    statsDisplay.updateViewport(windowX, windowY);
 }
