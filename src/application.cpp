@@ -1,3 +1,13 @@
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ * 
+ * @file application.cpp
+ * @brief Application class that initiates and controls the simulation.
+ * @date 2022-09-10
+ */
+
 #include <SFML/Graphics.hpp>
 #include "application.hpp"
 #include "environment.hpp"
