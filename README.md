@@ -22,6 +22,7 @@ brew install cmake && brew install doxygen
 ```
 
 For Windows, CMake binaries can be downloaded at: https://cmake.org/download/.
+
 Doxygen binaries can be found at: https://doxygen.nl/download.html.
 
 Once CMake is installed, clone the nectar repository using:
