@@ -1,4 +1,4 @@
-# fit3161-insect-simulations
+# nectar
 
 ## How to use
 Install [cmake](https://cmake.org)

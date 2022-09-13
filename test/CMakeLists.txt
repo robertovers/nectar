@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(insect_test)
+project(nectar_test)
 
 # GoogleTest requires at least C++14
 set(CMAKE_CXX_STANDARD 14)
@@ -19,17 +19,17 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(
-  insect_test
+  nectar_test
   honeybee_test.cpp
   basicMapGenerator_test.cpp
   location_test.cpp
 )
 
 target_link_libraries(
-  insect_test
+  nectar_test
   insect_lib
   GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(insect_test)
+gtest_discover_tests(nectar_test)
