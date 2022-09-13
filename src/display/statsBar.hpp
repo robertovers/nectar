@@ -7,6 +7,7 @@
 
 class StatsBar : public Display {
 public:
+    StatsBar();
     StatsBar(shared_ptr<Metrics> metrics);
     void updateViewport(float windowX, float windowY);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;

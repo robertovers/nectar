@@ -1,5 +1,11 @@
 #include "simulationDisplay.hpp"
 
+
+SimulationDisplay::SimulationDisplay() {
+    agentController = nullptr;
+    environment = nullptr;
+}
+
 SimulationDisplay::SimulationDisplay(shared_ptr<AgentController> agentController, shared_ptr<Environment> environment) {
     this->agentController = agentController;
     this->environment = environment;

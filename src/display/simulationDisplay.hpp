@@ -8,6 +8,7 @@
 
 class SimulationDisplay : public Display {
 public:
+    SimulationDisplay();
     SimulationDisplay(shared_ptr<AgentController> agentController, shared_ptr<Environment> environment);
     void updateViewport(float windowX, float windowY);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
