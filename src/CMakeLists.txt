@@ -12,6 +12,23 @@ FetchContent_Declare(SFML
 )
 FetchContent_MakeAvailable(SFML)
 
+# for UI
+FetchContent_Declare(imgui
+    GIT_REPOSITORY https://github.com/ocornut/imgui.git
+    GIT_TAG master
+)
+FetchContent_MakeAvailable(imgui)
+FetchContent_Declare(
+  imgui-sfml
+  GIT_REPOSITORY https://github.com/eliasdaler/imgui-sfml.git
+  GIT_TAG        master
+)
+set(IMGUI_DIR ${imgui_SOURCE_DIR})
+option(IMGUI_SFML_FIND_SFML "Use find_package to find SFML" OFF)
+option(IMGUI_SFML_IMGUI_DEMO "Build imgui_demo.cpp" ON)
+
+FetchContent_MakeAvailable(imgui-sfml)
+
 # library, for reuse with tests
 add_library(
   insect_lib STATIC 
@@ -30,6 +47,7 @@ add_library(
  "display/simulationDisplay.cpp")
 
 target_link_libraries(insect_lib PUBLIC sfml-graphics)
+target_link_libraries(insect_lib PUBLIC ImGui-SFML::ImGui-SFML)
 
 # Build simulator
 add_executable(
