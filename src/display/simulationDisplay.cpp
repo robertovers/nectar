@@ -20,12 +20,12 @@ void SimulationDisplay::updateViewport(float windowX, float windowY) {
         largestWindowSize = windowY;
     }
     // TODO: not hardcode
-    float adjustmentFactor = .9; // make room for bar
+    float adjustmentFactor = 1; // .9; // make room for bar
 
     float yWindowRatio = windowX / largestWindowSize;
     float xWindowRatio = windowY / largestWindowSize;
 
-    sf::FloatRect simViewpont(0, 0.1, xWindowRatio, yWindowRatio * adjustmentFactor);
+    sf::FloatRect simViewpont(0, 0, xWindowRatio, yWindowRatio * adjustmentFactor);
     view.setViewport(simViewpont);
 }
  
