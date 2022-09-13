@@ -53,16 +53,22 @@ void HoneyBee::update(Environment& env) {
         // Target was a plant; harvest nectar
         } else {
             auto plant = std::dynamic_pointer_cast<Plant>(cur_loc);
+
             if (plant) {
-                nectar += plant->harvestNectar();
-                if (!plant->isPollinated()) {
-                    plant->pollinate();
-                    env.incPollinatedCount();
+                addMemory(plant);
+                if (plant->hasNectar()) {
+
+                    nectar += plant->harvestNectar();
+                    if (!plant->isPollinated()) {
+                        plant->pollinate();
+                        env.incPollinatedCount();
+                    }
+                    target = env.getHive();
+
+                } else {
+                    target = nullptr;
                 }
             }
-            // Remember flower and go back to hive
-            addMemory(plant);
-            target = env.getHive();
         }
 
     // Bee has a target, but has not located it yet
