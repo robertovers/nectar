@@ -19,7 +19,7 @@ void SimulationDisplay::updateViewport(float windowX, float windowY) {
     float yWindowRatio = windowX / largestWindowSize;
     float xWindowRatio = windowY / largestWindowSize;
 
-    sf::FloatRect simViewpont(0, 0, xWindowRatio, yWindowRatio * adjustmentFactor);
+    sf::FloatRect simViewpont(0, 0.1, xWindowRatio, yWindowRatio * adjustmentFactor);
     view.setViewport(simViewpont);
 }
  

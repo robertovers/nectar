@@ -15,7 +15,7 @@ StatsBar::StatsBar(shared_ptr<Metrics> metrics) {
 }
 
 void StatsBar::updateViewport(float windowX, float windowY) {
-    sf::FloatRect simViewpont(0, .9, 1, 1);
+    sf::FloatRect simViewpont(0, 0, 1, .1);
     view.setViewport(simViewpont);
 }
 
