@@ -61,7 +61,7 @@ endif()
 
 option(BUILD_DOC "Build documentation with Doxygen" ON)
 
-find_package(Doxygen)
+find_package(Doxygen REQUIRED dot)
 
 if (DOXYGEN_FOUND)
   set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/../docs/Doxyfile.in)
