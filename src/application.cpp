@@ -16,6 +16,7 @@
 #include "basicMapGenerator.hpp"
 #include "agentController.hpp"
 #include "utility.hpp"
+#include "display/statsWindow.hpp"
 
 Application::Application() { }
 
@@ -37,9 +38,11 @@ void Application::run() {
     auto environment = std::make_shared< Environment>(mapGenerator.generateEnvironment(*agentController));
 
     // set up display parts
-    simDisplay = SimulationDisplay(agentController, environment);
-
     ImGui::SFML::Init(window);
+
+    StatsWindow statsWindow = StatsWindow(metrics);
+    simDisplay = SimulationDisplay(agentController, environment);
+    updateDisplays(initialWindowWidth, initialWindowHeight);
 
     while (window.isOpen()) {
 
@@ -59,10 +62,6 @@ void Application::run() {
 
         ImGui::SFML::Update(window, deltaClock.restart());
 
-        ImGui::Begin("Hello, world!");
-        ImGui::Button("Look at this pretty button");
-        ImGui::End();
-
         window.clear();
 
         agentController->updateAgents(*environment);
@@ -70,11 +69,13 @@ void Application::run() {
         window.setView(simDisplay.getView());
         simDisplay.draw(window, sf::RenderStates());
 
+        statsWindow.display();
+
         ImGui::SFML::Render(window);
 
         window.display();
 
-        metrics->toConsole();
+        //metrics->toConsole();
     }
     ImGui::SFML::Shutdown();
 }
