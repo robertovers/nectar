@@ -53,8 +53,8 @@ add_library(
  "display/simulationDisplay.cpp"
  "display/statsWindow.cpp")
 
-target_link_libraries(insect_lib PUBLIC sfml-graphics)
-target_link_libraries(insect_lib PUBLIC ImGui-SFML::ImGui-SFML)
+target_link_libraries(nectar_lib PUBLIC sfml-graphics)
+target_link_libraries(nectar_lib PUBLIC ImGui-SFML::ImGui-SFML)
 
 # Build simulator
 add_executable(
