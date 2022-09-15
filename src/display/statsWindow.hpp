@@ -17,7 +17,7 @@
  /**
   * @brief Imgui-based Statistics window class for displaying general simulation statistics.
   *
-  * Runtime, hive nectar count and pollinated flower count are displayed in a Imgui window when display()ed. 
+  * Runtime, hive nectar count and pollinated flower count are displayed in a Imgui window when draw()n. 
   * It does not do any clearing or rendering; this needs to be handled elsewhere
   */
 class StatsWindow {
@@ -31,7 +31,7 @@ class StatsWindow {
         /**
          * @brief Draw the statistics window.
          */
-        void display();
+        void draw();
     private:
         /// @brief metrics and statistics about the simulation
         shared_ptr<Metrics> metrics;

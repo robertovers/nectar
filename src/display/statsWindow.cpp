@@ -21,7 +21,7 @@ StatsWindow::StatsWindow(shared_ptr<Metrics> metrics) {
     this->metrics = metrics;
 }
 
-void StatsWindow::display() {
+void StatsWindow::draw() {
     // create info strings
     std::stringstream runTimeInfo;
     std::stringstream hiveNectarInfo;

@@ -69,7 +69,7 @@ void Application::run() {
         window.setView(simDisplay.getView());
         simDisplay.draw(window, sf::RenderStates());
 
-        statsWindow.display();
+        statsWindow.draw();
 
         ImGui::SFML::Render(window);
 
