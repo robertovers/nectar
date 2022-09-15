@@ -21,9 +21,9 @@
 Application::Application() { }
 
 void Application::run() { 
-    float initialWindowWidth = 1000;
-    float initialWindowHeight = 1000;
-    int rows = 50; int columns = 50;
+    int rows = 50; int columns = 50; int initialWindowScale = 20;
+    float initialWindowWidth = rows * initialWindowScale;
+    float initialWindowHeight = columns * initialWindowScale;
 
     sf::Clock clock;
     auto metrics = std::make_shared<Metrics>();
