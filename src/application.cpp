@@ -28,7 +28,7 @@ void Application::run() {
     sf::Clock clock;
     auto metrics = std::make_shared<Metrics>();
 
-    sf::RenderWindow window(sf::VideoMode(initialWindowWidth, initialWindowHeight), "Insect Simulations");
+    sf::RenderWindow window(sf::VideoMode(initialWindowWidth, initialWindowHeight), "Nectar");
 
     window.setFramerateLimit(30);
 
