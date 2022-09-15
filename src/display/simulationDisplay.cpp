@@ -18,16 +18,13 @@ SimulationDisplay::SimulationDisplay(shared_ptr<AgentController> agentController
 }
     
 void SimulationDisplay::updateViewport(float windowX, float windowY) {
-    // need to keep square aspect ratio for simulation
-    float largestWindowSize = windowX;
-    if (windowY > windowX) {
-        largestWindowSize = windowY;
-    }
-    float yWindowRatio = windowX / largestWindowSize;
-    float xWindowRatio = windowY / largestWindowSize;
+    // need to keep aspect ratio of simulation
+    float ratio = std::min(windowX / environment->getWidth(), windowY / environment->getHeight());
+    float xWindowRatio = environment->getWidth()* ratio / windowX;
+    float yWindowRatio = environment->getHeight () * ratio / windowY;
 
     // offset, to keep environment centred
-    float xOffset = (windowX - windowX * xWindowRatio) / (largestWindowSize * 2);
+    float xOffset = (windowX - environment->getWidth() * ratio) / (windowX * 2);
     sf::FloatRect simViewpont(xOffset, 0, xWindowRatio, yWindowRatio);
     view.setViewport(simViewpont);
 }
