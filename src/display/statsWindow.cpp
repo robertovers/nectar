@@ -1,3 +1,13 @@
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ *
+ * @file statsWindow.cpp
+ * @brief In-window menu displaying general simulation statistics.
+ * @date 2022-09-15
+ */
+
 #include "statsWindow.hpp"
 #include "statsWindow.hpp"
 
