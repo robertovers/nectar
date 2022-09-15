@@ -9,70 +9,71 @@
  */
 
 #include <SFML/Graphics.hpp>
+#include "imgui.h"
+#include "imgui-SFML.h"
 #include "application.hpp"
 #include "environment.hpp"
 #include "basicMapGenerator.hpp"
 #include "agentController.hpp"
 #include "utility.hpp"
+#include "display/statsWindow.hpp"
 
 Application::Application() { }
 
 void Application::run() { 
-    float initialWindowWidth = 1000;
-    float initialWindowHeight = 1000;
-    int rows = 50; int columns = 50;
+    int rows = 50; int columns = 50; int initialWindowScale = 20;
+    float initialWindowWidth = rows * initialWindowScale;
+    float initialWindowHeight = columns * initialWindowScale;
 
     sf::Clock clock;
-    Metrics metrics;
+    auto metrics = std::make_shared<Metrics>();
 
-    sf::RenderWindow window(sf::VideoMode(initialWindowWidth, initialWindowHeight), "Insect Simulations");
+    sf::RenderWindow window(sf::VideoMode(initialWindowWidth, initialWindowHeight), "Nectar");
 
     window.setFramerateLimit(30);
 
     // set up environment
     BasicMapGenerator mapGenerator = BasicMapGenerator(rows, columns, 50, 1);
-    AgentController agentController = AgentController();
-    Environment environment = mapGenerator.generateEnvironment(agentController);
+    auto agentController = std::make_shared<AgentController>();
+    auto environment = std::make_shared< Environment>(mapGenerator.generateEnvironment(*agentController));
 
-    // set up view scale
-    sf::Transform transformation = spriteTransformation(rows, columns, initialWindowWidth, initialWindowHeight);
+    // set up display parts
+    ImGui::SFML::Init(window);
+
+    StatsWindow statsWindow = StatsWindow(metrics);
+    auto simDisplay = SimulationDisplay(agentController, environment);
+    simDisplay.updateViewport(initialWindowWidth, initialWindowHeight);
 
     while (window.isOpen()) {
 
         sf::Event event;
-        metrics.updateMetrics(environment, clock.getElapsedTime());
+        metrics->updateMetrics(*environment, clock.getElapsedTime());
+        sf::Clock deltaClock;
 
         while (window.pollEvent(event)) {
+            ImGui::SFML::ProcessEvent(window, event);
+
             if (event.type == sf::Event::Closed)
                 window.close();
             else if (event.type == sf::Event::Resized) {
-                // update view to new window size
-                sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
-                window.setView(sf::View(visibleArea));
-                transformation = spriteTransformation(rows, columns, event.size.width, event.size.height);
-            }
-        }
+                simDisplay.updateViewport(event.size.width, event.size.height);
+             }
+        }   
+
+        ImGui::SFML::Update(window, deltaClock.restart());
 
         window.clear();
 
-        agentController.updateAgents(environment);
-        
-        environment.draw(window, transformation);
-        agentController.draw(window, transformation); 
-        
+        agentController->updateAgents(*environment);
+
+        window.setView(simDisplay.getView());
+        simDisplay.draw(window, sf::RenderStates());
+
+        statsWindow.draw();
+
+        ImGui::SFML::Render(window);
+
         window.display();
-
-        metrics.toConsole();
     }
-}
-
-sf::Transform Application::spriteTransformation(int rows, int columns, int windowWidth, int windowHeight){
-    float rowWidth = static_cast<float>(windowWidth) / rows;
-    float columnWidth = static_cast<float>(windowHeight) / columns;
-    // use smallest width, to fit on screen/avoid distortion
-    float displayWidth = rowWidth;
-    if (rowWidth > columnWidth) {
-        displayWidth = columnWidth;
-    }
-    return sf::Transform().scale(displayWidth, displayWidth);
+    ImGui::SFML::Shutdown();
 }

@@ -36,15 +36,15 @@ void Environment::setHive(shared_ptr<Hive> h) {
     hive = h;
 }
 
-int Environment::getSize() {
+int Environment::getSize() const  {
     return width * height;
 }
 
-int Environment::getWidth() {
+int Environment::getWidth() const  {
     return width;
 }
 
-int Environment::getHeight() {
+int Environment::getHeight() const {
     return height;
 }
 

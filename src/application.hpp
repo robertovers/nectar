@@ -11,6 +11,8 @@
 #ifndef application_hpp
 #define application_hpp
 
+#include "display/simulationDisplay.hpp"
+
 /**
  * @brief Application class that initiates and controls the simulation.
  * 
@@ -30,19 +32,6 @@ class Application {
          * @brief Runs the simulation by initialising the simulation loop.
          */
         void run();
-
-    private:
-
-        /**
-         * @brief Returns transformation that will be applied to all objects in the simulation.
-         * 
-         * @param rows the number of rows of location tiles.
-         * @param columns the number of columns of location tiles.
-         * @param windowWidth the width of the display window in pixels.
-         * @param windowHeight the height of the display window in pixels.
-         * @return sf::Transform 
-         */
-        sf::Transform spriteTransformation(int rows, int columns, int windowWidth, int windowHeight);
 };
 
 #endif

@@ -16,9 +16,9 @@ class Environment {
         shared_ptr<Hive> getHive();
         void draw(sf::RenderTarget& target, sf::RenderStates states);
         void setHive(shared_ptr<Hive> h);
-        int getSize();
-        int getWidth();
-        int getHeight();
+        int getSize() const;
+        int getWidth() const;
+        int getHeight() const;
         // manually iterates through locations to count agents.
         int agentCount();
         // manually iterate through locations, counting plants
