@@ -41,8 +41,8 @@ void Application::run() {
     ImGui::SFML::Init(window);
 
     StatsWindow statsWindow = StatsWindow(metrics);
-    simDisplay = SimulationDisplay(agentController, environment);
-    updateDisplays(initialWindowWidth, initialWindowHeight);
+    auto simDisplay = SimulationDisplay(agentController, environment);
+    simDisplay.updateViewport(initialWindowWidth, initialWindowHeight);
 
     while (window.isOpen()) {
 
@@ -56,7 +56,7 @@ void Application::run() {
             if (event.type == sf::Event::Closed)
                 window.close();
             else if (event.type == sf::Event::Resized) {
-                updateDisplays(event.size.width, event.size.height);
+                simDisplay.updateViewport(event.size.width, event.size.height);
              }
         }   
 
@@ -74,12 +74,6 @@ void Application::run() {
         ImGui::SFML::Render(window);
 
         window.display();
-
-        //metrics->toConsole();
     }
     ImGui::SFML::Shutdown();
-}
-
-void Application::updateDisplays(int windowX, int windowY) {
-    simDisplay.updateViewport(windowX, windowY);
 }

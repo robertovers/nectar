@@ -32,9 +32,6 @@ class Application {
          * @brief Runs the simulation by initialising the simulation loop.
          */
         void run();
-        void updateDisplays(int windowX, int windowY);
-    private:
-        SimulationDisplay simDisplay;
 };
 
 #endif
