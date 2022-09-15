@@ -27,21 +27,31 @@ public:
     /**
      * @brief Construct a new simulation display 
      * 
-     * @param agentController the controller containing the agents in the simulation
-     * @param environment thee environment that on which the simulation is running
+     * @param agentController The controller containing the agents in the simulation
+     * @param environment The environment that on which the simulation is running
      */
     SimulationDisplay(shared_ptr<AgentController> agentController, shared_ptr<Environment> environment);
     sf::View getView() const { return view; }
     /**
      * @brief Updates the simulation's View to better fill the given window size whilst maintaining its aspect ratio
      * 
-     * @param 
+     * @param windowX The target window's width in pixels
+     * @param windowY The target window's height in pixels
      */
     void updateViewport(float windowX, float windowY);
+    /**
+     * @brief Draw the simulation to the render target
+     *
+     * @param target Render target to draw to
+     * @param states Current render states
+     */
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 private: 
+    ///  @brief the View that dictattets how the simulation should be drawn
     sf::View view = sf::View();
+    ///  @brief The controller containing the agents in the simulation
     shared_ptr<AgentController> agentController;
+    ///  @brief The environment that on which the simulation is running
     shared_ptr<Environment> environment;
 };
 
