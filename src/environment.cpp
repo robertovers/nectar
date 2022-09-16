@@ -91,7 +91,7 @@ void Environment::initLookupTable() {
     }
 }
 
-opt_shared_ptr<Plant> Environment::getNearbyPlant(shared_ptr<Location> loc) {
+opt_shared_ptr<Location> Environment::getNearbyPlant(shared_ptr<Location> loc) {
     auto result = plant_table.find(loc->getID());
     if (result != plant_table.end()) {
         return result->second;
@@ -100,7 +100,7 @@ opt_shared_ptr<Plant> Environment::getNearbyPlant(shared_ptr<Location> loc) {
     }
 }
 
-opt_shared_ptr<Plant> Environment::findNearbyPlant(shared_ptr<Location> loc) {
+opt_shared_ptr<Location> Environment::findNearbyPlant(shared_ptr<Location> loc) {
 
     for (int ix=-2; ix<=2; ix++) {
         for (int iy=-2; iy<=2; iy++) {
@@ -114,8 +114,7 @@ opt_shared_ptr<Plant> Environment::findNearbyPlant(shared_ptr<Location> loc) {
                 auto target = locations[tile_y][tile_x]; 
 
                 if (target->isPlant()) {
-                    auto res = std::dynamic_pointer_cast<Plant>(target);
-                    return res;
+                    return target;
                 }
             }
         }
