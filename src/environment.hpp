@@ -9,7 +9,6 @@
 
 class Environment {
     public:
-        Environment();
         Environment(int w, int h);
         vector2D_shared_ptr<Location>& getLocations();
         shared_ptr<Location> getLocation(int x, int y);

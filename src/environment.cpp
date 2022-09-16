@@ -1,7 +1,5 @@
 #include "environment.hpp"
 
-Environment::Environment() : width(0), height(0) { }
-
 Environment::Environment(int w, int h) : width(w), height(h) {
     for (int y=0; y<height; y++) {
         locations.push_back(vector_shared_ptr<Location>(width));
