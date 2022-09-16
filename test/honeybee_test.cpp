@@ -4,27 +4,6 @@
 #include "../src/agentController.hpp"
 #include "../src/basicMapGenerator.hpp"
 
-// Test scanning method correctly returns a shared pointer to a found plant.
-TEST(HoneybeeTest, ScanFindsPlant) {
-    shared_ptr<Location> plant, found_plant;
-    AgentController ac = AgentController();
-    Environment env = BasicMapGenerator(10, 10, 0, 0).generateEnvironment(ac);
-    shared_ptr<HoneyBee> bee = std::make_shared<HoneyBee>(5, 5);
-    ac.addAgent(bee);
-
-    // search without any plants 
-    found_plant = bee->scanForPlants(env);
-
-    EXPECT_EQ(found_plant, nullptr);
-
-    // add plant, then search again
-    plant = std::make_shared<Plant>(7, 7);
-    env.changeLocation(7, 7, plant);
-    found_plant = bee->scanForPlants(env);
-
-    EXPECT_EQ(found_plant, plant);
-}
-
 // Test locations are added to bee memory. 
 TEST(HoneybeeTest, MemoryIsAdded) {
     bool in_mem;
