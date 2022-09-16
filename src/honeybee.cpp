@@ -38,13 +38,13 @@ void HoneyBee::update(Environment& env) {
     switch (behaviour)
     {
         case HoneybeeBehaviour::Searching:
-            found = scanForPlants(env);
-            if (found != nullptr) {
-                target = found;
-                behaviour = HoneybeeBehaviour::Harvesting;
-            } else {
-                moveRandomWalk();
-            }
+            // found = scanForPlants(env);
+            // if (found != nullptr) {
+            //     target = found;
+            //     behaviour = HoneybeeBehaviour::Harvesting;
+            // } else {
+            //     moveRandomWalk();
+            // }
 
             break;
 
