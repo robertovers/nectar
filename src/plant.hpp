@@ -2,7 +2,7 @@
 #define PLANT_HPP
 
 #include <SFML/Graphics.hpp>
-#include "agent.hpp"
+#include "location.hpp"
 
 class Plant : public Location {
     public:
@@ -17,6 +17,5 @@ class Plant : public Location {
         bool pollinated = false;
         float nectar = 1;
 };
-
 
 #endif

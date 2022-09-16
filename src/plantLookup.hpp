@@ -2,6 +2,7 @@
 #define plantlookup_hpp
 
 #include <unordered_map>
+#include "environment.hpp"
 #include "templates.hpp"
 #include "location.hpp"
 #include "plant.hpp"
