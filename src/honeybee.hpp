@@ -69,14 +69,6 @@ class HoneyBee : public Agent {
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         /**
-         * @brief Searches a radius of the agent's location for a plant.
-         * 
-         * @param env the simulation environment.
-         * @return a shared pointer to a plant, or a null pointer if none found. 
-         */
-        shared_ptr<Location> scanForPlants(Environment env); 
-
-        /**
          * @brief Adds a plant to the bee's memory, and updates the queue.
          * 
          * @param plant the most-recently visited plant.
