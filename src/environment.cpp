@@ -1,4 +1,5 @@
 #include "environment.hpp"
+#include <iostream>
 
 Environment::Environment(int w, int h) : width(w), height(h) {
     for (int y=0; y<height; y++) {
@@ -7,7 +8,6 @@ Environment::Environment(int w, int h) : width(w), height(h) {
             locations[y][x] = std::make_shared<Location>(x, y);
         }
     }
-    initLookupTable();
 }
 
 void Environment::draw(sf::RenderTarget & target, sf::RenderStates states) {
@@ -92,6 +92,9 @@ void Environment::initLookupTable() {
 }
 
 opt_shared_ptr<Location> Environment::getNearbyPlant(shared_ptr<Location> loc) {
+    if (loc == nullptr) {
+        return { };
+    }
     auto result = plant_table.find(loc->getID());
     if (result != plant_table.end()) {
         return result->second;
@@ -101,7 +104,6 @@ opt_shared_ptr<Location> Environment::getNearbyPlant(shared_ptr<Location> loc) {
 }
 
 opt_shared_ptr<Location> Environment::findNearbyPlant(shared_ptr<Location> loc) {
-
     for (int ix=-2; ix<=2; ix++) {
         for (int iy=-2; iy<=2; iy++) {
 
