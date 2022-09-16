@@ -47,3 +47,7 @@ int Location::getY() {
 bool Location::isPlant() {
     return false;
 }
+
+int Location::getID() {
+    return id;
+}
