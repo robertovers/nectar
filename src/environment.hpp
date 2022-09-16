@@ -3,9 +3,11 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include <unordered_map>
 #include "location.hpp"
 #include "hive.hpp"
 #include "templates.hpp"
+#include "plant.hpp"
 
 class Environment {
     public:
@@ -25,12 +27,16 @@ class Environment {
         void changeLocation(int x, int y, shared_ptr<Location> newLocation);
         void incPollinatedCount();
         int getPollinatedCount();
+        void initLookupTable();
+        opt_shared_ptr<Plant> getNearbyPlant(shared_ptr<Location> loc);
     private:
         int width;
         int height;
         vector2D_shared_ptr<Location> locations;
         shared_ptr<Hive> hive;
         int pollinated_count = 0;
+        opt_shared_ptr<Plant> findNearbyPlant(shared_ptr<Location> loc);
+        std::unordered_map<int, shared_ptr<Plant>> plant_table;
 };
 
 #endif

@@ -7,6 +7,7 @@ Environment::Environment(int w, int h) : width(w), height(h) {
             locations[y][x] = std::make_shared<Location>(x, y);
         }
     }
+    initLookupTable();
 }
 
 void Environment::draw(sf::RenderTarget & target, sf::RenderStates states) {
@@ -77,4 +78,47 @@ void Environment::incPollinatedCount() {
 
 int Environment::getPollinatedCount() {
     return pollinated_count;
+}
+
+void Environment::initLookupTable() {
+    for (auto row : locations) {
+        for (auto loc : row) {
+            auto nearbyPlant = findNearbyPlant(loc);
+            if (nearbyPlant) {
+                plant_table.insert(std::make_pair(loc->getID(), *nearbyPlant));
+            }
+        }
+    }
+}
+
+opt_shared_ptr<Plant> Environment::getNearbyPlant(shared_ptr<Location> loc) {
+    auto result = plant_table.find(loc->getID());
+    if (result != plant_table.end()) {
+        return result->second;
+    } else {
+        return { };
+    }
+}
+
+opt_shared_ptr<Plant> Environment::findNearbyPlant(shared_ptr<Location> loc) {
+
+    for (int ix=-2; ix<=2; ix++) {
+        for (int iy=-2; iy<=2; iy++) {
+
+            int tile_x = loc->getX() + ix;
+            int tile_y = loc->getY() + iy;
+
+            if ( tile_x >= 0 && tile_x < this->getWidth() &&
+                 tile_y >= 0 && tile_y < this->getHeight() ) 
+            {
+                auto target = locations[tile_y][tile_x]; 
+
+                if (target->isPlant()) {
+                    auto res = std::dynamic_pointer_cast<Plant>(target);
+                    return res;
+                }
+            }
+        }
+    }
+    return { };
 }

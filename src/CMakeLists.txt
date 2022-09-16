@@ -47,7 +47,6 @@ add_library(
   agentController.cpp
   honeybee.cpp
   hive.cpp
-  plantLookup.cpp
   soybean.cpp
   plant.cpp
   utility.cpp
