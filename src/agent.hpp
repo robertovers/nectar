@@ -15,7 +15,8 @@
 #include "environment.hpp"
 #include "templates.hpp"
 
-class Location; // Declaration instead of import to avoid circularity.
+/// Declaration instead of import to avoid circularity. See location.hpp.
+class Location;
 
 /**
  * @brief Agent class for extension by simulation agents.
@@ -115,6 +116,7 @@ class Agent : public sf::Drawable {
 
         /// @brief A location that the agent will move towards, or a nullptr.
         shared_ptr<Location> target = nullptr;
+
 };
 
 #endif
