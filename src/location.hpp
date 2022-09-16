@@ -22,6 +22,7 @@ class Location : public sf::Drawable {
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
         int x;
         int y;
+        int id;
         std::vector<std::reference_wrapper<Agent>> agents;
         shared_ptr<sf::Shape> sprite = nullptr;
 };

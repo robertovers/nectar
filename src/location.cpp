@@ -1,10 +1,9 @@
 #include "location.hpp"
-#include "location.hpp"
-#include "location.hpp"
 #include "agent.hpp"
-
+#include "utility.hpp"
 
 Location::Location(int x, int y) : x(x), y(y) {
+    id = ID::generateID();
     auto rectangle = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
     rectangle->setFillColor(sf::Color(87,68,44));
     rectangle->setSize(sf::Vector2f(1, 1));
