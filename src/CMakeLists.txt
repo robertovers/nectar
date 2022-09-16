@@ -51,8 +51,8 @@ add_library(
   soybean.cpp
   plant.cpp
   utility.cpp
- "display/simulationDisplay.cpp"
- "display/statsWindow.cpp")
+  "display/simulationDisplay.cpp"
+  "display/statsWindow.cpp")
 
 target_link_libraries(nectar_lib PUBLIC sfml-graphics)
 target_link_libraries(nectar_lib PUBLIC ImGui-SFML::ImGui-SFML)
