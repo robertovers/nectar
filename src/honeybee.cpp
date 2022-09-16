@@ -122,29 +122,6 @@ void HoneyBee::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 }
 
-shared_ptr<Location> HoneyBee::scanForPlants(Environment env) {
-    auto current_loc = getLocation(env);
-    auto locations = env.getLocations();
-
-    if (current_loc == nullptr) {
-        return nullptr;
-    }
-
-    for (int ix=-2; ix<=2; ix++) {
-        for (int iy=-2; iy<=2; iy++) {
-            int tile_x = current_loc->getX() + ix;
-            int tile_y = current_loc->getY() + iy;
-            if ( tile_x >= 0 && tile_x < env.getWidth() &&
-                 tile_y >= 0 && tile_y < env.getHeight() ) 
-            {
-                auto loc = locations[tile_y][tile_x]; 
-                if (loc->isPlant() && !inMemory(loc)) return loc;
-            }
-        }
-    }
-    return nullptr;
-} 
-
 void HoneyBee::addMemory(shared_ptr<Location> plant) {
     memory.push_front(plant);
     if (memory.size() > memory_limit) {
