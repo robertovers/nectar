@@ -20,7 +20,7 @@ struct Metrics {
 
 struct ID {
     static int generateID() {
-        static std::atomic<std::uint8_t> id { 0 };
+        static std::atomic<std::uint64_t> id { 0 };
         return id++;
     };
 };
