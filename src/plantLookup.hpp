@@ -6,8 +6,11 @@
 #include "location.hpp"
 #include "plant.hpp"
 
+class Environment;
+
 class PlantLookup {
     public:
+        PlantLookup(Environment env);
         void initLookupTable(Environment env);
         opt_shared_ptr<Plant> getNearbyPlant(shared_ptr<Location> loc);
     private:

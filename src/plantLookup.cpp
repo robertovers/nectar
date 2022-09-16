@@ -1,5 +1,9 @@
 #include "plantLookup.hpp"
 
+PlantLookup::PlantLookup(Environment env) {
+    initLookupTable(env);
+}
+
 void PlantLookup::initLookupTable(Environment env) {
     for (auto row : env.getLocations()) {
         for (auto loc : row) {
