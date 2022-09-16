@@ -12,9 +12,10 @@
 #include <math.h>
 #include <memory>
 #include "agent.hpp"
+#include "utility.hpp"
 
 Agent::Agent() {
-    id = generateID();
+    id = ID::generateID();
 }
 
 Agent::~Agent() { }
@@ -38,11 +39,6 @@ shared_ptr<Location> Agent::getTarget() {
 
 void Agent::setTarget(shared_ptr<Location> t) {
     target = t;
-}
-
-int Agent::generateID() {
-    static std::atomic<std::uint8_t> id { 0 };
-    return id++;
 }
 
 int Agent::getID() {

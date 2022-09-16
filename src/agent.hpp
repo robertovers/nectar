@@ -70,13 +70,6 @@ class Agent : public sf::Drawable {
         shared_ptr<Location> getTarget();
 
         /**
-         * @brief Generate a unique ID.
-         * 
-         * @return An integer ID.
-         */
-        int generateID();
-
-        /**
          * @brief Get the ID member.
          * 
          * @return An integer ID. 
