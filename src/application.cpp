@@ -33,9 +33,10 @@ void Application::run() {
     window.setFramerateLimit(30);
 
     // set up environment
-    BasicMapGenerator mapGenerator = BasicMapGenerator(rows, columns, 50, 1);
+    BasicMapGenerator mapGenerator = BasicMapGenerator(rows, columns, 100, 10);
     auto agentController = std::make_shared<AgentController>();
-    auto environment = std::make_shared< Environment>(mapGenerator.generateEnvironment(*agentController));
+    auto environment = std::make_shared<Environment>(mapGenerator.generateEnvironment(*agentController));
+    environment->initLookupTable();
 
     // set up display parts
     ImGui::SFML::Init(window);
