@@ -29,8 +29,8 @@ HoneyBee::HoneyBee(float x, float y) {
 
 void HoneyBee::update(Environment& env) {
 
-    shared_ptr<Location> found;
     shared_ptr<Plant> found_plant;
+    opt_shared_ptr<Location> nearby_plant;
     shared_ptr<Hive> hive;
 
     auto cur_loc = getLocation(env);
@@ -38,13 +38,17 @@ void HoneyBee::update(Environment& env) {
     switch (behaviour)
     {
         case HoneybeeBehaviour::Searching:
-            // found = scanForPlants(env);
-            // if (found != nullptr) {
-            //     target = found;
-            //     behaviour = HoneybeeBehaviour::Harvesting;
-            // } else {
-            //     moveRandomWalk();
-            // }
+            nearby_plant = env.getNearbyPlant(cur_loc);
+            if (nearby_plant) {
+                if (!inMemory(*nearby_plant)) {
+                    target = *nearby_plant;
+                    behaviour = HoneybeeBehaviour::Harvesting;
+                } else {
+                    moveRandomWalk();
+                }
+            } else {
+                moveRandomWalk();
+            }
 
             break;
 
