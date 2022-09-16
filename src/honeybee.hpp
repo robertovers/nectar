@@ -17,6 +17,18 @@
 #include "location.hpp"
 #include "plant.hpp"
 
+enum HoneybeeBehaviour {
+
+    /// @brief No target, looking for nectar source.
+    Searching,
+
+    /// @brief Found nectar source, moving towards it.
+    Harvesting,
+
+    /// @brief Collected nectar, returning to hive.
+    Returning,
+};
+
 /**
  * @brief Honeybee class for instances of the honeybee agent in the simulation.
  * 
@@ -102,6 +114,9 @@ class HoneyBee : public Agent {
 
         /// @brief The max no. of plants the bee will remember.
         const int memory_limit = 5;
+
+        /// @brief The current behaviour of the honeybee.
+        HoneybeeBehaviour behaviour;
 };
 
 #endif

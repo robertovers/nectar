@@ -17,69 +17,71 @@ HoneyBee::HoneyBee() {
     pos.x = 0;
     pos.y = 0;
     direction_u = sf::Vector2f(0, 0);
+    behaviour = HoneybeeBehaviour::Searching;
 }
 
 HoneyBee::HoneyBee(float x, float y) {
     pos.x = x;
     pos.y = y;
     direction_u = sf::Vector2f(0, 0);
+    behaviour = HoneybeeBehaviour::Searching;
 }
 
 void HoneyBee::update(Environment& env) {
 
+    shared_ptr<Location> found;
+    shared_ptr<Plant> found_plant;
+    shared_ptr<Hive> hive;
+
     auto cur_loc = getLocation(env);
 
-    // Bee has no current target
-    if (target == nullptr and cur_loc != nullptr) { 
+    switch (behaviour)
+    {
+        case HoneybeeBehaviour::Searching:
+            found = scanForPlants(env);
+            if (found != nullptr) {
+                target = found;
+                behaviour = HoneybeeBehaviour::Harvesting;
+            } else {
+                moveRandomWalk();
+            }
 
-        auto found = scanForPlants(env);
+            break;
 
-        if (found == nullptr) {
-            moveRandomWalk();
-        } else {
-            target = found;
-        }
+        case HoneybeeBehaviour::Harvesting:
+            found_plant = std::dynamic_pointer_cast<Plant>(cur_loc);
+            if (found_plant) {
+                addMemory(found_plant);
+                if (found_plant->hasNectar()) {
 
-    // Bee has located its target
-    } else if (cur_loc == target) {
-
-        // Target was the Hive; deposit nectar
-        if (target == env.getHive()) {
-            env.getHive()->depositNectar(nectar);
-            nectar = 0;
-            target = nullptr;
-            moveRandomWalk();
-
-        // Target was a plant; harvest nectar
-        } else {
-            auto plant = std::dynamic_pointer_cast<Plant>(cur_loc);
-
-            if (plant) {
-                addMemory(plant);
-                if (plant->hasNectar()) {
-
-                    nectar += plant->harvestNectar();
-                    if (!plant->isPollinated()) {
-                        plant->pollinate();
+                    nectar += found_plant->harvestNectar();
+                    if (!found_plant->isPollinated()) {
+                        found_plant->pollinate();
                         env.incPollinatedCount();
                     }
                     target = env.getHive();
+                    behaviour = HoneybeeBehaviour::Returning;
 
                 } else {
-                    target = nullptr;
+                    behaviour = HoneybeeBehaviour::Searching;
                 }
+            } else {
+                moveToTarget();
             }
-        }
 
-    // Bee has a target, but has not located it yet
-    } else if (target != nullptr) {
+            break;
 
-        moveToTarget();
+        case HoneybeeBehaviour::Returning:
+            hive = std::dynamic_pointer_cast<Hive>(cur_loc);
+            if (hive) {
+                hive->depositNectar(nectar);
+                target = nullptr;
+                behaviour = HoneybeeBehaviour::Searching;
+            } else {
+                moveToTarget();
+            }
 
-    } else {
-
-        moveRandomWalk();
-
+            break;
     }
 
     pos += direction_u * velocity;
@@ -123,6 +125,10 @@ void HoneyBee::draw(sf::RenderTarget& target, sf::RenderStates states) const
 shared_ptr<Location> HoneyBee::scanForPlants(Environment env) {
     auto current_loc = getLocation(env);
     auto locations = env.getLocations();
+
+    if (current_loc == nullptr) {
+        return nullptr;
+    }
 
     for (int ix=-2; ix<=2; ix++) {
         for (int iy=-2; iy<=2; iy++) {
