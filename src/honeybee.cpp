@@ -112,7 +112,7 @@ void HoneyBee::update(Environment& env) {
             if (hive) {
                 hive->depositNectar(nectar);
 
-                waggle(cur_loc); 
+                waggle(cur_loc, memory.back()); 
 
                 target = nullptr;
                 behaviour = HoneybeeBehaviour::Searching;
@@ -133,8 +133,13 @@ void HoneyBee::update(Environment& env) {
     }
 }
 
-void HoneyBee::waggle(shared_ptr<Location> loc) {
-
+void HoneyBee::waggle(shared_ptr<Location> from, shared_ptr<Location> target) {
+    for (auto agent : from->getAgents()) {
+        agent.get().setTarget(target);
+        auto& bee = dynamic_cast<HoneyBee&>(agent.get());
+        bee.setTarget(target);
+        bee.setBehaviour(HoneybeeBehaviour::Harvesting);
+    }
 }
 
 void HoneyBee::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -183,4 +188,8 @@ std::deque<shared_ptr<Location>> HoneyBee::getMemory() {
 
 int HoneyBee::getMemoryLimit() {
     return memory_limit;
+}
+
+void HoneyBee::setBehaviour(HoneybeeBehaviour behav) {
+    behaviour = behav;
 }
