@@ -51,3 +51,7 @@ bool Location::isPlant() {
 int Location::getID() {
     return id;
 }
+
+std::vector<std::reference_wrapper<Agent>> Location::getAgents() {
+    return agents;
+}
