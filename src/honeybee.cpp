@@ -115,14 +115,14 @@ void HoneyBee::draw(sf::RenderTarget& target, sf::RenderStates states) const
     target.draw(c, states);
     
     // draw vector
-    float vectorThickness = .05;
-    float vectorLength = 1;
+    // float vectorThickness = .05;
+    // float vectorLength = 1;
 
-    sf::RectangleShape r;
-    r.setFillColor(sf::Color::White);
-    r.setSize(sf::Vector2f(vectorLength, vectorThickness));
-    float vectorOrigin = circleRadius - vectorThickness / 2;
-    target.draw(r, states);
+    // sf::RectangleShape r;
+    // r.setFillColor(sf::Color::White);
+    // r.setSize(sf::Vector2f(vectorLength, vectorThickness));
+    // float vectorOrigin = circleRadius - vectorThickness / 2;
+    // target.draw(r, states);
 
 }
 
