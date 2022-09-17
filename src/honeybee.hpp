@@ -27,6 +27,9 @@ enum HoneybeeBehaviour {
 
     /// @brief Collected nectar, returning to hive.
     Returning,
+
+    /// @brief Collected nectar from rich source; will waggle dance at hive
+    ReturningToDance
 };
 
 /**
@@ -95,6 +98,8 @@ class HoneyBee : public Agent {
          * @return int 
          */
         int getMemoryLimit();
+
+        void waggle(shared_ptr<Location> loc);
 
     protected:
 

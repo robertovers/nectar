@@ -10,12 +10,13 @@ class Plant : public Location {
         virtual ~Plant();
         bool isPlant() override;
         bool hasNectar();
+        bool hasLotsOfNectar();
         bool isPollinated();
         void pollinate();
         float harvestNectar();
     protected:
         bool pollinated = false;
-        float nectar = 5;
+        float nectar = std::rand() % 20;
 };
 
 #endif

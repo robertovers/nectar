@@ -21,6 +21,10 @@ bool Plant::hasNectar() {
     return nectar > 0;
 }
 
+bool Plant::hasLotsOfNectar() {
+    return nectar > 15;
+}
+
 float Plant::harvestNectar() {
     float amount = 1;
     if (nectar >= amount) {

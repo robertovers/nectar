@@ -67,10 +67,15 @@ void HoneyBee::update(Environment& env) {
                         env.incPollinatedCount();
                     }
 
-                    if (nectar >= carry_capacity) {
+                    if (found_plant->hasLotsOfNectar()) {
+                        target = env.getHive();
+                        behaviour = HoneybeeBehaviour::ReturningToDance;
+                    }
+                    else if (nectar >= carry_capacity) {
                         target = env.getHive();
                         behaviour = HoneybeeBehaviour::Returning;
-                    } else {
+                    } 
+                    else {
                         target = nullptr;
                         behaviour = HoneybeeBehaviour::Searching;
                     }
@@ -92,12 +97,30 @@ void HoneyBee::update(Environment& env) {
             hive = std::dynamic_pointer_cast<Hive>(cur_loc);
             if (hive) {
                 hive->depositNectar(nectar);
+                target = nullptr;
                 behaviour = HoneybeeBehaviour::Searching;
             } else {
                 moveToTarget();
             }
 
             break;
+
+        //
+        case HoneybeeBehaviour::ReturningToDance:
+
+            hive = std::dynamic_pointer_cast<Hive>(cur_loc);
+            if (hive) {
+                hive->depositNectar(nectar);
+
+                waggle(cur_loc); 
+
+                target = nullptr;
+                behaviour = HoneybeeBehaviour::Searching;
+            } else {
+                moveToTarget();
+            }
+
+            break;            
     }
 
     pos += direction_u * velocity;
@@ -108,6 +131,10 @@ void HoneyBee::update(Environment& env) {
         cur_loc->removeAgent(*this);
         new_loc->addAgent(*this);
     }
+}
+
+void HoneyBee::waggle(shared_ptr<Location> loc) {
+
 }
 
 void HoneyBee::draw(sf::RenderTarget& target, sf::RenderStates states) const
