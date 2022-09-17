@@ -34,52 +34,64 @@ void HoneyBee::update(Environment& env) {
     shared_ptr<Hive> hive;
 
     auto cur_loc = getLocation(env);
-
+    
     switch (behaviour)
     {
+        //  
         case HoneybeeBehaviour::Searching:
+
             nearby_plant = env.getNearbyPlant(cur_loc);
             if (nearby_plant) {
                 if (!inMemory(*nearby_plant)) {
                     target = *nearby_plant;
                     behaviour = HoneybeeBehaviour::Harvesting;
-                } else {
-                    moveRandomWalk();
+                    break;
                 }
-            } else {
-                moveRandomWalk();
             }
-
+            moveRandomWalk();
             break;
 
+        //  
         case HoneybeeBehaviour::Harvesting:
-            found_plant = std::dynamic_pointer_cast<Plant>(cur_loc);
-            if (found_plant) {
-                addMemory(found_plant);
-                if (found_plant->hasNectar()) {
 
+            found_plant = std::dynamic_pointer_cast<Plant>(cur_loc);
+
+            if (found_plant == target) {
+                addMemory(found_plant);
+
+                if (found_plant->hasNectar()) {
                     nectar += found_plant->harvestNectar();
+
                     if (!found_plant->isPollinated()) {
                         found_plant->pollinate();
                         env.incPollinatedCount();
                     }
-                    target = env.getHive();
-                    behaviour = HoneybeeBehaviour::Returning;
+
+                    if (nectar >= carry_capacity) {
+                        target = env.getHive();
+                        behaviour = HoneybeeBehaviour::Returning;
+                    } else {
+                        target = nullptr;
+                        behaviour = HoneybeeBehaviour::Searching;
+                    }
 
                 } else {
+                    target = nullptr;
                     behaviour = HoneybeeBehaviour::Searching;
                 }
+                break;
             } else {
                 moveToTarget();
             }
 
             break;
 
+        // 
         case HoneybeeBehaviour::Returning:
+
             hive = std::dynamic_pointer_cast<Hive>(cur_loc);
             if (hive) {
                 hive->depositNectar(nectar);
-                target = nullptr;
                 behaviour = HoneybeeBehaviour::Searching;
             } else {
                 moveToTarget();
