@@ -21,7 +21,7 @@
 Application::Application() { }
 
 void Application::run() { 
-    int rows = 100; int columns = 100; int initialWindowScale = 9;
+    int rows = 100; int columns = 100; int initialWindowScale = 10;
     float initialWindowWidth = rows * initialWindowScale;
     float initialWindowHeight = columns * initialWindowScale;
 
