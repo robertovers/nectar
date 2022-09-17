@@ -104,6 +104,7 @@ opt_shared_ptr<Location> Environment::getNearbyPlant(shared_ptr<Location> loc) {
 }
 
 opt_shared_ptr<Location> Environment::findNearbyPlant(shared_ptr<Location> loc) {
+    vector_shared_ptr<Location> nearby;
     for (int ix=-2; ix<=2; ix++) {
         for (int iy=-2; iy<=2; iy++) {
 
@@ -116,10 +117,13 @@ opt_shared_ptr<Location> Environment::findNearbyPlant(shared_ptr<Location> loc) 
                 auto target = locations[tile_y][tile_x]; 
 
                 if (target->isPlant()) {
-                    return target;
+                    nearby.push_back(target);
                 }
             }
         }
+    }
+    if (nearby.size() > 0) {
+        return nearby[rand() % nearby.size()];
     }
     return { };
 }
