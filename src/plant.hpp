@@ -15,7 +15,7 @@ class Plant : public Location {
         float harvestNectar();
     protected:
         bool pollinated = false;
-        float nectar = 1;
+        float nectar = 5;
 };
 
 #endif
