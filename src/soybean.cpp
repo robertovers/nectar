@@ -2,7 +2,7 @@
 #define GENDER 3
 
 Soybean::Soybean(int x, int y) : Plant(x, y) {
-    sprite->setFillColor(sf::Color(0, 50, 0));
+    sprite->setFillColor(sf::Color(0, 55, 44));
 }
 
 //void Soybean::draw(sf::RenderTarget & target, sf::RenderStates states) {
