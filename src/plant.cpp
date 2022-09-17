@@ -27,6 +27,7 @@ float Plant::harvestNectar() {
         nectar -= amount;
         return amount;
     } else {
-        return 0;
+        nectar = 0;
+        return nectar;
     }
 }
