@@ -109,6 +109,9 @@ class HoneyBee : public Agent {
 
         /// @brief The current behaviour of the honeybee.
         HoneybeeBehaviour behaviour;
+
+        /// @brief The nectar carrying capacity of the honeybee in milligrams.
+        float carry_capacity = 20;
 };
 
 #endif
