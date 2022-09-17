@@ -105,7 +105,7 @@ class HoneyBee : public Agent {
         std::deque<shared_ptr<Location>> memory;
 
         /// @brief The max no. of plants the bee will remember.
-        const int memory_limit = 5;
+        const int memory_limit = 10;
 
         /// @brief The current behaviour of the honeybee.
         HoneybeeBehaviour behaviour;
