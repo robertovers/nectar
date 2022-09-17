@@ -15,7 +15,7 @@ class Location : public sf::Drawable {
         void addAgent(Agent& a);
         void removeAgent(Agent& a);
         void clearAgents();
-        std::vector<std::reference_wrapper<Agent>> getAgents();
+        std::vector<std::reference_wrapper<Agent>>& getAgents();
         int numAgents();
         int getX();
         int getY();
