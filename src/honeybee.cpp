@@ -37,7 +37,12 @@ void HoneyBee::update(Environment& env) {
     
     switch (behaviour)
     {
-        //  
+        /// Case 1: Searching
+        /// 
+        /// The honeybee has no target, so it moves in a random walk until it 
+        /// finds a potential nearby nectar source. Once it finds a nearby 
+        /// plant, it sets it as its target and switches to the Harvesting 
+        /// behaviour. 
         case HoneybeeBehaviour::Searching:
 
             nearby_plant = env.getNearbyPlant(cur_loc);
@@ -51,7 +56,13 @@ void HoneyBee::update(Environment& env) {
             moveRandomWalk();
             break;
 
-        //  
+        /// Case 2: Harvesting 
+        /// 
+        /// The honeybee has identified a nectar source, and will now either 
+        /// move towards it, or search it for nectar once it has reached it.
+        /// If the nectar source is rich, it returns to the Hive to notify 
+        /// bees at the hive using the Waggle dance. Otherwise, it continues 
+        /// searching until its nectar carrying capacity is reached.
         case HoneybeeBehaviour::Harvesting:
         case HoneybeeBehaviour::HarvestingNotified:
 
@@ -60,16 +71,17 @@ void HoneyBee::update(Environment& env) {
             if (found_plant == target) {
                 addMemory(found_plant);
 
+                if (!found_plant->isPollinated()) {
+                    found_plant->pollinate();
+                    env.incPollinatedCount();
+                }
+
                 if (found_plant->hasNectar()) {
                     nectar += found_plant->harvestNectar();
 
-                    if (!found_plant->isPollinated()) {
-                        found_plant->pollinate();
-                        env.incPollinatedCount();
-                    }
-
-                    if (found_plant->hasLotsOfNectar() && 
+                    if (found_plant->hasLotsOfNectar() &&
                         behaviour != HoneybeeBehaviour::HarvestingNotified) {
+                        // found rich nectar source
                         target = env.getHive();
                         behaviour = HoneybeeBehaviour::ReturningToDance;
                     }
@@ -83,6 +95,7 @@ void HoneyBee::update(Environment& env) {
                     }
 
                 } else {
+                    // no nectar, continue searching
                     target = nullptr;
                     behaviour = HoneybeeBehaviour::Searching;
                 }
@@ -94,7 +107,12 @@ void HoneyBee::update(Environment& env) {
 
             break;
 
-        // 
+        /// Case 3: Returning
+        /// 
+        /// The honeybee is now returning to the hive to deposit its nectar or
+        /// notify bees about a nectar source. The Waggle dance will notify all
+        /// bees within a one-tile radius of the hive, who will go out to search
+        /// for the nectar source.
         case HoneybeeBehaviour::Returning:
         case HoneybeeBehaviour::ReturningToDance:
 
@@ -120,6 +138,7 @@ void HoneyBee::update(Environment& env) {
 
     auto new_loc = getLocation(env);
 
+    // update location agent arrays if agent has moved tiles
     if (new_loc != nullptr && cur_loc != nullptr && new_loc != cur_loc) {
         cur_loc->removeAgent(*this);
         new_loc->addAgent(*this);
@@ -129,6 +148,7 @@ void HoneyBee::update(Environment& env) {
 void HoneyBee::waggle(Environment& env, shared_ptr<Hive> hive, shared_ptr<Location> loc) {
     shared_ptr<Location> nearby;
 
+    // loop over tiles within a one-tile radius of the hive
     for (int ix=-1; ix<=1; ix++) {
         for (int iy=-1; iy<=1; iy++) {
 
@@ -143,8 +163,14 @@ void HoneyBee::waggle(Environment& env, shared_ptr<Hive> hive, shared_ptr<Locati
                 for (auto agent : nearby->getAgents()) {
                     auto& bee = dynamic_cast<HoneyBee&>(agent.get());
                     if (bee.behaviour != HoneybeeBehaviour::HarvestingNotified) {
+
+                        // the below is necessary in case a bee near the hive is
+                        // notified of a nectar source before it can deposit its 
+                        // own nectar
                         hive->depositNectar(bee.nectar);
                         bee.nectar = 0;
+
+                        // set new target and behaviour to search for source
                         bee.target = loc;
                         bee.behaviour = HoneybeeBehaviour::HarvestingNotified;
                     }

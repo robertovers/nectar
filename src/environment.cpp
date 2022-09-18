@@ -1,3 +1,13 @@
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ * 
+ * @file environment.cpp
+ * @brief Environment class that stores and manages a 2D grid of locations.
+ * @date 2022-09-18
+ */
+
 #include "environment.hpp"
 #include <iostream>
 

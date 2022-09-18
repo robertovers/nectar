@@ -96,9 +96,9 @@ class HoneyBee : public Agent {
         std::deque<shared_ptr<Location>> getMemory();
 
         /**
-         * @brief Get the bee's memory limit
+         * @brief Get the bee's memory limit.
          * 
-         * @return int 
+         * @return the max no. of flowers the bee can remember.
          */
         int getMemoryLimit();
 
