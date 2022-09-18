@@ -141,16 +141,12 @@ void HoneyBee::waggle(Environment& env, shared_ptr<Hive> hive, shared_ptr<Locati
                 nearby = env.getLocations()[tile_y][tile_x];
 
                 for (auto agent : nearby->getAgents()) {
-                    agent.get().setTarget(target);
                     auto& bee = dynamic_cast<HoneyBee&>(agent.get());
-
                     if (bee.behaviour != HoneybeeBehaviour::HarvestingNotified) {
                         hive->depositNectar(bee.nectar);
                         bee.nectar = 0;
                         bee.target = loc;
                         bee.behaviour = HoneybeeBehaviour::HarvestingNotified;
-                    } else {
-                        bee.behaviour = HoneybeeBehaviour::Returning;
                     }
                 }
             }
