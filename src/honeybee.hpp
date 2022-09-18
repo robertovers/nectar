@@ -102,9 +102,14 @@ class HoneyBee : public Agent {
          */
         int getMemoryLimit();
 
+        /**
+         * @brief Simulates the 'Waggle dance' to notify bees of a nectar source.
+         * 
+         * @param env a reference to the simulation environment.
+         * @param hive a pointer to the hive.
+         * @param loc the location to Waggle dance at.
+         */
         void waggle(Environment& env, shared_ptr<Hive> hive, shared_ptr<Location> loc);
-
-        void setBehaviour(HoneybeeBehaviour behav);
 
     protected:
 
