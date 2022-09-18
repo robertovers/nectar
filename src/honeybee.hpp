@@ -25,6 +25,9 @@ enum HoneybeeBehaviour {
     /// @brief Found nectar source, moving towards it.
     Harvesting,
 
+    /// @brief Moving towards a nectar source identified from a waggle dance.
+    HarvestingNotified,
+
     /// @brief Collected nectar, returning to hive.
     Returning,
 
@@ -99,7 +102,7 @@ class HoneyBee : public Agent {
          */
         int getMemoryLimit();
 
-        void waggle(shared_ptr<Location> from, shared_ptr<Location> target);
+        void waggle(shared_ptr<Hive> hive, shared_ptr<Location> target);
 
         void setBehaviour(HoneybeeBehaviour behav);
 

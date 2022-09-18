@@ -12,6 +12,7 @@
 #include "honeybee.hpp"
 #include "plant.hpp"
 #include "hive.hpp"
+#include <iostream>
 
 HoneyBee::HoneyBee() {
     pos.x = 0;
@@ -34,6 +35,8 @@ void HoneyBee::update(Environment& env) {
     shared_ptr<Hive> hive;
 
     auto cur_loc = getLocation(env);
+
+    std::cout << nectar << std::endl;
     
     switch (behaviour)
     {
@@ -53,6 +56,7 @@ void HoneyBee::update(Environment& env) {
 
         //  
         case HoneybeeBehaviour::Harvesting:
+        case HoneybeeBehaviour::HarvestingNotified:
 
             found_plant = std::dynamic_pointer_cast<Plant>(cur_loc);
 
@@ -67,7 +71,8 @@ void HoneyBee::update(Environment& env) {
                         env.incPollinatedCount();
                     }
 
-                    if (found_plant->hasLotsOfNectar()) {
+                    if (found_plant->hasLotsOfNectar() && 
+                        behaviour != HoneybeeBehaviour::HarvestingNotified) {
                         target = env.getHive();
                         behaviour = HoneybeeBehaviour::ReturningToDance;
                     }
@@ -85,6 +90,7 @@ void HoneyBee::update(Environment& env) {
                     behaviour = HoneybeeBehaviour::Searching;
                 }
                 break;
+
             } else {
                 moveToTarget();
             }
@@ -93,10 +99,17 @@ void HoneyBee::update(Environment& env) {
 
         // 
         case HoneybeeBehaviour::Returning:
+        case HoneybeeBehaviour::ReturningToDance:
 
             hive = std::dynamic_pointer_cast<Hive>(cur_loc);
             if (hive) {
                 hive->depositNectar(nectar);
+                nectar = 0;
+
+                if (behaviour == HoneybeeBehaviour::ReturningToDance) {
+                    waggle(hive, memory.back());
+                }
+
                 target = nullptr;
                 behaviour = HoneybeeBehaviour::Searching;
             } else {
@@ -104,23 +117,6 @@ void HoneyBee::update(Environment& env) {
             }
 
             break;
-
-        //
-        case HoneybeeBehaviour::ReturningToDance:
-
-            hive = std::dynamic_pointer_cast<Hive>(cur_loc);
-            if (hive) {
-                hive->depositNectar(nectar);
-
-                waggle(cur_loc, memory.back()); 
-
-                target = nullptr;
-                behaviour = HoneybeeBehaviour::Searching;
-            } else {
-                moveToTarget();
-            }
-
-            break;            
     }
 
     pos += direction_u * velocity;
@@ -133,12 +129,16 @@ void HoneyBee::update(Environment& env) {
     }
 }
 
-void HoneyBee::waggle(shared_ptr<Location> from, shared_ptr<Location> target) {
-    for (auto agent : from->getAgents()) {
+void HoneyBee::waggle(shared_ptr<Hive> hive, shared_ptr<Location> target) {
+    for (auto agent : hive->getAgents()) {
         agent.get().setTarget(target);
         auto& bee = dynamic_cast<HoneyBee&>(agent.get());
+
+        hive->depositNectar(bee.nectar);
+        bee.nectar = 0;
+
         bee.setTarget(target);
-        bee.setBehaviour(HoneybeeBehaviour::Harvesting);
+        bee.setBehaviour(HoneybeeBehaviour::HarvestingNotified);
     }
 }
 
