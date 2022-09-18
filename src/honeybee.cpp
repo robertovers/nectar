@@ -12,7 +12,6 @@
 #include "honeybee.hpp"
 #include "plant.hpp"
 #include "hive.hpp"
-#include <iostream>
 
 HoneyBee::HoneyBee() {
     pos.x = 0;
@@ -35,8 +34,6 @@ void HoneyBee::update(Environment& env) {
     shared_ptr<Hive> hive;
 
     auto cur_loc = getLocation(env);
-
-    std::cout << nectar << std::endl;
     
     switch (behaviour)
     {
@@ -107,7 +104,7 @@ void HoneyBee::update(Environment& env) {
                 nectar = 0;
 
                 if (behaviour == HoneybeeBehaviour::ReturningToDance) {
-                    waggle(hive, memory.back());
+                    waggle(env, hive, memory.back());
                 }
 
                 target = nullptr;
@@ -129,16 +126,35 @@ void HoneyBee::update(Environment& env) {
     }
 }
 
-void HoneyBee::waggle(shared_ptr<Hive> hive, shared_ptr<Location> target) {
-    for (auto agent : hive->getAgents()) {
-        agent.get().setTarget(target);
-        auto& bee = dynamic_cast<HoneyBee&>(agent.get());
+void HoneyBee::waggle(Environment& env, shared_ptr<Hive> hive, shared_ptr<Location> loc) {
+    shared_ptr<Location> nearby;
 
-        hive->depositNectar(bee.nectar);
-        bee.nectar = 0;
+    for (int ix=-1; ix<=1; ix++) {
+        for (int iy=-1; iy<=1; iy++) {
 
-        bee.setTarget(target);
-        bee.setBehaviour(HoneybeeBehaviour::HarvestingNotified);
+        int tile_x = hive->getX() + ix;
+        int tile_y = hive->getY() + iy;
+
+        if ( tile_x >= 0 && tile_x < env.getWidth() &&
+             tile_y >= 0 && tile_y < env.getHeight() ) 
+            {
+                nearby = env.getLocations()[tile_y][tile_x];
+
+                for (auto agent : nearby->getAgents()) {
+                    agent.get().setTarget(target);
+                    auto& bee = dynamic_cast<HoneyBee&>(agent.get());
+
+                    if (bee.behaviour != HoneybeeBehaviour::HarvestingNotified) {
+                        hive->depositNectar(bee.nectar);
+                        bee.nectar = 0;
+                        bee.target = loc;
+                        bee.behaviour = HoneybeeBehaviour::HarvestingNotified;
+                    } else {
+                        bee.behaviour = HoneybeeBehaviour::Returning;
+                    }
+                }
+            }
+        }
     }
 }
 

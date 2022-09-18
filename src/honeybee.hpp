@@ -102,7 +102,7 @@ class HoneyBee : public Agent {
          */
         int getMemoryLimit();
 
-        void waggle(shared_ptr<Hive> hive, shared_ptr<Location> target);
+        void waggle(Environment& env, shared_ptr<Hive> hive, shared_ptr<Location> loc);
 
         void setBehaviour(HoneybeeBehaviour behav);
 
