@@ -201,7 +201,3 @@ std::deque<shared_ptr<Location>> HoneyBee::getMemory() {
 int HoneyBee::getMemoryLimit() {
     return memory_limit;
 }
-
-void HoneyBee::setBehaviour(HoneybeeBehaviour behav) {
-    behaviour = behav;
-}
