@@ -32,6 +32,7 @@ void StatsWindow::draw() {
     pollinationCountInfo << "Flowers pollinated: " << metrics->pollinated_count;
 
     // configure window
+    ImGui::SetNextWindowPos(ImVec2(0.2, 0.2), ImGuiCond_Once);
     ImGui::SetNextWindowSize(ImVec2(0.0, 0.0));  // auto resize
     ImGui::Begin("Simulation statistics");
     ImGui::Text(runTimeInfo.str().c_str());
