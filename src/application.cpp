@@ -3,6 +3,7 @@
 #include "environment.hpp"
 #include "basicMapGenerator.hpp"
 #include "agentController.hpp"
+#include "initialDisplay.hpp"
 #include "utility.hpp"
 
 Application::Application() { }
@@ -20,6 +21,10 @@ void Application::run() {
     
     Environment environment = mapGenerator.generateEnvironment(agentController);
 
+    InitialDisplay initialUI = InitialDisplay();
+    initialUI.run();
+    std::cout << "Passed initialUI.start() call" << std::endl;
+   
     while (window.isOpen()) {
 
         sf::Event event;

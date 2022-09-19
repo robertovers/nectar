@@ -16,15 +16,16 @@ FetchContent_MakeAvailable(SFML)
 add_library(
   insect_lib STATIC 
   agent.cpp
-  environment.cpp
-  location.cpp
-  basicMapGenerator.cpp
-  rowMapGenerator.cpp
   agentController.cpp
-  honeybee.cpp
+  basicMapGenerator.cpp
+  environment.cpp
   hive.cpp
-  soybean.cpp
+  honeybee.cpp
+  initialDisplay.cpp
+  location.cpp
   plant.cpp
+  rowMapGenerator.cpp
+  soybean.cpp
 )
 
 target_link_libraries(insect_lib PUBLIC sfml-graphics)
@@ -34,6 +35,7 @@ add_executable(
   Insect_Sim 
   main.cpp
   application.cpp
+  initialDisplay.cpp
 )
 target_link_libraries(Insect_Sim PUBLIC insect_lib)
 #target_link_libraries(Insect_Sim PRIVATE sfml-graphics)
