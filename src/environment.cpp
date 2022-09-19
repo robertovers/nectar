@@ -11,10 +11,10 @@ Environment::Environment(int w, int h) : width(w), height(h) {
     }
 }
 
-void Environment::draw(sf::RenderWindow &window) {
+void Environment::draw(sf::RenderTarget & target, sf::RenderStates states) {
     for (auto row : locations) {
         for (auto loc : row) {
-            loc->draw(window);
+            target.draw(*loc, states);
         }
     }
 }
@@ -28,23 +28,23 @@ shared_ptr<Location> Environment::getLocation(int x, int y)
     return locations[y][x];
 }
 
-shared_ptr<Location>& Environment::getHive() {
+shared_ptr<Hive> Environment::getHive() {
     return hive;
 }
 
-void Environment::setHive(shared_ptr<Location> h) {
+void Environment::setHive(shared_ptr<Hive> h) {
     hive = h;
 }
 
-int Environment::getSize() {
+int Environment::getSize() const  {
     return width * height;
 }
 
-int Environment::getWidth() {
+int Environment::getWidth() const  {
     return width;
 }
 
-int Environment::getHeight() {
+int Environment::getHeight() const {
     return height;
 }
 
@@ -71,4 +71,12 @@ int Environment::plantCount() {
 void Environment::changeLocation(int x, int y, shared_ptr<Location> newLocation)
 {
     locations[y][x] = newLocation;
+}
+
+void Environment::incPollinatedCount() {
+    pollinated_count += 1;
+}
+
+int Environment::getPollinatedCount() {
+    return pollinated_count;
 }

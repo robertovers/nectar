@@ -1,7 +1,17 @@
-#include "agent.hpp"
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ * 
+ * @file honeybee.cpp
+ * @brief Honeybee class for instances of the honeybee agent in the simulation.
+ * @date 2022-09-11
+ */
+
+#include <math.h>
 #include "honeybee.hpp"
 #include "plant.hpp"
-#include <iostream>
+#include "hive.hpp"
 
 HoneyBee::HoneyBee() {
     pos.x = 0;
@@ -15,13 +25,14 @@ HoneyBee::HoneyBee(float x, float y) {
     direction_u = sf::Vector2f(0, 0);
 }
 
-void HoneyBee::update(Environment env) {
+void HoneyBee::update(Environment& env) {
 
-    shared_ptr<Location> cur_loc = getLocation(env);
+    auto cur_loc = getLocation(env);
 
+    // Bee has no current target
     if (target == nullptr and cur_loc != nullptr) { 
 
-        auto found = scan(env);
+        auto found = scanForPlants(env);
 
         if (found == nullptr) {
             moveRandomWalk();
@@ -29,15 +40,38 @@ void HoneyBee::update(Environment env) {
             target = found;
         }
 
+    // Bee has located its target
     } else if (cur_loc == target) {
 
+        // Target was the Hive; deposit nectar
         if (target == env.getHive()) {
+            env.getHive()->depositNectar(nectar);
+            nectar = 0;
             target = nullptr;
             moveRandomWalk();
+
+        // Target was a plant; harvest nectar
         } else {
-            target = env.getHive();
+            auto plant = std::dynamic_pointer_cast<Plant>(cur_loc);
+
+            if (plant) {
+                addMemory(plant);
+                if (plant->hasNectar()) {
+
+                    nectar += plant->harvestNectar();
+                    if (!plant->isPollinated()) {
+                        plant->pollinate();
+                        env.incPollinatedCount();
+                    }
+                    target = env.getHive();
+
+                } else {
+                    target = nullptr;
+                }
+            }
         }
 
+    // Bee has a target, but has not located it yet
     } else if (target != nullptr) {
 
         moveToTarget();
@@ -50,7 +84,7 @@ void HoneyBee::update(Environment env) {
 
     pos += direction_u * velocity;
 
-    shared_ptr<Location> new_loc = getLocation(env);
+    auto new_loc = getLocation(env);
 
     if (new_loc != nullptr && cur_loc != nullptr && new_loc != cur_loc) {
         cur_loc->removeAgent(*this);
@@ -58,7 +92,35 @@ void HoneyBee::update(Environment env) {
     }
 }
 
-shared_ptr<Location> HoneyBee::scan(Environment env) {
+void HoneyBee::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    // add offset and direction to existing transformations
+    states.transform.translate(pos);
+    float angle = atan2(direction_u.y, direction_u.x) * (180.0 / 3.141592653589793238463);
+    states.transform.rotate(angle);
+
+    // draw body
+    float circleRadius = 0.25;
+
+    sf::CircleShape c;
+    c.setRadius(circleRadius);
+    c.setFillColor(sf::Color::White);
+    c.setOrigin(sf::Vector2f(circleRadius, circleRadius));
+    target.draw(c, states);
+    
+    // draw vector
+    float vectorThickness = .05;
+    float vectorLength = 1;
+
+    sf::RectangleShape r;
+    r.setFillColor(sf::Color::White);
+    r.setSize(sf::Vector2f(vectorLength, vectorThickness));
+    float vectorOrigin = circleRadius - vectorThickness / 2;
+    target.draw(r, states);
+
+}
+
+shared_ptr<Location> HoneyBee::scanForPlants(Environment env) {
     auto current_loc = getLocation(env);
     auto locations = env.getLocations();
 
@@ -70,23 +132,29 @@ shared_ptr<Location> HoneyBee::scan(Environment env) {
                  tile_y >= 0 && tile_y < env.getHeight() ) 
             {
                 auto loc = locations[tile_y][tile_x]; 
-                if (loc->isPlant()) return loc;
+                if (loc->isPlant() && !inMemory(loc)) return loc;
             }
         }
     }
     return nullptr;
 } 
 
-void HoneyBee::draw(sf::RenderWindow &window) {
-    sf::CircleShape c;
-    c.setPosition(pos.x * 20 - display_width/2, pos.y * 20 - display_height/2);
-    c.setRadius(5);
-    c.setFillColor(sf::Color::White);
-    window.draw(c);
+void HoneyBee::addMemory(shared_ptr<Location> plant) {
+    memory.push_front(plant);
+    if (memory.size() > memory_limit) {
+        memory.pop_back();
+    }
+}
 
-    sf::Vertex line[] = {
-        sf::Vertex(pos * (float) 20),
-        sf::Vertex((pos + direction_u) * (float) 20)
-    };
-    window.draw(line, 2, sf::Lines);
+bool HoneyBee::inMemory(shared_ptr<Location> plant) {
+    auto it = std::find(memory.begin(), memory.end(), plant);
+    return it != memory.end();
+}
+
+std::deque<shared_ptr<Location>> HoneyBee::getMemory() {
+    return memory;
+}
+
+int HoneyBee::getMemoryLimit() {
+    return memory_limit;
 }

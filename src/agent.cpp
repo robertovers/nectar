@@ -1,3 +1,13 @@
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ * 
+ * @file agent.cpp
+ * @brief Agent class for extension by simulation agents.
+ * @date 2022-09-10
+ */
+
 #include <atomic>
 #include <math.h>
 #include <memory>
@@ -9,10 +19,12 @@ Agent::Agent() {
 
 Agent::~Agent() { }
 
-shared_ptr<Location> Agent::getLocation(Environment env) {
+shared_ptr<Location> Agent::getLocation(Environment& env) {
     vector2D_shared_ptr<Location>& locations = env.getLocations();
     int tile_x = floor(pos.x);
     int tile_y = floor(pos.y);
+
+    // check coords are valid, then return corresponding Location pointer.
     if ( tile_x >= 0 && tile_x < env.getWidth() &&
          tile_y >= 0 && tile_y < env.getHeight() ) {
         return locations[tile_y][tile_x]; 
@@ -38,6 +50,7 @@ int Agent::getID() {
 }
 
 void Agent::moveRandomWalk() {
+    // generate a random direction
     float dx = direction_u.x + (rand() % 3 - 1);
     float dy = direction_u.y + (rand() % 3 - 1);
     sf::Vector2f target_v = sf::Vector2f(dx, dy);

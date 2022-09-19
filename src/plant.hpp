@@ -1,6 +1,7 @@
 #ifndef PLANT_HPP
 #define PLANT_HPP
 
+#include <SFML/Graphics.hpp>
 #include "agent.hpp"
 
 class Plant : public Location {
@@ -8,9 +9,13 @@ class Plant : public Location {
         Plant(int x, int y);
         virtual ~Plant();
         bool isPlant() override;
-        void pollinate(float amount) override;
-        float harvestNectar() override;
-        bool hasNectar() override;
+        bool hasNectar();
+        bool isPollinated();
+        void pollinate();
+        float harvestNectar();
+    protected:
+        bool pollinated = false;
+        float nectar = 1;
 };
 
 
