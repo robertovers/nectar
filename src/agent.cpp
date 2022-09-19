@@ -4,7 +4,7 @@
  * Group CS6
  * 
  * @file agent.cpp
- * @brief Agent class for extension by simulation agents.
+ * @brief Abstract class for extension by simulation agents.
  * @date 2022-09-10
  */
 

@@ -4,7 +4,7 @@
  * Group CS6
  * 
  * @file environment.hpp
- * @brief Environment class that stores and manages a 2D grid of locations.
+ * @brief A class that stores and manages a 2D grid of Location objects.
  * @date 2022-09-18
  */
 
@@ -19,6 +19,14 @@
 #include "templates.hpp"
 #include "plant.hpp"
 
+/**
+ * @brief A class that stores and manages a 2D grid of Location objects.
+ * 
+ * The simulation environment is represented as a discrete 2D grid of Locations,
+ * overlaying a continuous coordinate space. This allows for efficiency in
+ * tracking the agents and performing operations related to their location,
+ * whilst maintaining smooth, continous agent movement.
+ */
 class Environment {
 
     public:
@@ -161,6 +169,7 @@ class Environment {
         opt_shared_ptr<Location> findNearbyPlant(shared_ptr<Location> loc);
 
         /// @brief A lookup table of nearby plants, for every location.
+        /// 
         std::unordered_map<int, shared_ptr<Location>> plant_table;
 };
 

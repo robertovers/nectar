@@ -4,7 +4,7 @@
  * Group CS6
  * 
  * @file environment.cpp
- * @brief Environment class that stores and manages a 2D grid of locations.
+ * @brief A class that stores and manages a 2D grid of Location objects.
  * @date 2022-09-18
  */
 

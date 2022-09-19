@@ -4,7 +4,7 @@
  * Group CS6
  * 
  * @file agent.hpp
- * @brief Agent class for extension by simulation agents.
+ * @brief Abstract class for extension by simulation agents.
  * @date 2022-09-10
  */
 
@@ -15,11 +15,11 @@
 #include "environment.hpp"
 #include "templates.hpp"
 
-/// Declaration instead of import to avoid circularity. See location.hpp.
+// Declaration instead of import to avoid circularity. See location.hpp.
 class Location;
 
 /**
- * @brief Agent class for extension by simulation agents.
+ * @brief Abstract class for extension by simulation agents.
  * 
  * This is an abstract class that provides the basic functionality for an
  * agent as part of the simulation - primarily movement, which is implemented

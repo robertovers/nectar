@@ -4,7 +4,7 @@
  * Group CS6
  * 
  * @file application.cpp
- * @brief Application class that initiates and controls the simulation.
+ * @brief Top-level class that initiates and controls the simulation.
  * @date 2022-09-10
  */
 

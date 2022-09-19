@@ -4,7 +4,7 @@
  * Group CS6
  * 
  * @file application.hpp
- * @brief Application class that initiates and controls the simulation.
+ * @brief Top-level class that initiates and controls the simulation.
  * @date 2022-09-10
  */
 
@@ -14,7 +14,7 @@
 #include "display/simulationDisplay.hpp"
 
 /**
- * @brief Application class that initiates and controls the simulation.
+ * @brief Top-level class that initiates and controls the simulation.
  * 
  * The Application class is the top of the simulation heirarchy, and contains
  * the simulation loop that calls all update and render methods.

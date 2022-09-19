@@ -4,7 +4,7 @@
  * Group CS6
  * 
  * @file honeybee.hpp
- * @brief Honeybee class for instances of the honeybee agent in the simulation.
+ * @brief A class for instances of the honeybee agent in the simulation.
  * @date 2022-09-11
  */
 
@@ -36,11 +36,12 @@ enum HoneybeeBehaviour {
 };
 
 /**
- * @brief Honeybee class for instances of the honeybee agent in the simulation.
+ * @brief A class for instances of the honeybee agent in the simulation.
  * 
- * The Honeybee extends the Agent class. Its follows a simple behaviour - 
- * searching for nearby plants and collecting nectar from them if found,
- * then returning to the hive to deposit the nectar.
+ * The Honeybee extends the Agent class, and is the primary agent of the
+ * simulation. The actions of a honeybee depends on its behaviour attribute -
+ * an enum that determines what the agent will do when it is updated at each
+ * tick.
  */
 class HoneyBee : public Agent {
 

@@ -4,7 +4,7 @@
  * Group CS6
  * 
  * @file honeybee.cpp
- * @brief Honeybee class for instances of the honeybee agent in the simulation.
+ * @brief A class for instances of the honeybee agent in the simulation.
  * @date 2022-09-11
  */
 
