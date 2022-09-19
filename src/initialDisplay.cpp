@@ -6,8 +6,7 @@
 #include <imgui.h>
 #include <imgui-SFML.h>
 
-/*
-#include <SFML/System.hpp>
+/*#include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 */
 
