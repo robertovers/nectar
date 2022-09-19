@@ -33,6 +33,7 @@ void Environment::initLookupTable() {
         for (auto loc : row) {
             auto nearbyPlant = findNearbyPlant(loc);
             if (nearbyPlant) {
+                // lookup table stores < ID, nearby plant > pairs
                 plant_table.insert(std::make_pair(loc->getID(), *nearbyPlant));
             }
         }
@@ -70,6 +71,8 @@ opt_shared_ptr<Location> Environment::findNearbyPlant(shared_ptr<Location> loc) 
             }
         }
     }
+
+    // returns a random plant from those found nearby - prevents direction bias
     if (nearby.size() > 0) {
         return nearby[rand() % nearby.size()];
     }

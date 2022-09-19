@@ -49,8 +49,8 @@ class Agent : public sf::Drawable {
         /**
          * @brief Pure virtual draw method - implemented by agent type.
          * 
-         * @param target 
-         * @param states 
+         * @param target a render target.
+         * @param states states to be applied when rendering to the target.
          */
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 

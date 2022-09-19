@@ -1,3 +1,13 @@
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ * 
+ * @file location.cpp
+ * @brief Base class for a single location tile.
+ * @date 2022-09-19
+ */
+
 #include "location.hpp"
 #include "agent.hpp"
 #include "utility.hpp"

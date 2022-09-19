@@ -53,7 +53,7 @@ class Environment {
         void initLookupTable();
 
         /**
-         * @brief Retrieves a nearby plant from the lookup table. 
+         * @brief Gets a nearby plant from the lookup table, using ID as key. 
          * 
          * @param loc a location. 
          * @return a shared pointer to a nearby plant if one exists, else nullptr.
@@ -148,6 +148,17 @@ class Environment {
 
     private:
 
+        /** 
+         * @brief Used when initialising the lookup table, to find nearby plants.
+         * 
+         * @param loc a location to find a nearby plant for.
+         * @return a shared pointer to a plant within a two-tile radius tiles.
+         */
+        opt_shared_ptr<Location> findNearbyPlant(shared_ptr<Location> loc);
+
+        /// @brief A lookup table of nearby plants, for every location.
+        std::unordered_map<int, shared_ptr<Location>> plant_table;
+
         /// @brief The width of the environment in location tiles.
         int width;
 
@@ -162,15 +173,6 @@ class Environment {
 
         /// @brief The number of pollinated plants.
         int pollinated_count = 0;
-
-        /// @brief Used when initialising the lookup table, to find nearby plants.
-        /// @param loc a location to find a nearby plant for.
-        /// @return a shared pointer to a plant within a two-tile radius tiles.
-        opt_shared_ptr<Location> findNearbyPlant(shared_ptr<Location> loc);
-
-        /// @brief A lookup table of nearby plants, for every location.
-        /// 
-        std::unordered_map<int, shared_ptr<Location>> plant_table;
 };
 
 #endif
