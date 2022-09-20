@@ -18,6 +18,13 @@ struct Metrics {
     void toConsole();
 };
 
+struct ID {
+    static int generateID() {
+        static std::atomic<std::uint64_t> id { 0 };
+        return id++;
+    };
+};
+
 struct Parameters {
     int rows;
     int columns;
@@ -26,7 +33,7 @@ struct Parameters {
     float soybean_p;
     bool normal_exit;
 
-    Parameters();
+    Parameters();   
 }
 
 #endif
