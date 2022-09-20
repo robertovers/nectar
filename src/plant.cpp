@@ -3,6 +3,7 @@
 Plant::~Plant() { }
 
 Plant::Plant(int x, int y) : Location(x, y) {
+    nectar = std::rand() % MAX_NECTAR + 1;
 }
 
 bool Plant::isPlant() {
