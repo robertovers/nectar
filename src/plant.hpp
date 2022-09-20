@@ -2,7 +2,7 @@
 #define PLANT_HPP
 
 #include <SFML/Graphics.hpp>
-#include "agent.hpp"
+#include "location.hpp"
 
 class Plant : public Location {
     public:
@@ -10,13 +10,13 @@ class Plant : public Location {
         virtual ~Plant();
         bool isPlant() override;
         bool hasNectar();
+        bool hasLotsOfNectar();
         bool isPollinated();
         void pollinate();
         float harvestNectar();
     protected:
         bool pollinated = false;
-        float nectar = 1;
+        float nectar = std::rand() % 20;
 };
-
 
 #endif

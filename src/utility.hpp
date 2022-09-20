@@ -18,15 +18,11 @@ struct Metrics {
     void toConsole();
 };
 
-struct Parameters {
-    int rows;
-    int columns;
-    int scale;
-    int bees;
-    float soybean_p;
-    bool normal_exit;
-
-    Parameters();
+struct ID {
+    static int generateID() {
+        static std::atomic<std::uint64_t> id { 0 };
+        return id++;
+    };
 };
 
 #endif

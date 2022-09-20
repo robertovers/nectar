@@ -4,7 +4,7 @@
  * Group CS6
  * 
  * @file agentController.hpp
- * @brief A controller class that manages all agents in the simulation.
+ * @brief A controller class that manages all Agent instances in the simulation.
  * @date 2022-09-11
  */
 
@@ -17,7 +17,7 @@
 #include "templates.hpp"
 
 /**
- * @brief A controller class that manages all agents in the simulation.
+ * @brief A controller class that manages all Agent instances in the simulation.
  * 
  * The AgentController stores pointers to all agents, and contains methods
  * that subsequently call methods in the agents - such as to update and draw. 
