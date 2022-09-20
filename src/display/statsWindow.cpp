@@ -37,7 +37,7 @@ void StatsWindow::draw(int windowX, int windowY) {
     ImGui::SetNextWindowSize(ImVec2(0.0, 0.0));  // auto resize
 
     ImGui::Begin("Simulation statistics");
-    // move window if outside visible area
+    // move window if needed, and outside visible area
     bool checkWindowPosition = windowX != -1 and windowY != -1;
     if (checkWindowPosition) {
         auto statsWindowPos = ImGui::GetWindowPos();
