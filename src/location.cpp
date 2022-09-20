@@ -1,21 +1,12 @@
-/**
- * FIT3161/3162 Computer Science Project
- * Insect Simulation for Improved Pollination and Pest Control
- * Group CS6
- * 
- * @file location.cpp
- * @brief Base class for a single location tile.
- * @date 2022-09-19
- */
-
+#include "location.hpp"
+#include "location.hpp"
 #include "location.hpp"
 #include "agent.hpp"
-#include "utility.hpp"
+
 
 Location::Location(int x, int y) : x(x), y(y) {
-    id = ID::generateID();
     auto rectangle = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
-    rectangle->setFillColor(sf::Color(104, 78, 59));
+    rectangle->setFillColor(sf::Color(87,68,44));
     rectangle->setSize(sf::Vector2f(1, 1));
     sprite = rectangle;
 }
@@ -56,12 +47,4 @@ int Location::getY() {
 
 bool Location::isPlant() {
     return false;
-}
-
-int Location::getID() {
-    return id;
-}
-
-std::vector<std::reference_wrapper<Agent>>& Location::getAgents() {
-    return agents;
 }

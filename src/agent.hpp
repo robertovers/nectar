@@ -4,7 +4,7 @@
  * Group CS6
  * 
  * @file agent.hpp
- * @brief Abstract class for extension by simulation agents.
+ * @brief Agent class for extension by simulation agents.
  * @date 2022-09-10
  */
 
@@ -15,11 +15,10 @@
 #include "environment.hpp"
 #include "templates.hpp"
 
-// Declaration instead of import to avoid circularity. See location.hpp.
-class Location;
+class Location; // Declaration instead of import to avoid circularity.
 
 /**
- * @brief Abstract class for extension by simulation agents.
+ * @brief Agent class for extension by simulation agents.
  * 
  * This is an abstract class that provides the basic functionality for an
  * agent as part of the simulation - primarily movement, which is implemented
@@ -49,8 +48,8 @@ class Agent : public sf::Drawable {
         /**
          * @brief Pure virtual draw method - implemented by agent type.
          * 
-         * @param target a render target.
-         * @param states states to be applied when rendering to the target.
+         * @param target 
+         * @param states 
          */
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 
@@ -68,6 +67,13 @@ class Agent : public sf::Drawable {
          * @return The agent's target of type shared_ptr<Location>.
          */
         shared_ptr<Location> getTarget();
+
+        /**
+         * @brief Generate a unique ID.
+         * 
+         * @return An integer ID.
+         */
+        int generateID();
 
         /**
          * @brief Get the ID member.
@@ -109,7 +115,6 @@ class Agent : public sf::Drawable {
 
         /// @brief A location that the agent will move towards, or a nullptr.
         shared_ptr<Location> target = nullptr;
-
 };
 
 #endif

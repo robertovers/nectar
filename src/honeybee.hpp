@@ -4,7 +4,7 @@
  * Group CS6
  * 
  * @file honeybee.hpp
- * @brief A class for instances of the honeybee agent in the simulation.
+ * @brief Honeybee class for instances of the honeybee agent in the simulation.
  * @date 2022-09-11
  */
 
@@ -16,31 +16,13 @@
 #include "agent.hpp"
 #include "location.hpp"
 #include "plant.hpp"
-enum HoneybeeBehaviour {
-
-    /// @brief No target, looking for nectar source.
-    Searching,
-
-    /// @brief Found nectar source, moving towards it.
-    Harvesting,
-
-    /// @brief Moving towards a nectar source identified from a waggle dance.
-    HarvestingNotified,
-
-    /// @brief Collected nectar, returning to hive.
-    Returning,
-
-    /// @brief Collected nectar from rich source; will waggle dance at hive
-    ReturningToDance
-};
 
 /**
- * @brief A class for instances of the honeybee agent in the simulation.
+ * @brief Honeybee class for instances of the honeybee agent in the simulation.
  * 
- * The Honeybee extends the Agent class, and is the primary agent of the
- * simulation. The actions of a honeybee depends on its behaviour attribute -
- * an enum that determines what the agent will do when it is updated at each
- * tick.
+ * The Honeybee extends the Agent class. Its follows a simple behaviour - 
+ * searching for nearby plants and collecting nectar from them if found,
+ * then returning to the hive to deposit the nectar.
  */
 class HoneyBee : public Agent {
 
@@ -75,6 +57,14 @@ class HoneyBee : public Agent {
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         /**
+         * @brief Searches a radius of the agent's location for a plant.
+         * 
+         * @param env the simulation environment.
+         * @return a shared pointer to a plant, or a null pointer if none found. 
+         */
+        shared_ptr<Location> scanForPlants(Environment env); 
+
+        /**
          * @brief Adds a plant to the bee's memory, and updates the queue.
          * 
          * @param plant the most-recently visited plant.
@@ -96,20 +86,12 @@ class HoneyBee : public Agent {
         std::deque<shared_ptr<Location>> getMemory();
 
         /**
-         * @brief Get the bee's memory limit.
+         * @brief Get the bee's memory limit
          * 
-         * @return the max no. of flowers the bee can remember.
+         * @return int 
          */
         int getMemoryLimit();
 
-        /**
-         * @brief Simulates the 'Waggle dance' to notify bees of a nectar source.
-         * 
-         * @param env a reference to the simulation environment.
-         * @param hive a pointer to the hive.
-         * @param loc the location to Waggle dance at.
-         */
-        void waggle(Environment& env, shared_ptr<Hive> hive, shared_ptr<Location> loc);
     protected:
 
         /// @brief The amount of nectar the agent is carrying.
@@ -119,13 +101,7 @@ class HoneyBee : public Agent {
         std::deque<shared_ptr<Location>> memory;
 
         /// @brief The max no. of plants the bee will remember.
-        const int memory_limit = 10;
-
-        /// @brief The current behaviour of the honeybee.
-        HoneybeeBehaviour behaviour;
-
-        /// @brief The nectar carrying capacity of the honeybee in milligrams.
-        float carry_capacity = 20;
+        const int memory_limit = 5;
 };
 
 #endif

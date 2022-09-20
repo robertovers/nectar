@@ -4,7 +4,7 @@
  * Group CS6
  * 
  * @file application.cpp
- * @brief Top-level class that initiates and controls the simulation.
+ * @brief Application class that initiates and controls the simulation.
  * @date 2022-09-10
  */
 
@@ -23,12 +23,12 @@
 Application::Application() { }
 
 void Application::run() { 
-    // initial display for setting params
+    // initial display for acquiring params from user
     Parameters params;
     InitialUI initialUI = InitialUI();
     params = initialUI.run();
 
-    // Program concludes early if initial UI is not closed via load simulation button
+    // Attempt at making program conclude early if initial UI is not closed via load simulation button. But not working...
     if (!params.normal_exit) {
         std::cout << "Program exited by user\n";
         exit(1);
@@ -52,6 +52,7 @@ void Application::run() {
 
     // set up display parts
     ImGui::SFML::Init(window);
+
     StatsWindow statsWindow = StatsWindow(metrics);
     auto simDisplay = SimulationDisplay(agentController, environment);
     simDisplay.updateViewport(initialWindowWidth, initialWindowHeight);
@@ -69,9 +70,6 @@ void Application::run() {
                 window.close();
             else if (event.type == sf::Event::Resized) {
                 simDisplay.updateViewport(event.size.width, event.size.height);
-                ImGui::SFML::Update(window, deltaClock.restart());
-                statsWindow.draw(event.size.width, event.size.height);
-                ImGui::SFML::Render(window);
              }
         }   
 

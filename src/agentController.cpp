@@ -4,7 +4,7 @@
  * Group CS6
  * 
  * @file agentController.cpp
- * @brief A controller class that manages all Agent instances in the simulation.
+ * @brief A controller class that manages all agents in the simulation.
  * @date 2022-09-11
  */
 
