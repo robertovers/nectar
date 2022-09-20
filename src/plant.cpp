@@ -52,7 +52,8 @@ void Plant::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     // add nectar overlay
     sf::Color newColour = nectarOverlay->getFillColor();
     newColour = newColour - sf::Color(0, 0, 0, 255); // reset transparency to transparent
-    newColour = newColour + sf::Color(0,0,0, 255* nectarPercentage()); // set transparency based on nectar value
+    auto transparency = 255 * nectarPercentage(); // set transparency based on nectar value
+    newColour = newColour + sf::Color(0,0,0, transparency); 
     nectarOverlay->setFillColor(newColour);
     target.draw(*nectarOverlay, states);
 
