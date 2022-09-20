@@ -42,10 +42,12 @@ add_library(
   agent.cpp
   agentController.cpp
   basicMapGenerator.cpp
+  "display/simulationDisplay.cpp"
+  "display/statsWindow.cpp"
   environment.cpp
   hive.cpp
   honeybee.cpp
-  initialUI.cpp
+  InitialUI.cpp
   location.cpp
   plant.cpp
   rowMapGenerator.cpp
