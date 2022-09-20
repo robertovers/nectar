@@ -51,7 +51,9 @@ add_library(
   plant.cpp
   utility.cpp
   "display/simulationDisplay.cpp"
-  "display/statsWindow.cpp")
+  "display/statsWindow.cpp" 
+  "display/menu.cpp"
+  "display/legendsWindow.cpp")
 
 target_link_libraries(nectar_lib PUBLIC sfml-graphics)
 target_link_libraries(nectar_lib PUBLIC ImGui-SFML::ImGui-SFML)
