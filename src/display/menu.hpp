@@ -10,6 +10,8 @@
 
 #ifndef menu_hpp
 #define menu_hpp
+#include "imgui.h"
+#include "imgui-SFML.h"
 
  /**
   * @brief Abstract imgui-based window class that displays within the main application window
@@ -19,7 +21,10 @@ public:
     /**
      * @brief Draw the window.
      */
-    virtual void draw() = 0;
+    virtual void draw(int windowX, int windowY) = 0;
+protected:
+    void moveUnseenWindow(int windowX, int windowY);
+    ImVec2 defaultPosition = ImVec2(0, 0);
 };
 
 #endif
