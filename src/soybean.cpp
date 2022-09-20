@@ -3,6 +3,17 @@
 
 Soybean::Soybean(int x, int y) : Plant(x, y) {
     sprite->setFillColor(sf::Color(0, 50, 35));
+
+    // set up overlays
+    auto pollen = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
+    pollen->setFillColor(sf::Color(247, 215, 90));
+    pollen->setSize(sf::Vector2f(.3, .3));
+    pollinatedOverlay = pollen;
+
+    auto nectar = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
+    nectar->setFillColor(sf::Color(187, 205, 17));
+    nectar->setSize(sf::Vector2f(1, 1));
+    nectarOverlay = nectar;
 }
 
 //void Soybean::draw(sf::RenderTarget & target, sf::RenderStates states) {
