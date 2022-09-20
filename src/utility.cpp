@@ -31,3 +31,11 @@ void Metrics::toConsole() {
 
     std::cout << std::flush;
 }
+
+Parameters::Parameters() {
+    sim_rows=100;
+    sim_cols=100;
+    bees=100;
+    soybeans=100;
+};
+

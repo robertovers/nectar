@@ -9,13 +9,14 @@
  */
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "imgui.h"
 #include "imgui-SFML.h"
 #include "application.hpp"
 #include "environment.hpp"
 #include "basicMapGenerator.hpp"
 #include "agentController.hpp"
-#include "initialDisplay.hpp"
+#include "initialUI.hpp"
 #include "utility.hpp"
 #include "display/statsWindow.hpp"
 
@@ -33,6 +34,11 @@ void Application::run() {
 
     window.setFramerateLimit(30);
 
+    // initial display for acquiring parameters from user
+    InitialUI initialUI = InitialUI();
+    initialUI.run();
+    std::cout << "Passed initialUI.start() call" << std::endl;
+
     // set up environment
     BasicMapGenerator mapGenerator = BasicMapGenerator(rows, columns, 50, 1);
     auto agentController = std::make_shared<AgentController>();
@@ -44,10 +50,6 @@ void Application::run() {
     StatsWindow statsWindow = StatsWindow(metrics);
     auto simDisplay = SimulationDisplay(agentController, environment);
     simDisplay.updateViewport(initialWindowWidth, initialWindowHeight);
-
-    InitialDisplay initialUI = InitialDisplay();
-    initialUI.run();
-    std::cout << "Passed initialUI.start() call" << std::endl;
    
     while (window.isOpen()) {
 

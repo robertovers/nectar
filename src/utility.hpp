@@ -18,4 +18,13 @@ struct Metrics {
     void toConsole();
 };
 
+struct Parameters {
+    int sim_rows;
+    int sim_cols;
+    int bees;
+    int soybeans;
+
+    Parameters();
+};
+
 #endif

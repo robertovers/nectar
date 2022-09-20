@@ -47,7 +47,7 @@ add_library(
   environment.cpp
   hive.cpp
   honeybee.cpp
-  initialDisplay.cpp
+  InitialUI.cpp
   location.cpp
   plant.cpp
   rowMapGenerator.cpp
@@ -63,7 +63,7 @@ add_executable(
   nectar 
   main.cpp
   application.cpp
-  initialDisplay.cpp
+  initialUI.cpp
 )
 
 target_link_libraries(nectar PUBLIC nectar_lib)
@@ -83,7 +83,7 @@ endif()
 
 option(BUILD_DOC "Build documentation with Doxygen" ON)
 
-find_package(Doxygen REQUIRED dot)
+find_package(Doxygen)
 
 if (DOXYGEN_FOUND)
   set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/../docs/Doxyfile.in)
