@@ -58,6 +58,10 @@ void Application::run() {
                 window.close();
             else if (event.type == sf::Event::Resized) {
                 simDisplay.updateViewport(event.size.width, event.size.height);
+
+                ImGui::SFML::Update(window, deltaClock.restart());
+                statsWindow.draw(event.size.width, event.size.height);
+                ImGui::SFML::Render(window);
              }
         }   
 
