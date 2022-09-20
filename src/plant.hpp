@@ -24,7 +24,7 @@ class Plant : public Location {
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     protected:
         bool pollinated = false;
-        float nectar = std::rand() % MAX_NECTAR;
+        float nectar = std::rand() % MAX_NECTAR + 1;
         /// @brief The sprite to be drawn over the location if pollinated.
         shared_ptr<sf::Shape> pollinatedOverlay = nullptr;
         /// @brief The sprite to be drawn over the location, depending on nectar levels.
