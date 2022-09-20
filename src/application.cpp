@@ -4,7 +4,7 @@
  * Group CS6
  * 
  * @file application.cpp
- * @brief Application class that initiates and controls the simulation.
+ * @brief Top-level class that initiates and controls the simulation.
  * @date 2022-09-10
  */
 
@@ -21,7 +21,7 @@
 Application::Application() { }
 
 void Application::run() { 
-    int rows = 50; int columns = 50; int initialWindowScale = 20;
+    int rows = 100; int columns = 100; int initialWindowScale = 10;
     float initialWindowWidth = rows * initialWindowScale;
     float initialWindowHeight = columns * initialWindowScale;
 
@@ -33,9 +33,10 @@ void Application::run() {
     window.setFramerateLimit(30);
 
     // set up environment
-    BasicMapGenerator mapGenerator = BasicMapGenerator(rows, columns, 50, 1);
+    BasicMapGenerator mapGenerator = BasicMapGenerator(rows, columns, 1000, 20);
     auto agentController = std::make_shared<AgentController>();
-    auto environment = std::make_shared< Environment>(mapGenerator.generateEnvironment(*agentController));
+    auto environment = std::make_shared<Environment>(mapGenerator.generateEnvironment(*agentController));
+    environment->initLookupTable();
 
     // set up display parts
     ImGui::SFML::Init(window);
