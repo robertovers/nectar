@@ -33,9 +33,12 @@ void Metrics::toConsole() {
 }
 
 Parameters::Parameters() {
-    sim_rows=100;
-    sim_cols=100;
-    bees=100;
-    soybeans=100;
+    rows=50;
+    columns=50;
+    scale=20;
+    bees=50;
+    soybean_p=1;
+    normal_exit=false;
 };
+
 

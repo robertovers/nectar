@@ -19,10 +19,12 @@ struct Metrics {
 };
 
 struct Parameters {
-    int sim_rows;
-    int sim_cols;
+    int rows;
+    int columns;
+    int scale;
     int bees;
-    int soybeans;
+    float soybean_p;
+    bool normal_exit;
 
     Parameters();
 };

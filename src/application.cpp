@@ -23,9 +23,20 @@
 Application::Application() { }
 
 void Application::run() { 
-    int rows = 50; int columns = 50; int initialWindowScale = 20;
-    float initialWindowWidth = rows * initialWindowScale;
-    float initialWindowHeight = columns * initialWindowScale;
+    // initial display for acquiring params from user
+    Parameters params;
+    InitialUI initialUI = InitialUI();
+    params = initialUI.run();
+
+    // Attempt at making program conclude early if initial UI is not closed via load simulation button. But not working...
+    if (!params.normal_exit) {
+        std::cout << "Program exited by user\n";
+        exit(1);
+    }
+
+    // simulation window start
+    float initialWindowWidth = params.rows * params.scale;
+    float initialWindowHeight = params.columns * params.scale;
 
     sf::Clock clock;
     auto metrics = std::make_shared<Metrics>();
@@ -34,13 +45,8 @@ void Application::run() {
 
     window.setFramerateLimit(30);
 
-    // initial display for acquiring parameters from user
-    InitialUI initialUI = InitialUI();
-    initialUI.run();
-    std::cout << "Passed initialUI.start() call" << std::endl;
-
     // set up environment
-    BasicMapGenerator mapGenerator = BasicMapGenerator(rows, columns, 50, 1);
+    BasicMapGenerator mapGenerator = BasicMapGenerator(params.rows, params.columns, params.bees, params.soybean_p);
     auto agentController = std::make_shared<AgentController>();
     auto environment = std::make_shared< Environment>(mapGenerator.generateEnvironment(*agentController));
 
