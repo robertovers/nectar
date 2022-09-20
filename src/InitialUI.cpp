@@ -48,7 +48,6 @@ Parameters InitialUI::run(){
         // Update parameter values
         parameters.rows = dimensions[0];
         parameters.columns = dimensions[1];
-        parameters.soybean_p = parameters.soybean_p*100;
 
         // Close Parameter Selection screen
         static int ds_clicked=0;
