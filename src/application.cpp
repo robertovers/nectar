@@ -17,6 +17,7 @@
 #include "agentController.hpp"
 #include "utility.hpp"
 #include "display/statsWindow.hpp"
+#include "display/legendsWindow.hpp"
 
 Application::Application() { }
 
@@ -42,6 +43,7 @@ void Application::run() {
     ImGui::SFML::Init(window);
 
     StatsWindow statsWindow = StatsWindow(metrics);
+    auto legendsWindow = LegendsWindow();
     auto simDisplay = SimulationDisplay(agentController, environment);
     simDisplay.updateViewport(initialWindowWidth, initialWindowHeight);
 
@@ -75,6 +77,7 @@ void Application::run() {
         simDisplay.draw(window, sf::RenderStates());
 
         statsWindow.draw();
+        legendsWindow.draw();
 
         ImGui::SFML::Render(window);
 

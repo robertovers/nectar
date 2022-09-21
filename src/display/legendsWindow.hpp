@@ -23,7 +23,7 @@ public:
     /**
      * @brief Draw the window.
      */
-    void draw(int windowX, int windowY);
+    void draw(int windowX=-1, int windowY=-1);
 protected:
     ImVec2 defaultPosition = ImVec2(0, 0.5);
 private:
