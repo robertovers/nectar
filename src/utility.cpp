@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "utility.hpp"
 
 void Metrics::updateMetrics(Environment&env, sf::Time time) {
@@ -31,3 +32,35 @@ void Metrics::toConsole() {
 
     std::cout << std::flush;
 }
+
+void Metrics::toFile(std::string filename) {
+    std::ofstream out;
+
+    out.open(filename, std::ios::out | std::ios::app);
+
+    out << days     << ","
+        << hours    << ","
+        << mins     << ","
+        << secs     << ","
+        << hive_nectar      << ","
+        << pollinated_count << ","
+        << std::endl;
+
+    out.close();
+}
+
+void Metrics::createDataFile(std::string filename) {
+    std::fstream out;
+
+    out.open(filename, std::ios::out | std::ios::trunc);
+    
+    out << "day"    << ","
+        << "hour"   << ","
+        << "min"    << ","
+        << "sec"    << ","
+        << "nectar"     << ","
+        << "pollinated" << ","
+        << std::endl;
+
+    out.close();
+};

@@ -9,6 +9,7 @@
  */
 
 #include <SFML/Graphics.hpp>
+#include <fstream>
 #include "imgui.h"
 #include "imgui-SFML.h"
 #include "application.hpp"
@@ -21,7 +22,8 @@
 Application::Application() { }
 
 void Application::run() { 
-    int rows = 100; int columns = 100; int initialWindowScale = 10;
+
+    int rows = 100; int columns = 100; int initialWindowScale = 5;
     float initialWindowWidth = rows * initialWindowScale;
     float initialWindowHeight = columns * initialWindowScale;
 
@@ -44,12 +46,16 @@ void Application::run() {
     StatsWindow statsWindow = StatsWindow(metrics);
     auto simDisplay = SimulationDisplay(agentController, environment);
     simDisplay.updateViewport(initialWindowWidth, initialWindowHeight);
+    
+    Metrics::createDataFile(DATA_OUT);
 
     while (window.isOpen()) {
 
         sf::Event event;
-        metrics->updateMetrics(*environment, clock.getElapsedTime());
         sf::Clock deltaClock;
+
+        metrics->updateMetrics(*environment, clock.getElapsedTime());
+        metrics->toFile(DATA_OUT);
 
         while (window.pollEvent(event)) {
             ImGui::SFML::ProcessEvent(window, event);
@@ -76,5 +82,6 @@ void Application::run() {
 
         window.display();
     }
+
     ImGui::SFML::Shutdown();
 }

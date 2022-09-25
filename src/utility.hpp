@@ -16,6 +16,8 @@ struct Metrics {
     void updateMetrics(Environment& env, sf::Time time);
     std::string timeString();
     void toConsole();
+    void toFile(std::string filename);
+    static void createDataFile(std::string filename);
 };
 
 struct ID {
@@ -24,5 +26,7 @@ struct ID {
         return id++;
     };
 };
+
+const std::string DATA_OUT = "sim_data.csv";
 
 #endif
