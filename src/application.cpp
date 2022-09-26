@@ -45,7 +45,7 @@ void Application::run() {
     ImGui::SFML::Init(window);
 
     StatsWindow statsWindow = StatsWindow(metrics);
-    auto legendsWindow = LegendsWindow();
+    auto legendsWindow = LegendsWindow(envColours);
     auto simDisplay = SimulationDisplay(agentController, environment);
     simDisplay.updateViewport(initialWindowWidth, initialWindowHeight);
 
@@ -78,6 +78,7 @@ void Application::run() {
         window.setView(simDisplay.getView());
         simDisplay.draw(window, sf::RenderStates());
 
+        ImGui::ShowDemoWindow();
         statsWindow.draw();
         legendsWindow.draw();
 

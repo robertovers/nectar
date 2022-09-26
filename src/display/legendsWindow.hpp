@@ -14,12 +14,14 @@
 #include "../location.hpp"
 #include "../soybean.hpp"
 #include "../honeybee.hpp"
+#include "../utility.hpp"
 
  /**
   * @brief Imgui-based window class for displaying a guide to simulation symbols
   */
 class LegendsWindow {
 public:
+    LegendsWindow(EnvColours envColours) : envColours(envColours) {};
     /**
      * @brief Draw the window.
      */
@@ -27,11 +29,10 @@ public:
 protected:
     ImVec2 defaultPosition = ImVec2(0, 0.5);
 private:
-    Soybean pollinatedSoybean;
-    Soybean emptySoybean;
-    Soybean fullSoybean;
-    Location nothing;
-    HoneyBee honeybee;
+    ImVec4 colorToImVec4(sf::Color color);
+    sf::Color ImVec4ToColor(ImVec4 vector);
+    void copyColor(sf::Color oldColour, sf::Color newColour);
+    EnvColours envColours;
 };
 
 #endif
