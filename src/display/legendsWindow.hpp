@@ -16,9 +16,9 @@
 #include "../honeybee.hpp"
 #include "../utility.hpp"
 
- /**
-  * @brief Imgui-based window class for displaying a guide to simulation symbols
-  */
+/**
+ * @brief Imgui-based window class for displaying a guide to simulation symbols
+ */
 class LegendsWindow {
 public:
     LegendsWindow(EnvColours envColours) : envColours(envColours) {};

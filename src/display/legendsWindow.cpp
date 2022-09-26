@@ -4,7 +4,7 @@
 #include "legendsWindow.hpp"
 
 void LegendsWindow::draw(int windowX, int windowY) {
-    // convert sf::colors to vectors used by imgui
+    // convert sf::colors to vectors used by imgui color picker
     static auto soybeanColor = colorToImVec4(*envColours.soybeanColour);
     static auto nectarColor = colorToImVec4(*envColours.nectarColour);
     static auto pollenColor = colorToImVec4(*envColours.pollenColour);
@@ -12,7 +12,8 @@ void LegendsWindow::draw(int windowX, int windowY) {
     static int nectarOption = 1;
     static auto hiveColor = colorToImVec4(*envColours.hiveColour);
     static auto locationColour = colorToImVec4(*envColours.locationColour);
-    //auto hiveColor = ImVec4();
+
+    // display window
     ImGui::Begin("Display Options");
     // 1. Plant options
     ImGui::ColorEdit3("Soybean", (float*)&soybeanColor, ImGuiColorEditFlags_NoInputs); /*ImGui::SameLine();
