@@ -11,8 +11,10 @@ class Plant : public Location {
         * 
         * @param x the x-coordinate of the plant.
         * @param y the y-coordinate of the plant.
+        * @param colour the colour of tthe plant
         */
-        Plant(int x, int y);
+        Plant(int x, int y, shared_ptr<sf::Color> colour);
+
         virtual ~Plant();
         /**
          * @brief Checks if this location is a Plant - used before type casting.

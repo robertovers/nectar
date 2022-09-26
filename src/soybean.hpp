@@ -5,8 +5,8 @@
 
 class Soybean : public Plant {
     public:
-        Soybean() : Soybean(0, 0) {};
-        Soybean(int x, int y);
+        //Soybean() : Soybean(0, 0) {};
+        Soybean(int x, int y, shared_ptr<sf::Color> colour);
 };
 
 #endif

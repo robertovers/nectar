@@ -1,8 +1,8 @@
 #include "soybean.hpp"
 #define GENDER 3
 
-Soybean::Soybean(int x, int y) : Plant(x, y) {
-    sprite->setFillColor(sf::Color(0, 50, 35));
+Soybean::Soybean(int x, int y, shared_ptr<sf::Color> colour) : Plant(x, y, colour) {
+    //sprite->setFillColor(*colour);
 
     // set up overlays
     auto pollen = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());

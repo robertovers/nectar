@@ -2,7 +2,7 @@
 
 Plant::~Plant() { }
 
-Plant::Plant(int x, int y) : Location(x, y) {
+Plant::Plant(int x, int y, shared_ptr<sf::Color> colour) : Location(x, y, colour) {
     nectar = std::rand() % MAX_NECTAR + 1;
 }
 
