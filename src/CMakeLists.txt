@@ -22,13 +22,13 @@ FetchContent_MakeAvailable(SFML)
 # for UI
 FetchContent_Declare(imgui
     GIT_REPOSITORY https://github.com/ocornut/imgui.git
-    GIT_TAG master
+    GIT_TAG v1.87 
 )
 FetchContent_MakeAvailable(imgui)
 FetchContent_Declare(
   imgui-sfml
   GIT_REPOSITORY https://github.com/eliasdaler/imgui-sfml.git
-  GIT_TAG        master
+  GIT_TAG        v2.5
 )
 set(IMGUI_DIR ${imgui_SOURCE_DIR})
 option(IMGUI_SFML_FIND_SFML "Use find_package to find SFML" OFF)
@@ -73,6 +73,12 @@ if (WIN32 AND BUILD_SHARED_LIBS)
     COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:nectar> $<TARGET_FILE_DIR:nectar> COMMAND_EXPAND_LISTS
   )
 endif()
+
+# copy icon image
+add_custom_command(
+    TARGET nectar POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}"/src/img/bee_hex.png" $<TARGET_FILE_DIR:nectar> COMMAND_EXPAND_LISTS
+  )
 
 ################################################################################
 # Doxygen documentation
