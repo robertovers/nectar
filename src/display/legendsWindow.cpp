@@ -11,6 +11,7 @@ void LegendsWindow::draw(int windowX, int windowY) {
     static int pollenOption = 1;
     static int nectarOption = 1;
     static auto hiveColor = colorToImVec4(*envColours.hiveColour);
+    static auto locationColour = colorToImVec4(*envColours.locationColour);
     //auto hiveColor = ImVec4();
     ImGui::Begin("Display Options");
     // 1. Plant options
@@ -47,7 +48,13 @@ void LegendsWindow::draw(int windowX, int windowY) {
     if (ImGui::Button("Reset##4")) {
 
     };
-    // 5. bee options?
+    // 5. location options
+    ImGui::ColorEdit3("Empty location", (float*)&locationColour, ImGuiColorEditFlags_NoInputs); /*ImGui::SameLine();
+    if (ImGui::Button("Reset##5")) {
+
+    };*/
+
+    // 6. bee options?
 
     ImGui::End();
     
@@ -56,6 +63,7 @@ void LegendsWindow::draw(int windowX, int windowY) {
     copyColor(envColours.nectarColour, ImVec4ToColor(nectarColor));
     copyColor(envColours.pollenColour, ImVec4ToColor(pollenColor));
     copyColor(envColours.hiveColour, ImVec4ToColor(hiveColor));
+    copyColor(envColours.locationColour, ImVec4ToColor(locationColour));
 }
 
 ImVec4 LegendsWindow::colorToImVec4(sf::Color color) {
