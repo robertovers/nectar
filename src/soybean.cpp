@@ -2,16 +2,12 @@
 #define GENDER 3
 
 Soybean::Soybean(int x, int y, shared_ptr<sf::Color> colour, shared_ptr<sf::Color> nectarColour, shared_ptr<sf::Color> pollenColour) : Plant(x, y, colour, nectarColour, pollenColour) {
-    //sprite->setFillColor(*colour);
-
     // set up overlays
     auto pollen = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
-    pollen->setFillColor(sf::Color(247, 215, 90));
     pollen->setSize(sf::Vector2f(.3, .3));
     pollinatedOverlay = pollen;
 
     auto nectar = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
-    nectar->setFillColor(sf::Color(187, 205, 17));
     nectar->setSize(sf::Vector2f(1, 1));
     nectarOverlay = nectar;
 }
