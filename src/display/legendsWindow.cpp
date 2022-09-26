@@ -4,13 +4,13 @@
 #include "legendsWindow.hpp"
 
 void LegendsWindow::draw(int windowX, int windowY) {
-    // TODO: not define in function
-    auto soybeanColor = colorToImVec4(*envColours.soybeanColour);
-    auto nectarColor = colorToImVec4(*envColours.nectarColour);
-    auto pollenColor = colorToImVec4(*envColours.pollenColour);
-    int pollenOption = 1;
-    int nectarOption = 1;
-    auto hiveColor = colorToImVec4(*envColours.hiveColour);
+    // convert sf::colors to vectors used by imgui
+    static auto soybeanColor = colorToImVec4(*envColours.soybeanColour);
+    static auto nectarColor = colorToImVec4(*envColours.nectarColour);
+    static auto pollenColor = colorToImVec4(*envColours.pollenColour);
+    static int pollenOption = 1;
+    static int nectarOption = 1;
+    static auto hiveColor = colorToImVec4(*envColours.hiveColour);
     //auto hiveColor = ImVec4();
     ImGui::Begin("Display Options");
     // 1. Plant options
@@ -50,6 +50,12 @@ void LegendsWindow::draw(int windowX, int windowY) {
     // 5. bee options?
 
     ImGui::End();
+    
+    // convert colour vectors back to colours
+    copyColor(envColours.soybeanColour, ImVec4ToColor(soybeanColor));
+    copyColor(envColours.nectarColour, ImVec4ToColor(nectarColor));
+    copyColor(envColours.pollenColour, ImVec4ToColor(pollenColor));
+    copyColor(envColours.hiveColour, ImVec4ToColor(hiveColor));
 }
 
 ImVec4 LegendsWindow::colorToImVec4(sf::Color color) {
@@ -60,9 +66,9 @@ sf::Color LegendsWindow::ImVec4ToColor(ImVec4 vector) {
     return sf::Color(vector.x * 255, vector.y * 255, vector.z * 255, vector.w * 255);
 }
 
-void LegendsWindow::copyColor(sf::Color oldColour, sf::Color newColour) {
-    oldColour.r = newColour.r;
-    oldColour.g = newColour.g;
-    oldColour.b = newColour.b;
-    oldColour.a = newColour.a;
+void LegendsWindow::copyColor(shared_ptr<sf::Color> oldColour, sf::Color newColour) {
+    oldColour->r = newColour.r;
+    oldColour->g = newColour.g;
+    oldColour->b = newColour.b;
+    oldColour->a = newColour.a;
 }

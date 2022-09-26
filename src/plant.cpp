@@ -43,10 +43,11 @@ float Plant::harvestNectar() {
 }
 
 void Plant::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    // add offset to existing transformations
+    // add offset to existin translations
     states.transform.translate(sf::Vector2f(x, y));
 
-    // draw base sprite
+    // draw base plant
+    sprite->setFillColor(*colour);
     target.draw(*sprite, states);
 
     // add nectar overlay

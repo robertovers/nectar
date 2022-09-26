@@ -31,7 +31,7 @@ protected:
 private:
     ImVec4 colorToImVec4(sf::Color color);
     sf::Color ImVec4ToColor(ImVec4 vector);
-    void copyColor(sf::Color oldColour, sf::Color newColour);
+    void copyColor(shared_ptr<sf::Color> oldColour, sf::Color newColour);
     EnvColours envColours;
 };
 
