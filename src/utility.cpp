@@ -31,3 +31,11 @@ void Metrics::toConsole() {
 
     std::cout << std::flush;
 }
+
+EnvColours::EnvColours() {
+    soybeanColour = std::make_shared<sf::Color>(0, 50, 35);
+    nectarColour = std::make_shared<sf::Color>(187, 205, 17);
+    pollenColour = std::make_shared<sf::Color>(247, 215, 90);
+    hiveColour = std::make_shared<sf::Color>(255, 0, 0);
+    locationColour = std::make_shared<sf::Color>(104, 78, 59);
+}

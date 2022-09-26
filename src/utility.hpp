@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "environment.hpp"
+#include "templates.hpp"
 
 struct Metrics {
     int days;
@@ -25,4 +26,13 @@ struct ID {
     };
 };
 
+struct EnvColours {
+    shared_ptr<sf::Color> soybeanColour;
+    shared_ptr<sf::Color> nectarColour;
+    shared_ptr<sf::Color> pollenColour;
+    shared_ptr<sf::Color> hiveColour;
+    shared_ptr<sf::Color> locationColour;
+
+    EnvColours();
+};
 #endif
