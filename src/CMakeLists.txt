@@ -77,7 +77,7 @@ endif()
 # copy icon image
 add_custom_command(
     TARGET nectar POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}"/img/bee.png" $<TARGET_FILE_DIR:nectar> COMMAND_EXPAND_LISTS
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}"/src/img/bee_hex.png" $<TARGET_FILE_DIR:nectar> COMMAND_EXPAND_LISTS
   )
 
 ################################################################################
