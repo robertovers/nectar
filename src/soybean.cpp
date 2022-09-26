@@ -1,7 +1,7 @@
 #include "soybean.hpp"
 #define GENDER 3
 
-Soybean::Soybean(int x, int y, shared_ptr<sf::Color> colour) : Plant(x, y, colour) {
+Soybean::Soybean(int x, int y, shared_ptr<sf::Color> colour, shared_ptr<sf::Color> nectarColour, shared_ptr<sf::Color> pollenColour) : Plant(x, y, colour, nectarColour, pollenColour) {
     //sprite->setFillColor(*colour);
 
     // set up overlays

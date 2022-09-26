@@ -2,7 +2,9 @@
 
 Plant::~Plant() { }
 
-Plant::Plant(int x, int y, shared_ptr<sf::Color> colour) : Location(x, y, colour) {
+Plant::Plant(int x, int y, shared_ptr<sf::Color> colour, shared_ptr<sf::Color> nectarColour, shared_ptr<sf::Color> pollenColour) : Location(x, y, colour) {
+    this->nectarColour = nectarColour;
+    this->pollinatedColour = pollenColour;
     nectar = std::rand() % MAX_NECTAR + 1;
 }
 
@@ -43,7 +45,7 @@ float Plant::harvestNectar() {
 }
 
 void Plant::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    // add offset to existin translations
+    // add offset to existing translations
     states.transform.translate(sf::Vector2f(x, y));
 
     // draw base plant
@@ -51,7 +53,7 @@ void Plant::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(*sprite, states);
 
     // add nectar overlay
-    sf::Color newColour = nectarOverlay->getFillColor();
+    sf::Color newColour = *nectarColour;
     newColour = newColour - sf::Color(0, 0, 0, 255); // reset transparency to transparent
     auto transparency = 255 * nectarPercentage(); // set transparency based on nectar value
     newColour = newColour + sf::Color(0,0,0, transparency); 
@@ -60,6 +62,7 @@ void Plant::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
     // add pollen overlay
     if (isPollinated()) {
+        pollinatedOverlay->setFillColor(*pollinatedColour);
         target.draw(*pollinatedOverlay, states);
     }
 }

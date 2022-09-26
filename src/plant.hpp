@@ -11,9 +11,11 @@ class Plant : public Location {
         * 
         * @param x the x-coordinate of the plant.
         * @param y the y-coordinate of the plant.
-        * @param colour the colour of tthe plant
+        * @param colour the colour of the plant
+        * @param nectarColour the colour of the nectar symbol
+        * @param pollenColour the colour of the pollinated symbol
         */
-        Plant(int x, int y, shared_ptr<sf::Color> colour);
+        Plant(int x, int y, shared_ptr<sf::Color> colour, shared_ptr<sf::Color> nectarColour, shared_ptr<sf::Color> pollenColour);
 
         virtual ~Plant();
         /**
@@ -71,6 +73,10 @@ class Plant : public Location {
         bool pollinated = false;
         /// @brief The quantity of nectar within the plant. Should be less than MAX_NECTAR
         float nectar = MAX_NECTAR;
+        /// @brief The colour of the sprite to be drawn over the location if pollinated.
+        shared_ptr<sf::Color> pollinatedColour;
+        /// @brief The colour of the sprite to be drawn over the location, depending on nectar levels.
+        shared_ptr<sf::Color> nectarColour;
         /// @brief The sprite to be drawn over the location if pollinated.
         shared_ptr<sf::Shape> pollinatedOverlay = nullptr;
         /// @brief The sprite to be drawn over the location, depending on nectar levels.

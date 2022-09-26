@@ -34,7 +34,7 @@ Environment BasicMapGenerator::generateEnvironment(AgentController& agentControl
         for (auto& location : locationRow) {
             float rolledChance = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);  // 0.0 - 1.0
             if (placeChance >= rolledChance) {
-                auto plant = shared_ptr<Soybean>(std::make_shared<Soybean>(location->getX(), location->getY(), envColours.soybeanColour));
+                auto plant = shared_ptr<Soybean>(std::make_shared<Soybean>(location->getX(), location->getY(), envColours.soybeanColour, envColours.nectarColour, envColours.pollenColour));
                 generatedEnvironment.changeLocation(location->getX(), location->getY(), plant);
             }
         }
