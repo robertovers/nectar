@@ -22,7 +22,6 @@
 class Application {
 
     public:
-
         /**
          * @brief Construct a new Application object.
          */

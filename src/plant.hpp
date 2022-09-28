@@ -1,9 +1,21 @@
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ *
+ * @file plant.hpp
+ * @brief Class representing a Location containing an unspecified plant
+ * @date 2022-09-28
+ */
 #ifndef PLANT_HPP
 #define PLANT_HPP
 
 #include <SFML/Graphics.hpp>
 #include "location.hpp"
 
+/**
+* @brief Class representing a Location containing an unspecified plant
+*/
 class Plant : public Location {
     public:
         /**

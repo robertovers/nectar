@@ -17,48 +17,27 @@ void LegendsWindow::draw(int windowX, int windowY) {
     // display window
     ImGui::Begin("Display Options");
     // 1. Plant options
-    ImGui::ColorEdit3("Soybean", (float*)&soybeanColor, ImGuiColorEditFlags_NoInputs); /*ImGui::SameLine();
-    if (ImGui::Button("Reset##1")) {
-
-    }*/
+    ImGui::ColorEdit3("Soybean", (float*)&soybeanColor, ImGuiColorEditFlags_NoInputs);
 
     // 2. nectar options
-    // TODO: header
-    // TODO: reset color
-    // todo: toggle overlay display (radio buttons
-    ImGui::ColorEdit3("Soybean with max nectar", (float*)&nectarColor, ImGuiColorEditFlags_NoInputs); /*ImGui::SameLine();
-    if (ImGui::Button("Reset##2")) {
-
-    };*/
+    ImGui::ColorEdit3("Soybean with max nectar", (float*)&nectarColor, ImGuiColorEditFlags_NoInputs);
     ImGui::RadioButton("None##2", &nectarOption, 0); ImGui::SameLine();
     ImGui::RadioButton("Small square##2", &nectarOption, 1); ImGui::SameLine();
     ImGui::RadioButton("Overlay##2", &nectarOption, 2);
     
     // 3. pollen options
-    // TODO: header
-    // TODO: reset color
-    // todo: toggle overlay display
-    ImGui::ColorEdit3("Pollinated soybean", (float*)&pollenColor, ImGuiColorEditFlags_NoInputs); /*ImGui::SameLine();
-    if (ImGui::Button("Reset##3")) {
-
-    };*/
+    ImGui::ColorEdit3("Pollinated soybean", (float*)&pollenColor, ImGuiColorEditFlags_NoInputs);
     ImGui::RadioButton("None##3", &pollenOption, 0); ImGui::SameLine();
     ImGui::RadioButton("Small square##3", &pollenOption, 1); ImGui::SameLine();
     ImGui::RadioButton("Overlay##3", &pollenOption, 2);
 
     // 4. Hive options
-    ImGui::ColorEdit3("Hive", (float*)&hiveColor, ImGuiColorEditFlags_NoInputs); /*ImGui::SameLine();
-    if (ImGui::Button("Reset##4")) {
+    ImGui::ColorEdit3("Hive", (float*)&hiveColor, ImGuiColorEditFlags_NoInputs);
 
-    };*/
     // 5. location options
-    ImGui::ColorEdit3("Empty location", (float*)&locationColour, ImGuiColorEditFlags_NoInputs); /*ImGui::SameLine();
-    if (ImGui::Button("Reset##5")) {
-
-    };*/
+    ImGui::ColorEdit3("Empty location", (float*)&locationColour, ImGuiColorEditFlags_NoInputs);
 
     // 6. bee options?
-
     ImGui::End();
     
     // convert colour vectors back to colours
@@ -90,14 +69,10 @@ void LegendsWindow::copyColor(shared_ptr<sf::Color> oldColour, sf::Color newColo
 
 void LegendsWindow::changeOverlay(shared_ptr<sf::Shape> overlay, int overlayType) {
     if (overlayType == 1) {
-        //auto overlay = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
         overlay->setScale(sf::Vector2f(.3, .3));
-        //return overlay;
     }
     else if (overlayType == 2) {
-        //auto overlay = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
         overlay->setScale(sf::Vector2f(1, 1));
-        //return overlay;
     }
     else {
         overlay->setScale(sf::Vector2f(0, 0));

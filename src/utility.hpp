@@ -40,10 +40,14 @@ struct EnvColours {
     EnvColours();
 };
 
+/// @brief Struct containing pointers to the overlays to used by Soybeans
 struct SoybeanOverlays {
+    /// @brief Overlay used when displaying pollen data
     std::shared_ptr<sf::Shape> pollen;
+    /// @brief Overlay used when displaying nectar data
     std::shared_ptr<sf::Shape> nectar;
 
+    /// @brief Create a SoybeanOverlays object, containing default, full-location-sized overlays
     SoybeanOverlays();
 };
 #endif
