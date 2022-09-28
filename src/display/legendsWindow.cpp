@@ -1,7 +1,12 @@
-#include "legendsWindow.hpp"
-#include "legendsWindow.hpp"
-#include "legendsWindow.hpp"
-#include "legendsWindow.hpp"
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ *
+ * @file legendsWindow.cpp
+ * @brief Imgui-based window class for displaying a guide to simulation symbols + options
+ * @date 2022-09-20
+ */
 #include "legendsWindow.hpp"
 
 void LegendsWindow::draw(int windowX, int windowY) {
@@ -9,10 +14,11 @@ void LegendsWindow::draw(int windowX, int windowY) {
     static auto soybeanColor = colorToImVec4(*envColours.soybeanColour);
     static auto nectarColor = colorToImVec4(*envColours.nectarColour);
     static auto pollenColor = colorToImVec4(*envColours.pollenColour);
-    static int pollenOption = 1;
-    static int nectarOption = 2;
     static auto hiveColor = colorToImVec4(*envColours.hiveColour);
     static auto locationColour = colorToImVec4(*envColours.locationColour);
+    // radio button overlay toggle values
+    static int pollenOption = 1;
+    static int nectarOption = 2;
 
     // display window
     ImGui::Begin("Display Options");
