@@ -29,7 +29,7 @@ void StatsWindow::draw(int windowX, int windowY) {
 
     runTimeInfo << "Runtime: " << metrics->timeString();
     hiveNectarInfo << "Nectar in hive: " << metrics->hive_nectar;
-    pollinationCountInfo << "Flowers pollinated: " << metrics->pollinated_count;
+    pollinationCountInfo << "Soybeans pollinated: " << metrics->pollinated_count;
 
     // configure window
     ImGui::SetNextWindowPos(defaultPosition, ImGuiCond_Once);  // set up initial position
