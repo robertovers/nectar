@@ -16,6 +16,16 @@
 #include "../honeybee.hpp"
 #include "../utility.hpp"
 
+/// @brief the different options to choose between for the soybean overlays
+enum OverlayOptions {
+    /// @brief No overlay is displayed
+    None, 
+    /// @brief A small square overlay
+    Small, 
+    /// @brief A full-location-sized overlay
+    Full
+};
+
 /**
  * @brief Imgui-based window class for displaying a guide to simulation symbols + options
  * 
@@ -61,7 +71,7 @@ private:
      * @param[out] overlay the Shape to be modified
      * @param overlayType value indicating how overlay should be changed 
      */
-    void changeOverlay(std::shared_ptr<sf::Shape> overlay, int overlayType);
+    void changeOverlay(std::shared_ptr<sf::Shape> overlay, OverlayOptions overlayType);
 
     ///@brief pointers to colours used by Locations
     EnvColours envColours;

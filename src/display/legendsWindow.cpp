@@ -27,15 +27,15 @@ void LegendsWindow::draw(int windowX, int windowY) {
 
     // 2. nectar options
     ImGui::ColorEdit3("Soybean with max nectar", (float*)&nectarColor, ImGuiColorEditFlags_NoInputs);
-    ImGui::RadioButton("None##2", &nectarOption, 0); ImGui::SameLine();
-    ImGui::RadioButton("Small square##2", &nectarOption, 1); ImGui::SameLine();
-    ImGui::RadioButton("Overlay##2", &nectarOption, 2);
+    ImGui::RadioButton("None##2", &nectarOption, OverlayOptions::None); ImGui::SameLine();
+    ImGui::RadioButton("Small square##2", &nectarOption, OverlayOptions::Small); ImGui::SameLine();
+    ImGui::RadioButton("Overlay##2", &nectarOption, OverlayOptions::Full);
     
     // 3. pollen options
     ImGui::ColorEdit3("Pollinated soybean", (float*)&pollenColor, ImGuiColorEditFlags_NoInputs);
-    ImGui::RadioButton("None##3", &pollenOption, 0); ImGui::SameLine();
-    ImGui::RadioButton("Small square##3", &pollenOption, 1); ImGui::SameLine();
-    ImGui::RadioButton("Overlay##3", &pollenOption, 2);
+    ImGui::RadioButton("None##3", &pollenOption, OverlayOptions::None); ImGui::SameLine();
+    ImGui::RadioButton("Small square##3", &pollenOption, OverlayOptions::Small); ImGui::SameLine();
+    ImGui::RadioButton("Overlay##3", &pollenOption, OverlayOptions::Full);
 
     // 4. Hive options
     ImGui::ColorEdit3("Hive", (float*)&hiveColor, ImGuiColorEditFlags_NoInputs);
@@ -54,8 +54,8 @@ void LegendsWindow::draw(int windowX, int windowY) {
     copyColor(envColours.locationColour, ImVec4ToColor(locationColour));
 
     // set chosen overlay
-    changeOverlay(soybeanOverlays.nectar, nectarOption);
-    changeOverlay(soybeanOverlays.pollen, pollenOption);
+    changeOverlay(soybeanOverlays.nectar, (OverlayOptions) nectarOption);
+    changeOverlay(soybeanOverlays.pollen, (OverlayOptions) pollenOption);
 }
 
 ImVec4 LegendsWindow::colorToImVec4(sf::Color color) {
@@ -73,14 +73,14 @@ void LegendsWindow::copyColor(shared_ptr<sf::Color> oldColour, sf::Color newColo
     oldColour->a = newColour.a;
 }
 
-void LegendsWindow::changeOverlay(shared_ptr<sf::Shape> overlay, int overlayType) {
-    if (overlayType == 1) {
+void LegendsWindow::changeOverlay(shared_ptr<sf::Shape> overlay, OverlayOptions overlayType) {
+    if (overlayType == OverlayOptions::Small) {
         overlay->setScale(sf::Vector2f(.3, .3));
     }
-    else if (overlayType == 2) {
+    else if (overlayType == OverlayOptions::Full) {
         overlay->setScale(sf::Vector2f(1, 1));
     }
-    else {
+    else if (overlayType == OverlayOptions::None) {
         overlay->setScale(sf::Vector2f(0, 0));
     }
 }
