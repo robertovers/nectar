@@ -32,7 +32,11 @@ private:
     ImVec4 colorToImVec4(sf::Color color);
     sf::Color ImVec4ToColor(ImVec4 vector);
     void copyColor(shared_ptr<sf::Color> oldColour, sf::Color newColour);
+    std::shared_ptr<sf::Drawable> overlay(int overlayType);
+
     EnvColours envColours;
+    std::shared_ptr<sf::Drawable> nectarOverlay = nullptr;
+    std::shared_ptr<sf::Drawable> pollenOverlay = nullptr;
 };
 
 #endif

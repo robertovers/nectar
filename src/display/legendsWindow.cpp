@@ -2,6 +2,7 @@
 #include "legendsWindow.hpp"
 #include "legendsWindow.hpp"
 #include "legendsWindow.hpp"
+#include "legendsWindow.hpp"
 
 void LegendsWindow::draw(int windowX, int windowY) {
     // convert sf::colors to vectors used by imgui color picker
@@ -30,7 +31,8 @@ void LegendsWindow::draw(int windowX, int windowY) {
 
     };*/
     ImGui::RadioButton("None##2", &nectarOption, 0); ImGui::SameLine();
-    ImGui::RadioButton("Overlay##2", &nectarOption, 1);
+    ImGui::RadioButton("Small square##2", &nectarOption, 1); ImGui::SameLine();
+    ImGui::RadioButton("Overlay##2", &nectarOption, 2);
     
     // 3. pollen options
     // TODO: header
@@ -41,7 +43,7 @@ void LegendsWindow::draw(int windowX, int windowY) {
 
     };*/
     ImGui::RadioButton("None##3", &pollenOption, 0); ImGui::SameLine();
-    ImGui::RadioButton("Small square", &pollenOption, 1); ImGui::SameLine();
+    ImGui::RadioButton("Small square##3", &pollenOption, 1); ImGui::SameLine();
     ImGui::RadioButton("Overlay##3", &pollenOption, 2);
 
     // 4. Hive options
@@ -65,6 +67,10 @@ void LegendsWindow::draw(int windowX, int windowY) {
     copyColor(envColours.pollenColour, ImVec4ToColor(pollenColor));
     copyColor(envColours.hiveColour, ImVec4ToColor(hiveColor));
     copyColor(envColours.locationColour, ImVec4ToColor(locationColour));
+
+    // set chosen overlay
+    nectarOverlay = overlay(nectarOption);
+    pollenOverlay = overlay(pollenOption);
 }
 
 ImVec4 LegendsWindow::colorToImVec4(sf::Color color) {
@@ -80,4 +86,18 @@ void LegendsWindow::copyColor(shared_ptr<sf::Color> oldColour, sf::Color newColo
     oldColour->g = newColour.g;
     oldColour->b = newColour.b;
     oldColour->a = newColour.a;
+}
+
+std::shared_ptr<sf::Drawable> LegendsWindow::overlay(int overlayType) {
+    if (overlayType == 1) {
+        auto overlay = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
+        overlay->setSize(sf::Vector2f(.3, .3));
+        return overlay;
+    }
+    if (overlayType == 2) {
+        auto overlay = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
+        overlay->setSize(sf::Vector2f(1, 1));
+        return overlay;
+    }
+    return nullptr;
 }
