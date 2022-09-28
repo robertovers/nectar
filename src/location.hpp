@@ -33,7 +33,7 @@ class Location : public sf::Drawable {
         /**
          * @brief Construct a new Location object.
          */
-        //Location() : Location(0, 0) {};
+        Location();
 
         /**
          * @brief Construct a new Location object.
