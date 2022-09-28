@@ -31,15 +31,24 @@ class Location : public sf::Drawable {
     public:
 
         /**
-         * @brief Construct a new Location object.
+         * @brief Construct a new Location object
          */
         Location();
+
+        /**
+         * @brief Construct a new Location object with a default colour
+         *
+         * @param x the x-coordinate of the location.
+         * @param y the y-coordinate of the location.
+         */
+        Location(int x, int y);
 
         /**
          * @brief Construct a new Location object.
          * 
          * @param x the x-coordinate of the location.
          * @param y the y-coordinate of the location.
+         * @param colour shared pointer to the Color that the location will be drawn with
          */
         Location(int x, int y, shared_ptr<sf::Color> colour);
 
