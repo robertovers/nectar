@@ -43,7 +43,7 @@ add_library(
   environment.cpp
   location.cpp
   basicMapGenerator.cpp
-  # rowMapGenerator.cpp
+  rowMapGenerator.cpp
   agentController.cpp
   honeybee.cpp
   hive.cpp
