@@ -53,15 +53,17 @@ void Plant::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(*sprite, states);
 
     // add nectar overlay
-    sf::Color newColour = *nectarColour;
-    newColour = newColour - sf::Color(0, 0, 0, 255); // reset transparency to transparent
-    auto transparency = 255 * nectarPercentage(); // set transparency based on nectar value
-    newColour = newColour + sf::Color(0,0,0, transparency); 
-    nectarOverlay->setFillColor(newColour);
-    target.draw(*nectarOverlay, states);
+    if (nectarOverlay != nullptr) {
+        sf::Color newColour = *nectarColour;
+        newColour = newColour - sf::Color(0, 0, 0, 255); // reset transparency to transparent
+        auto transparency = 255 * nectarPercentage(); // set transparency based on nectar value
+        newColour = newColour + sf::Color(0, 0, 0, transparency);
+        nectarOverlay->setFillColor(newColour);
+        target.draw(*nectarOverlay, states);
+    }
 
     // add pollen overlay
-    if (isPollinated()) {
+    if (pollinatedOverlay != nullptr and isPollinated()) {
         pollinatedOverlay->setFillColor(*pollinatedColour);
         target.draw(*pollinatedOverlay, states);
     }
