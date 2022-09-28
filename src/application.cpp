@@ -84,7 +84,6 @@ void Application::run() {
         window.setView(simDisplay.getView());
         simDisplay.draw(window, sf::RenderStates());
 
-        //ImGui::ShowDemoWindow();
         statsWindow.draw();
         legendsWindow.draw();
 
