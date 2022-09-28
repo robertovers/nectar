@@ -21,7 +21,7 @@
  */
 class LegendsWindow {
 public:
-    LegendsWindow(EnvColours envColours) : envColours(envColours) {};
+    LegendsWindow(EnvColours envColours, SoybeanOverlays soybeanOverlays) : envColours(envColours), soybeanOverlays(soybeanOverlays) {};
     /**
      * @brief Draw the window.
      */
@@ -32,11 +32,10 @@ private:
     ImVec4 colorToImVec4(sf::Color color);
     sf::Color ImVec4ToColor(ImVec4 vector);
     void copyColor(shared_ptr<sf::Color> oldColour, sf::Color newColour);
-    std::shared_ptr<sf::Drawable> overlay(int overlayType);
+    void changeOverlay(std::shared_ptr<sf::Shape> overlay, int overlayType);
 
     EnvColours envColours;
-    std::shared_ptr<sf::Drawable> nectarOverlay = nullptr;
-    std::shared_ptr<sf::Drawable> pollenOverlay = nullptr;
+    SoybeanOverlays soybeanOverlays;
 };
 
 #endif

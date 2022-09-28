@@ -19,6 +19,7 @@ private:
 	int beeCount;
 	int cropChance;
 	EnvColours envColours;
+	SoybeanOverlays soybeanOverlays;
 
 public:
 	/**
@@ -31,7 +32,7 @@ public:
 	* @param cropChance  Chance that a location will have a crop on it, out of 100.
 	*					 For example, cropChance = 50 means 50/100 = 1/2 chance
 	*/
-	BasicMapGenerator(EnvColours envColours, int envSizeX, int envSizeY, int beeCount, int cropChance);
+	BasicMapGenerator(EnvColours envColours, SoybeanOverlays soybeanOverlays, int envSizeX, int envSizeY, int beeCount, int cropChance);
 	Environment generateEnvironment(AgentController& agentController);
 };
 

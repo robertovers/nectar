@@ -10,7 +10,7 @@ void LegendsWindow::draw(int windowX, int windowY) {
     static auto nectarColor = colorToImVec4(*envColours.nectarColour);
     static auto pollenColor = colorToImVec4(*envColours.pollenColour);
     static int pollenOption = 1;
-    static int nectarOption = 1;
+    static int nectarOption = 2;
     static auto hiveColor = colorToImVec4(*envColours.hiveColour);
     static auto locationColour = colorToImVec4(*envColours.locationColour);
 
@@ -69,8 +69,8 @@ void LegendsWindow::draw(int windowX, int windowY) {
     copyColor(envColours.locationColour, ImVec4ToColor(locationColour));
 
     // set chosen overlay
-    nectarOverlay = overlay(nectarOption);
-    pollenOverlay = overlay(pollenOption);
+    changeOverlay(soybeanOverlays.nectar, nectarOption);
+    changeOverlay(soybeanOverlays.pollen, pollenOption);
 }
 
 ImVec4 LegendsWindow::colorToImVec4(sf::Color color) {
@@ -88,16 +88,18 @@ void LegendsWindow::copyColor(shared_ptr<sf::Color> oldColour, sf::Color newColo
     oldColour->a = newColour.a;
 }
 
-std::shared_ptr<sf::Drawable> LegendsWindow::overlay(int overlayType) {
+void LegendsWindow::changeOverlay(shared_ptr<sf::Shape> overlay, int overlayType) {
     if (overlayType == 1) {
-        auto overlay = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
-        overlay->setSize(sf::Vector2f(.3, .3));
-        return overlay;
+        //auto overlay = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
+        overlay->setScale(sf::Vector2f(.3, .3));
+        //return overlay;
     }
-    if (overlayType == 2) {
-        auto overlay = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
-        overlay->setSize(sf::Vector2f(1, 1));
-        return overlay;
+    else if (overlayType == 2) {
+        //auto overlay = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
+        overlay->setScale(sf::Vector2f(1, 1));
+        //return overlay;
     }
-    return nullptr;
+    else {
+        overlay->setScale(sf::Vector2f(0, 0));
+    }
 }

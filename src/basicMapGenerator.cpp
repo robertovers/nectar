@@ -1,6 +1,6 @@
 #include "basicMapGenerator.hpp"
 
-BasicMapGenerator::BasicMapGenerator(EnvColours envColours, int envSizeX, int envSizeY, int beeCount = 0, int cropChance = 0) {
+BasicMapGenerator::BasicMapGenerator(EnvColours envColours, SoybeanOverlays soybeanOverlays, int envSizeX, int envSizeY, int beeCount = 0, int cropChance = 0) {
     if (envSizeX <= 0) {
         throw std::invalid_argument("X value must be positive integer");
     }
@@ -13,6 +13,7 @@ BasicMapGenerator::BasicMapGenerator(EnvColours envColours, int envSizeX, int en
     this->beeCount = beeCount;
     this->cropChance = cropChance;
     this->envColours = envColours;
+    this->soybeanOverlays = soybeanOverlays;
 }
 
 Environment BasicMapGenerator::generateEnvironment(AgentController& agentController) {
@@ -34,7 +35,7 @@ Environment BasicMapGenerator::generateEnvironment(AgentController& agentControl
         for (auto& location : locationRow) {
             float rolledChance = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);  // 0.0 - 1.0
             if (placeChance >= rolledChance) {
-                auto plant = shared_ptr<Soybean>(std::make_shared<Soybean>(location->getX(), location->getY(), envColours.soybeanColour, envColours.nectarColour, envColours.pollenColour));
+                auto plant = shared_ptr<Soybean>(std::make_shared<Soybean>(location->getX(), location->getY(), envColours.soybeanColour, envColours.nectarColour, envColours.pollenColour, soybeanOverlays));
                 generatedEnvironment.changeLocation(location->getX(), location->getY(), plant);
             }
         }

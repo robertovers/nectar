@@ -1,15 +1,10 @@
 #include "soybean.hpp"
 #define GENDER 3
 
-Soybean::Soybean(int x, int y, shared_ptr<sf::Color> colour, shared_ptr<sf::Color> nectarColour, shared_ptr<sf::Color> pollenColour) : Plant(x, y, colour, nectarColour, pollenColour) {
+Soybean::Soybean(int x, int y, shared_ptr<sf::Color> colour, shared_ptr<sf::Color> nectarColour, shared_ptr<sf::Color> pollenColour, SoybeanOverlays soybeanOverlays) : Plant(x, y, colour, nectarColour, pollenColour) {
     // set up overlays
-    auto pollen = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
-    pollen->setSize(sf::Vector2f(.3, .3));
-    pollinatedOverlay = pollen;
-
-    auto nectar = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
-    nectar->setSize(sf::Vector2f(1, 1));
-    nectarOverlay = nectar;
+    pollinatedOverlay = soybeanOverlays.pollen;
+    nectarOverlay = soybeanOverlays.nectar;
 }
 
 //void Soybean::draw(sf::RenderTarget & target, sf::RenderStates states) {

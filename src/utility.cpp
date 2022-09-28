@@ -39,3 +39,10 @@ EnvColours::EnvColours() {
     hiveColour = std::make_shared<sf::Color>(255, 0, 0);
     locationColour = std::make_shared<sf::Color>(104, 78, 59);
 }
+
+SoybeanOverlays::SoybeanOverlays() {
+    nectar = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>(sf::Vector2f(1,1)));
+    pollen = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>(sf::Vector2f(1, 1)));
+
+    
+}

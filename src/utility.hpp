@@ -39,4 +39,11 @@ struct EnvColours {
     /// @brief Create an EnvColours object, containing default colours
     EnvColours();
 };
+
+struct SoybeanOverlays {
+    std::shared_ptr<sf::Shape> pollen;
+    std::shared_ptr<sf::Shape> nectar;
+
+    SoybeanOverlays();
+};
 #endif
