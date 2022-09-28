@@ -32,8 +32,13 @@ void Application::run() {
     sf::Clock clock;
     auto metrics = std::make_shared<Metrics>();
 
+    // set up window
     sf::RenderWindow window(sf::VideoMode(initialWindowWidth, initialWindowHeight), "Nectar");
-
+    sf::Image icon;
+    if (icon.loadFromFile("bee_hex.png")) {
+        window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+    };
+    
     window.setFramerateLimit(30);
 
     // set up environment
