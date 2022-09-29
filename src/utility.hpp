@@ -29,4 +29,6 @@ struct Parameters {
     Parameters();   
 };
 
+Parameters simconfigUI();
+
 #endif

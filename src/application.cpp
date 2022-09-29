@@ -16,7 +16,6 @@
 #include "environment.hpp"
 #include "basicMapGenerator.hpp"
 #include "agentController.hpp"
-#include "initialUI.hpp"
 #include "utility.hpp"
 #include "display/statsWindow.hpp"
 
@@ -24,8 +23,7 @@ Application::Application() { }
 
 void Application::run() { 
     // initial display for acquiring params from user
-    InitialUI initialUI = InitialUI();
-    Parameters params = initialUI.run();
+    Parameters params = simconfigUI();
 
     // Attempt at making program conclude early if initial UI is not closed via load simulation button. But not working...
     if (!params.normal_exit) {
