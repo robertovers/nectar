@@ -1,5 +1,19 @@
 #include <SFML/Graphics.hpp>
+#include <filesystem>
+#include <exception>
 #include "application.hpp"
+
+int main()
+{
+    Application app;
+    app.run();
+
+    std::filesystem::path report_script = "reporting/generate.sh";
+    std::filesystem::permissions(report_script, std::filesystem::perms::owner_all);
+    system("reporting/generate.sh");
+
+    return 0;
+}
 
 /**
  * \mainpage
@@ -89,10 +103,3 @@
  * [  PASSED  ] 4 tests.
  * ```
  */
-
-int main()
-{
-    Application app;
-    app.run();
-    return 0;
-}
