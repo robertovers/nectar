@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo Hello, World!
+python3 reporting/report_script.py
