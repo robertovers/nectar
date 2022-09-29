@@ -26,18 +26,7 @@ struct Parameters {
     float soybean_p;
     bool normal_exit;
 
-    Parameters();
-};
-
-struct Parameters {
-    int rows;
-    int columns;
-    int scale;
-    int bees;
-    float soybean_p;
-    bool normal_exit;
-
     Parameters();   
-}
+};
 
 #endif

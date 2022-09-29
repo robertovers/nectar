@@ -37,7 +37,7 @@ Parameters::Parameters() {
     columns=50;
     scale=20;
     bees=50;
-    soybean_p=1;
+    soybean_p=.2;
     normal_exit=false;
 };
 

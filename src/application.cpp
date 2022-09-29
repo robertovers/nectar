@@ -24,9 +24,8 @@ Application::Application() { }
 
 void Application::run() { 
     // initial display for acquiring params from user
-    Parameters params;
     InitialUI initialUI = InitialUI();
-    params = initialUI.run();
+    Parameters params = initialUI.run();
 
     // Attempt at making program conclude early if initial UI is not closed via load simulation button. But not working...
     if (!params.normal_exit) {
