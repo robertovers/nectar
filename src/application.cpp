@@ -47,7 +47,9 @@ void Application::run() {
     auto simDisplay = SimulationDisplay(agentController, environment);
     simDisplay.updateViewport(initialWindowWidth, initialWindowHeight);
     
+    // metric logging
     Metrics::createDataFile(DATA_OUT);
+    float cur_log, last_log = 0;
 
     while (window.isOpen()) {
 
@@ -55,7 +57,12 @@ void Application::run() {
         sf::Clock deltaClock;
 
         metrics->updateMetrics(*environment, clock.getElapsedTime());
-        metrics->toFile(DATA_OUT);
+
+        cur_log = clock.getElapsedTime().asMilliseconds();
+        if (cur_log - last_log > 1000) {
+            metrics->toFile(DATA_OUT);
+            last_log = cur_log;
+        }
 
         while (window.pollEvent(event)) {
             ImGui::SFML::ProcessEvent(window, event);
