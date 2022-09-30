@@ -1,3 +1,9 @@
 #!/bin/bash
 
-# TODO
+pip install virtualenv
+
+virtualenv venv
+
+venv\bin\pip install pandas
+
+venv\bin\python reporting/report_script.py
