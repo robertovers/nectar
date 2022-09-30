@@ -77,6 +77,8 @@ private:
     EnvColours envColours;
     ///@brief pointers to the overlays used by Soybeans
     SoybeanOverlays soybeanOverlays;
+
+    bool paused = false;
 };
 
 #endif

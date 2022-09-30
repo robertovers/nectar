@@ -16,36 +16,46 @@ void LegendsWindow::draw(int windowX, int windowY) {
     static auto pollenColor = colorToImVec4(*envColours.pollenColour);
     static auto hiveColor = colorToImVec4(*envColours.hiveColour);
     static auto locationColour = colorToImVec4(*envColours.locationColour);
+
     // radio button overlay toggle values
     static int pollenOption = 1;
     static int nectarOption = 2;
 
+    static int pausedOption = false;
+
     // display window
-    ImGui::Begin("Display Options");
-    // 1. Plant options
+    ImGui::Begin("Simulation Options");
+
+    // play/pause & report generation
+    ImGui::RadioButton("Play", &pausedOption, false); ImGui::SameLine();
+    ImGui::RadioButton("Pause", &pausedOption, true); ImGui::SameLine();
+
+    // plant options
     ImGui::ColorEdit3("Soybean", (float*)&soybeanColor, ImGuiColorEditFlags_NoInputs);
 
-    // 2. nectar options
+    // nectar options
     ImGui::ColorEdit3("Soybean with max nectar", (float*)&nectarColor, ImGuiColorEditFlags_NoInputs);
     ImGui::RadioButton("None##2", &nectarOption, OverlayOptions::None); ImGui::SameLine();
     ImGui::RadioButton("Small square##2", &nectarOption, OverlayOptions::Small); ImGui::SameLine();
     ImGui::RadioButton("Overlay##2", &nectarOption, OverlayOptions::Full);
     
-    // 3. pollen options
+    // pollen options
     ImGui::ColorEdit3("Pollinated soybean", (float*)&pollenColor, ImGuiColorEditFlags_NoInputs);
     ImGui::RadioButton("None##3", &pollenOption, OverlayOptions::None); ImGui::SameLine();
     ImGui::RadioButton("Small square##3", &pollenOption, OverlayOptions::Small); ImGui::SameLine();
     ImGui::RadioButton("Overlay##3", &pollenOption, OverlayOptions::Full);
 
-    // 4. Hive options
+    // hive options
     ImGui::ColorEdit3("Hive", (float*)&hiveColor, ImGuiColorEditFlags_NoInputs);
 
-    // 5. location options
+    // location options
     ImGui::ColorEdit3("Empty location", (float*)&locationColour, ImGuiColorEditFlags_NoInputs);
 
-    // 6. bee options?
+    // TODO: bee options?
     ImGui::End();
-    
+ 
+    paused = pausedOption;
+
     // convert colour vectors back to colours
     copyColor(envColours.soybeanColour, ImVec4ToColor(soybeanColor));
     copyColor(envColours.nectarColour, ImVec4ToColor(nectarColor));
