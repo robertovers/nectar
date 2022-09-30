@@ -17,10 +17,14 @@
 #include "agentController.hpp"
 #include "utility.hpp"
 #include "display/statsWindow.hpp"
+#include "display/legendsWindow.hpp"
 
 Application::Application() { }
 
 void Application::run() { 
+    // initial simulation settings
+    auto envColours = EnvColours();  // default colours
+    auto soybeanOverlays = SoybeanOverlays();
     int rows = 100; int columns = 100; int initialWindowScale = 10;
     float initialWindowWidth = rows * initialWindowScale;
     float initialWindowHeight = columns * initialWindowScale;
@@ -38,7 +42,7 @@ void Application::run() {
     window.setFramerateLimit(30);
 
     // set up environment
-    BasicMapGenerator mapGenerator = BasicMapGenerator(rows, columns, 1000, 20);
+    BasicMapGenerator mapGenerator = BasicMapGenerator(envColours, soybeanOverlays, rows, columns, 100, 20);
     auto agentController = std::make_shared<AgentController>();
     auto environment = std::make_shared<Environment>(mapGenerator.generateEnvironment(*agentController));
     environment->initLookupTable();
@@ -47,6 +51,7 @@ void Application::run() {
     ImGui::SFML::Init(window);
 
     StatsWindow statsWindow = StatsWindow(metrics);
+    auto legendsWindow = LegendsWindow(envColours, soybeanOverlays);
     auto simDisplay = SimulationDisplay(agentController, environment);
     simDisplay.updateViewport(initialWindowWidth, initialWindowHeight);
 
@@ -80,6 +85,7 @@ void Application::run() {
         simDisplay.draw(window, sf::RenderStates());
 
         statsWindow.draw();
+        legendsWindow.draw();
 
         ImGui::SFML::Render(window);
 

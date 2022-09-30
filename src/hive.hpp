@@ -27,7 +27,7 @@ class Hive : public Location {
         /**
          * @brief Construct a new Hive object.
          */
-        Hive() : Hive(0, 0) { };
+        // Hive() : Hive(0, 0) { };
 
         /**
          * @brief Construct a new Hive object.
@@ -35,7 +35,7 @@ class Hive : public Location {
          * @param x the x-coordinate for the hive.
          * @param y the y-coordinate for the hive.
          */
-        Hive(int x, int y);
+        Hive(int x, int y, shared_ptr<sf::Color> colour) : Location(x, y, colour) {};
 
         /**
          * @brief Checks if this location is a Plant.

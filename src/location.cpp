@@ -12,10 +12,14 @@
 #include "agent.hpp"
 #include "utility.hpp"
 
-Location::Location(int x, int y) : x(x), y(y) {
+Location::Location() : Location(0, 0) { }
+
+Location::Location(int x, int y) : Location (x, y, std::make_shared<sf::Color>(sf::Color::Black)) { }
+
+Location::Location(int x, int y, shared_ptr<sf::Color> colour) : x(x), y(y), colour(colour) {
     id = ID::generateID();
     auto rectangle = std::shared_ptr<sf::RectangleShape>(std::make_shared<sf::RectangleShape>());
-    rectangle->setFillColor(sf::Color(104, 78, 59));
+    rectangle->setFillColor(*colour);
     rectangle->setSize(sf::Vector2f(1, 1));
     sprite = rectangle;
 }
@@ -23,6 +27,8 @@ Location::Location(int x, int y) : x(x), y(y) {
 void Location::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     // add offset to existing transformations
     states.transform.translate(sf::Vector2f(x, y));
+    
+    sprite->setFillColor(*colour);
 
     target.draw(*sprite, states);
 }
