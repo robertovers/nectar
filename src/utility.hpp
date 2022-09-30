@@ -27,6 +27,6 @@ struct ID {
     };
 };
 
-const std::string DATA_OUT = "sim_data.csv";
+const std::string DATA_OUT = "reporting/sim_data.csv";
 
 #endif
