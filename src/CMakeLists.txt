@@ -22,13 +22,13 @@ FetchContent_MakeAvailable(SFML)
 # for UI
 FetchContent_Declare(imgui
     GIT_REPOSITORY https://github.com/ocornut/imgui.git
-    GIT_TAG v1.87 
+    GIT_TAG master # previously used: v1.87 
 )
 FetchContent_MakeAvailable(imgui)
 FetchContent_Declare(
   imgui-sfml
   GIT_REPOSITORY https://github.com/eliasdaler/imgui-sfml.git
-  GIT_TAG        v2.5
+  GIT_TAG master  # previously used: v2.5
 )
 set(IMGUI_DIR ${imgui_SOURCE_DIR})
 option(IMGUI_SFML_FIND_SFML "Use find_package to find SFML" OFF)
