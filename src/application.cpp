@@ -23,10 +23,12 @@
 Application::Application() { }
 
 int Application::run() { 
+    bool running = true;
+
     // initial simulation settings
     auto envColours = EnvColours();  // default colours
     auto soybeanOverlays = SoybeanOverlays();
-    int rows = 100; int columns = 100; int initialWindowScale = 10;
+    int rows = 100; int columns = 100; int initialWindowScale = 8;
     float initialWindowWidth = rows * initialWindowScale;
     float initialWindowHeight = columns * initialWindowScale;
 
@@ -65,33 +67,45 @@ int Application::run() {
         sf::Event event;
         sf::Clock deltaClock;
 
-        metrics->updateMetrics(*environment, clock.getElapsedTime());
-
-        cur_log = clock.getElapsedTime().asMilliseconds();
-        if (cur_log - last_log > 1000) {
-            metrics->toFile(DATA_OUT);
-            last_log = cur_log;
-        }
-
         while (window.pollEvent(event)) {
             ImGui::SFML::ProcessEvent(window, event);
 
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed) {
+
                 window.close();
-            else if (event.type == sf::Event::Resized) {
+
+            } else if (event.type == sf::Event::Resized) {
+
                 simDisplay.updateViewport(event.size.width, event.size.height);
 
                 ImGui::SFML::Update(window, deltaClock.restart());
                 statsWindow.draw(event.size.width, event.size.height);
                 ImGui::SFML::Render(window);
-             }
-        }   
+
+            } else if (event.type == sf::Event::KeyPressed) {
+
+                if (event.key.code == sf::Keyboard::Space) {
+                    running = !running;
+                }
+
+            }
+        }
+        
+        window.clear();
 
         ImGui::SFML::Update(window, deltaClock.restart());
 
-        window.clear();
-
-        agentController->updateAgents(*environment);
+        if (running) {
+            metrics->updateMetrics(*environment, clock.getElapsedTime());
+    
+            cur_log = clock.getElapsedTime().asMilliseconds();
+            if (cur_log - last_log > 1000) {
+                metrics->toFile(DATA_OUT);
+                last_log = cur_log;
+            }
+    
+            agentController->updateAgents(*environment);
+        }
 
         window.setView(simDisplay.getView());
         simDisplay.draw(window, sf::RenderStates());
