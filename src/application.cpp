@@ -21,7 +21,7 @@
 
 Application::Application() { }
 
-void Application::run() { 
+int Application::run() { 
 
     int rows = 100; int columns = 100; int initialWindowScale = 5;
     float initialWindowWidth = rows * initialWindowScale;
@@ -91,4 +91,6 @@ void Application::run() {
     }
 
     ImGui::SFML::Shutdown();
+
+    return EXIT_SUCCESS;
 }
