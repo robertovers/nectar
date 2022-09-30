@@ -135,6 +135,7 @@ int Application::run() {
         window.display();
     }
 
+    pthread_join(ptid, NULL);
     ImGui::SFML::Shutdown();
 
     return EXIT_SUCCESS;
