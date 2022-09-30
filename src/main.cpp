@@ -1,18 +1,47 @@
 #include <SFML/Graphics.hpp>
 #include <filesystem>
 #include <exception>
+#include <iostream>
 #include "application.hpp"
 
-int main()
-{
+const std::filesystem::path report_script_macos = "reporting/generate_macos.sh";
+const std::filesystem::path report_script_windows = "reporting/generate_windows.sh";
+
+void generate_report_macos();
+void generate_report_windows();
+
+int main() {
     Application app;
     app.run();
 
-    std::filesystem::path report_script = "reporting/generate.sh";
-    std::filesystem::permissions(report_script, std::filesystem::perms::owner_all);
-    system("reporting/generate.sh");
+    #ifdef _WIN32
+        generate_report_windows();
+    #elif __APPLE__
+        generate_report_macos();
+    #endif
+
 
     return 0;
+}
+
+void generate_report_macos() {
+    std::filesystem::permissions(report_script_macos, std::filesystem::perms::owner_all);
+
+    try {
+        system(report_script_macos.string().c_str());
+    } catch (const std::exception& e) {
+        std::cout << "ERROR: Failed to generate report." << std::endl;
+    }
+}
+
+void generate_report_windows() {
+    std::filesystem::permissions(report_script_windows, std::filesystem::perms::owner_all);
+
+    try {
+        system(report_script_windows.string().c_str());
+    } catch (const std::exception& e) {
+        std::cout << "ERROR: Failed to generate report." << std::endl;
+    }
 }
 
 /**
