@@ -56,4 +56,26 @@ struct SoybeanOverlays {
     SoybeanOverlays();
 };
 
+/// @brief Enum for different status' of the simulation
+enum Status {
+
+    // Simulation currently running
+    Play,
+
+    // Simulation currently paused
+    Pause,
+
+    // Simulation signalled to stop
+    Stop,
+
+    // Simulation currently stopped
+    Stopped,
+
+    // Report generated successfully
+    ReportSuccess,
+
+    // Report generation failed
+    ReportFail
+};
+
 #endif

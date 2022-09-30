@@ -45,4 +45,20 @@ class Application {
 
 };
 
+/**
+ * @brief Thread function for generating reports on MacOS
+ * 
+ * @param arg 
+ * @return void* 
+ */
+void *generate_report_macos(void *arg);
+
+/**
+ * @brief Thread function for generating reports on Windows
+ * 
+ * @param arg 
+ * @return void* 
+ */
+void *generate_report_windows(void *arg);
+
 #endif

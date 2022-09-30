@@ -15,9 +15,6 @@ const std::string DATA_OUT = "reporting/sim_data.csv";
 const std::filesystem::path report_script_macos = "reporting/generate_macos.sh";
 const std::filesystem::path report_script_windows = "reporting/generate_windows.sh";
 
-void *generate_report_macos(void *arg);
-void *generate_report_windows(void *arg);
-
 Status global_status = Status::Play;
 
 Application::Application() { }
@@ -69,6 +66,7 @@ int Application::run() {
         sf::Event event;
         sf::Clock deltaClock;
 
+        // event loop
         while (window.pollEvent(event)) {
             ImGui::SFML::ProcessEvent(window, event);
 
@@ -91,6 +89,7 @@ int Application::run() {
 
         ImGui::SFML::Update(window, deltaClock.restart());
 
+        // status updates
         if (global_status == Status::Play || global_status == Status::Pause) {
             global_status = legendsWindow.getStatus();
         } else if (global_status == Status::ReportSuccess || global_status == Status::ReportFail) {
@@ -111,6 +110,7 @@ int Application::run() {
 
         } else if (global_status == Status::Stop) {
 
+            // begin generating report on new thread
             #ifdef _WIN32
                 if (pthread_create(&ptid, NULL, &generate_report_windows, NULL) != EXIT_SUCCESS) {
                     perror("ERROR: pthread_create() error for windows");
