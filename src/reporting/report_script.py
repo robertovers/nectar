@@ -18,7 +18,6 @@ def generate_report(datafile):
 
     plt.tight_layout();
     plt.savefig("plot.pdf");
-    plt.show();
 
 if __name__ == '__main__':
     generate_report("reporting/sim_data.csv")
