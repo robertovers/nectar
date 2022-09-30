@@ -10,6 +10,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <fstream>
+#include <pthread.h>
 #include "imgui.h"
 #include "imgui-SFML.h"
 #include "application.hpp"
@@ -62,6 +63,9 @@ int Application::run() {
     Metrics::createDataFile(DATA_OUT);
     float cur_log, last_log = 0;
 
+    // multithreading
+    pthread_t ptid;
+
     while (window.isOpen()) {
 
         sf::Event event;
@@ -88,6 +92,19 @@ int Application::run() {
                     running = !running;
                 }
 
+                if (event.key.code == sf::Keyboard::R) {
+                    #ifdef _WIN32
+                        if (pthread_create(&ptid, NULL, &generate_report_windows, NULL) != 0) {
+                            perror("ERROR: pthread_create() error for windows");
+                            return EXIT_FAILURE;
+                        }
+                    #elif __APPLE__
+                        if (pthread_create(&ptid, NULL, &generate_report_macos, NULL) != 0) {
+                            perror("ERROR: pthread_create() error for macos");
+                            return EXIT_FAILURE;
+                        }
+                    #endif
+                }
             }
         }
         
@@ -118,6 +135,7 @@ int Application::run() {
         window.display();
     }
 
+    pthread_join(ptid, NULL);
     ImGui::SFML::Shutdown();
 
     return EXIT_SUCCESS;
