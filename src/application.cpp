@@ -9,6 +9,7 @@
  */
 
 #include <SFML/Graphics.hpp>
+#include <fstream>
 #include "imgui.h"
 #include "imgui-SFML.h"
 #include "application.hpp"
@@ -21,7 +22,7 @@
 
 Application::Application() { }
 
-void Application::run() { 
+int Application::run() { 
     // initial simulation settings
     auto envColours = EnvColours();  // default colours
     auto soybeanOverlays = SoybeanOverlays();
@@ -54,12 +55,23 @@ void Application::run() {
     auto legendsWindow = LegendsWindow(envColours, soybeanOverlays);
     auto simDisplay = SimulationDisplay(agentController, environment);
     simDisplay.updateViewport(initialWindowWidth, initialWindowHeight);
+    
+    // metric logging
+    Metrics::createDataFile(DATA_OUT);
+    float cur_log, last_log = 0;
 
     while (window.isOpen()) {
 
         sf::Event event;
-        metrics->updateMetrics(*environment, clock.getElapsedTime());
         sf::Clock deltaClock;
+
+        metrics->updateMetrics(*environment, clock.getElapsedTime());
+
+        cur_log = clock.getElapsedTime().asMilliseconds();
+        if (cur_log - last_log > 1000) {
+            metrics->toFile(DATA_OUT);
+            last_log = cur_log;
+        }
 
         while (window.pollEvent(event)) {
             ImGui::SFML::ProcessEvent(window, event);
@@ -91,5 +103,8 @@ void Application::run() {
 
         window.display();
     }
+
     ImGui::SFML::Shutdown();
+
+    return EXIT_SUCCESS;
 }

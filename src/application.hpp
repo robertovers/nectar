@@ -30,7 +30,7 @@ class Application {
         /**
          * @brief Runs the simulation by initialising the simulation loop.
          */
-        void run();
+        int run();
 };
 
 #endif

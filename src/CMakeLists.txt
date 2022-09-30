@@ -68,6 +68,13 @@ add_executable(
 target_link_libraries(nectar PUBLIC nectar_lib)
 target_compile_features(nectar PRIVATE cxx_std_17)
 
+# add report generation directory
+add_custom_command(
+  TARGET nectar POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+  ${CMAKE_SOURCE_DIR}/src/reporting/ $<TARGET_FILE_DIR:nectar>/reporting/
+)
+
 # copy SFML dlls, for windows
 if (WIN32 AND BUILD_SHARED_LIBS)
   add_custom_command(

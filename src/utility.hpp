@@ -11,13 +11,18 @@ struct Metrics {
     int hours;
     int mins;
     int secs;
+    int secs_elapsed;
     float hive_nectar;
     float pollinated_count;
 
     void updateMetrics(Environment& env, sf::Time time);
     std::string timeString();
     void toConsole();
+    void toFile(std::string filename);
+    static void createDataFile(std::string filename);
 };
+
+const std::string DATA_OUT = "reporting/sim_data.csv";
 
 struct ID {
     static int generateID() {
@@ -50,4 +55,5 @@ struct SoybeanOverlays {
     /// @brief Create a SoybeanOverlays object, containing default, full-location-sized overlays
     SoybeanOverlays();
 };
+
 #endif
