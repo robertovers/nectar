@@ -10,6 +10,7 @@ struct Metrics {
     int hours;
     int mins;
     int secs;
+    int secs_elapsed;
     float hive_nectar;
     float pollinated_count;
 

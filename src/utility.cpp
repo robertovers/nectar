@@ -4,6 +4,7 @@
 
 void Metrics::updateMetrics(Environment&env, sf::Time time) {
     int current_secs = time.asSeconds();
+    int secs_elapsed = current_secs;
     days = current_secs / 86400;
     hours = (current_secs / 3600) % 24;
     mins = (current_secs / 60) % 60;
@@ -38,10 +39,7 @@ void Metrics::toFile(std::string filename) {
 
     out.open(filename, std::ios::out | std::ios::app);
 
-    out << days     << ","
-        << hours    << ","
-        << mins     << ","
-        << secs     << ","
+    out << secs_elapsed     << ","
         << hive_nectar      << ","
         << pollinated_count << ","
         << std::endl;
@@ -54,10 +52,7 @@ void Metrics::createDataFile(std::string filename) {
 
     out.open(filename, std::ios::out | std::ios::trunc);
     
-    out << "day"    << ","
-        << "hour"   << ","
-        << "min"    << ","
-        << "sec"    << ","
+    out << "time"       << ","
         << "nectar"     << ","
         << "pollinated" << ","
         << std::endl;
