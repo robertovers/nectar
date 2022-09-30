@@ -28,7 +28,7 @@ void LegendsWindow::draw(int windowX, int windowY) {
 
     // play/pause & report generation
     ImGui::RadioButton("Play", &pausedOption, false); ImGui::SameLine();
-    ImGui::RadioButton("Pause", &pausedOption, true); ImGui::SameLine();
+    ImGui::RadioButton("Pause", &pausedOption, true);
 
     // plant options
     ImGui::ColorEdit3("Soybean", (float*)&soybeanColor, ImGuiColorEditFlags_NoInputs);
@@ -93,4 +93,8 @@ void LegendsWindow::changeOverlay(shared_ptr<sf::Shape> overlay, OverlayOptions 
     else if (overlayType == OverlayOptions::None) {
         overlay->setScale(sf::Vector2f(0, 0));
     }
+}
+
+bool LegendsWindow::isPaused() {
+    return paused;
 }

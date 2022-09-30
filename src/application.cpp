@@ -88,10 +88,6 @@ int Application::run() {
 
             } else if (event.type == sf::Event::KeyPressed) {
 
-                if (event.key.code == sf::Keyboard::Space) {
-                    running = !running;
-                }
-
                 if (event.key.code == sf::Keyboard::R) {
                     #ifdef _WIN32
                         if (pthread_create(&ptid, NULL, &generate_report_windows, NULL) != 0) {
@@ -107,10 +103,16 @@ int Application::run() {
                 }
             }
         }
-        
+
         window.clear();
 
         ImGui::SFML::Update(window, deltaClock.restart());
+
+        if (legendsWindow.isPaused()) {
+            running = false;
+        } else {
+            running = true;
+        }
 
         if (running) {
             metrics->updateMetrics(*environment, clock.getElapsedTime());
