@@ -9,6 +9,7 @@
  */
 
 #include <SFML/Graphics.hpp>
+#include <fstream>
 #include "imgui.h"
 #include "imgui-SFML.h"
 #include "application.hpp"
@@ -17,10 +18,14 @@
 #include "agentController.hpp"
 #include "utility.hpp"
 #include "display/statsWindow.hpp"
+#include "display/legendsWindow.hpp"
 
 Application::Application() { }
 
-void Application::run() { 
+int Application::run() { 
+    // initial simulation settings
+    auto envColours = EnvColours();  // default colours
+    auto soybeanOverlays = SoybeanOverlays();
     int rows = 100; int columns = 100; int initialWindowScale = 10;
     float initialWindowWidth = rows * initialWindowScale;
     float initialWindowHeight = columns * initialWindowScale;
@@ -38,7 +43,7 @@ void Application::run() {
     window.setFramerateLimit(30);
 
     // set up environment
-    BasicMapGenerator mapGenerator = BasicMapGenerator(rows, columns, 1000, 20);
+    BasicMapGenerator mapGenerator = BasicMapGenerator(envColours, soybeanOverlays, rows, columns, 100, 20);
     auto agentController = std::make_shared<AgentController>();
     auto environment = std::make_shared<Environment>(mapGenerator.generateEnvironment(*agentController));
     environment->initLookupTable();
@@ -47,14 +52,26 @@ void Application::run() {
     ImGui::SFML::Init(window);
 
     StatsWindow statsWindow = StatsWindow(metrics);
+    auto legendsWindow = LegendsWindow(envColours, soybeanOverlays);
     auto simDisplay = SimulationDisplay(agentController, environment);
     simDisplay.updateViewport(initialWindowWidth, initialWindowHeight);
+    
+    // metric logging
+    Metrics::createDataFile(DATA_OUT);
+    float cur_log, last_log = 0;
 
     while (window.isOpen()) {
 
         sf::Event event;
-        metrics->updateMetrics(*environment, clock.getElapsedTime());
         sf::Clock deltaClock;
+
+        metrics->updateMetrics(*environment, clock.getElapsedTime());
+
+        cur_log = clock.getElapsedTime().asMilliseconds();
+        if (cur_log - last_log > 1000) {
+            metrics->toFile(DATA_OUT);
+            last_log = cur_log;
+        }
 
         while (window.pollEvent(event)) {
             ImGui::SFML::ProcessEvent(window, event);
@@ -80,10 +97,14 @@ void Application::run() {
         simDisplay.draw(window, sf::RenderStates());
 
         statsWindow.draw();
+        legendsWindow.draw();
 
         ImGui::SFML::Render(window);
 
         window.display();
     }
+
     ImGui::SFML::Shutdown();
+
+    return EXIT_SUCCESS;
 }

@@ -14,11 +14,11 @@
 #include <sstream>
 #include <string>
 #include <SFML/Graphics.hpp>
-#include "imgui.h"
-#include "imgui-SFML.h"
+
 
 StatsWindow::StatsWindow(shared_ptr<Metrics> metrics) {
     this->metrics = metrics;
+    defaultPosition = ImVec2(20, 20);
 }
 
 void StatsWindow::draw(int windowX, int windowY) {
@@ -29,21 +29,17 @@ void StatsWindow::draw(int windowX, int windowY) {
 
     runTimeInfo << "Runtime: " << metrics->timeString();
     hiveNectarInfo << "Nectar in hive: " << metrics->hive_nectar;
-    pollinationCountInfo << "Flowers pollinated: " << metrics->pollinated_count;
+    pollinationCountInfo << "Soybeans pollinated: " << metrics->pollinated_count;
 
     // configure window
-    auto defaultPos = ImVec2(20, 20);
-    ImGui::SetNextWindowPos(defaultPos, ImGuiCond_Once);  // set up initial position
+    ImGui::SetNextWindowPos(defaultPosition, ImGuiCond_Once);  // set up initial position
     ImGui::SetNextWindowSize(ImVec2(0.0, 0.0));  // auto resize
 
     ImGui::Begin("Simulation statistics");
     // move window if needed, and outside visible area
     bool checkWindowPosition = windowX != -1 and windowY != -1;
     if (checkWindowPosition) {
-        auto statsWindowPos = ImGui::GetWindowPos();
-        if (statsWindowPos.x > windowX or statsWindowPos.y > windowY) {
-            ImGui::SetWindowPos(defaultPos);
-        }
+        moveUnseenWindow(windowX, windowY);
     }
     
     // set up window contents

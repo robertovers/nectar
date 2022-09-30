@@ -31,17 +31,26 @@ class Location : public sf::Drawable {
     public:
 
         /**
-         * @brief Construct a new Location object.
+         * @brief Construct a new Location object
          */
-        Location() : Location(0, 0) {};
+        Location();
+
+        /**
+         * @brief Construct a new Location object with a default colour
+         *
+         * @param x the x-coordinate of the location.
+         * @param y the y-coordinate of the location.
+         */
+        Location(int x, int y);
 
         /**
          * @brief Construct a new Location object.
          * 
          * @param x the x-coordinate of the location.
          * @param y the y-coordinate of the location.
+         * @param colour shared pointer to the Color that the location will be drawn with
          */
-        Location(int x, int y);
+        Location(int x, int y, shared_ptr<sf::Color> colour);
 
         /**
          * @brief Checks if this location is a Plant - used before type casting.
@@ -106,7 +115,6 @@ class Location : public sf::Drawable {
         int getID();
 
     protected:
-
         /**
          * @brief Renders this location to the target.
          * 
@@ -114,6 +122,9 @@ class Location : public sf::Drawable {
          * @param states states to be applied when rendering to the target.
          */
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+        /// @brief This location's colour when drawn
+        shared_ptr<sf::Color> colour;
 
         /// @brief This location's x-coordinate.
         int x;

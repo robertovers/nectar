@@ -37,7 +37,7 @@ class Environment {
          * @param w width in tiles
          * @param h height in tiles
          */
-        Environment(int w, int h);
+        Environment(int w, int h, shared_ptr<sf::Color> locColour);
 
         /**
          * @brief Renders the environment to the target.
