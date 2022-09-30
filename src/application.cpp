@@ -24,7 +24,7 @@
 Application::Application() { }
 
 int Application::run() { 
-    bool running = true;
+    Status status = Status::Play;
 
     // initial simulation settings
     auto envColours = EnvColours();  // default colours
@@ -86,21 +86,6 @@ int Application::run() {
                 statsWindow.draw(event.size.width, event.size.height);
                 ImGui::SFML::Render(window);
 
-            } else if (event.type == sf::Event::KeyPressed) {
-
-                if (event.key.code == sf::Keyboard::R) {
-                    #ifdef _WIN32
-                        if (pthread_create(&ptid, NULL, &generate_report_windows, NULL) != 0) {
-                            perror("ERROR: pthread_create() error for windows");
-                            return EXIT_FAILURE;
-                        }
-                    #elif __APPLE__
-                        if (pthread_create(&ptid, NULL, &generate_report_macos, NULL) != 0) {
-                            perror("ERROR: pthread_create() error for macos");
-                            return EXIT_FAILURE;
-                        }
-                    #endif
-                }
             }
         }
 
@@ -108,13 +93,12 @@ int Application::run() {
 
         ImGui::SFML::Update(window, deltaClock.restart());
 
-        if (legendsWindow.isPaused()) {
-            running = false;
-        } else {
-            running = true;
+        if (status == Status::Play || status == Status::Pause) {
+            status = legendsWindow.getStatus();
         }
 
-        if (running) {
+        if (status == Status::Play) {
+
             metrics->updateMetrics(*environment, clock.getElapsedTime());
     
             cur_log = clock.getElapsedTime().asMilliseconds();
@@ -124,6 +108,23 @@ int Application::run() {
             }
     
             agentController->updateAgents(*environment);
+
+        } else if (status == Status::Stop) {
+
+            #ifdef _WIN32
+                if (pthread_create(&ptid, NULL, &generate_report_windows, NULL) != 0) {
+                    perror("ERROR: pthread_create() error for windows");
+                    return EXIT_FAILURE;
+                }
+            #elif __APPLE__
+                if (pthread_create(&ptid, NULL, &generate_report_macos, NULL) != 0) {
+                    perror("ERROR: pthread_create() error for macos");
+                    return EXIT_FAILURE;
+                }
+            #endif
+
+            status = Status::Stopped;
+
         }
 
         window.setView(simDisplay.getView());

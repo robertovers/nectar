@@ -26,6 +26,13 @@ enum OverlayOptions {
     Full
 };
 
+enum Status {
+    Play,
+    Pause,
+    Stop,
+    Stopped
+};
+
 /**
  * @brief Imgui-based window class for displaying a guide to simulation symbols + options
  * 
@@ -41,7 +48,7 @@ public:
      */
     void draw(int windowX=-1, int windowY=-1);
 
-    bool isPaused();
+    Status getStatus();
 protected:
     /// @brief default position of the menu in the main window
     ImVec2 defaultPosition = ImVec2(0, 0.5);
@@ -80,7 +87,7 @@ private:
     ///@brief pointers to the overlays used by Soybeans
     SoybeanOverlays soybeanOverlays;
 
-    bool paused = false;
+    Status status = Status::Play;
 };
 
 #endif

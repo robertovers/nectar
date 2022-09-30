@@ -21,14 +21,15 @@ void LegendsWindow::draw(int windowX, int windowY) {
     static int pollenOption = 1;
     static int nectarOption = 2;
 
-    static int pausedOption = false;
+    static int simStatus = Status::Play;
 
     // display window
     ImGui::Begin("Simulation Options");
 
-    // play/pause & report generation
-    ImGui::RadioButton("Play", &pausedOption, false); ImGui::SameLine();
-    ImGui::RadioButton("Pause", &pausedOption, true);
+    // play/pause & stop
+    ImGui::RadioButton("Play", &simStatus, Status::Play); ImGui::SameLine();
+    ImGui::RadioButton("Pause", &simStatus, Status::Pause); ImGui::SameLine();
+    ImGui::RadioButton("Stop", &simStatus, Status::Stop);
 
     // plant options
     ImGui::ColorEdit3("Soybean", (float*)&soybeanColor, ImGuiColorEditFlags_NoInputs);
@@ -51,10 +52,11 @@ void LegendsWindow::draw(int windowX, int windowY) {
     // location options
     ImGui::ColorEdit3("Empty location", (float*)&locationColour, ImGuiColorEditFlags_NoInputs);
 
+
     // TODO: bee options?
     ImGui::End();
  
-    paused = pausedOption;
+    status = Status(simStatus);
 
     // convert colour vectors back to colours
     copyColor(envColours.soybeanColour, ImVec4ToColor(soybeanColor));
@@ -95,6 +97,6 @@ void LegendsWindow::changeOverlay(shared_ptr<sf::Shape> overlay, OverlayOptions 
     }
 }
 
-bool LegendsWindow::isPaused() {
-    return paused;
+Status LegendsWindow::getStatus() {
+    return status;
 }
