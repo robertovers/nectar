@@ -24,13 +24,6 @@ struct Metrics {
     static void createDataFile(std::string filename);
 };
 
-const std::string DATA_OUT = "reporting/sim_data.csv";
-const std::filesystem::path report_script_macos = "reporting/generate_macos.sh";
-const std::filesystem::path report_script_windows = "reporting/generate_windows.sh";
-
-void *generate_report_macos(void *arg);
-void *generate_report_windows(void *arg);
-
 struct ID {
     static int generateID() {
         static std::atomic<std::uint64_t> id { 0 };

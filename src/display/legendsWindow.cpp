@@ -31,6 +31,14 @@ void LegendsWindow::draw(int windowX, int windowY) {
     ImGui::RadioButton("Pause", &simStatus, Status::Pause); ImGui::SameLine();
     ImGui::RadioButton("Stop", &simStatus, Status::Stop);
 
+    if (status == Status::Stop) {
+        ImGui::Text("Generating report...");
+    } else if (status == Status::ReportSuccess) {
+        ImGui::Text("Report succesfully generated!");
+    } else if (status == Status::ReportFail) {
+        ImGui::Text("Report generation failed.");
+    }
+
     // plant options
     ImGui::ColorEdit3("Soybean", (float*)&soybeanColor, ImGuiColorEditFlags_NoInputs);
 
@@ -55,8 +63,10 @@ void LegendsWindow::draw(int windowX, int windowY) {
 
     // TODO: bee options?
     ImGui::End();
- 
-    status = Status(simStatus);
+
+    if (status == Status::Play || status == Status::Pause) {
+        status = Status(simStatus);
+    } 
 
     // convert colour vectors back to colours
     copyColor(envColours.soybeanColour, ImVec4ToColor(soybeanColor));
@@ -99,4 +109,8 @@ void LegendsWindow::changeOverlay(shared_ptr<sf::Shape> overlay, OverlayOptions 
 
 Status LegendsWindow::getStatus() {
     return status;
+}
+
+void LegendsWindow::setStatus(Status newStatus) {
+    status = newStatus;
 }

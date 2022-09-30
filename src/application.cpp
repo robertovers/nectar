@@ -9,22 +9,20 @@
  */
 
 #include <SFML/Graphics.hpp>
-#include <fstream>
-#include <pthread.h>
-#include "imgui.h"
-#include "imgui-SFML.h"
 #include "application.hpp"
-#include "environment.hpp"
-#include "basicMapGenerator.hpp"
-#include "agentController.hpp"
-#include "utility.hpp"
-#include "display/statsWindow.hpp"
-#include "display/legendsWindow.hpp"
+
+const std::string DATA_OUT = "reporting/sim_data.csv";
+const std::filesystem::path report_script_macos = "reporting/generate_macos.sh";
+const std::filesystem::path report_script_windows = "reporting/generate_windows.sh";
+
+void *generate_report_macos(void *arg);
+void *generate_report_windows(void *arg);
+
+Status global_status = Status::Play;
 
 Application::Application() { }
 
-int Application::run() { 
-    Status status = Status::Play;
+int Application::run() {
 
     // initial simulation settings
     auto envColours = EnvColours();  // default colours
@@ -93,11 +91,13 @@ int Application::run() {
 
         ImGui::SFML::Update(window, deltaClock.restart());
 
-        if (status == Status::Play || status == Status::Pause) {
-            status = legendsWindow.getStatus();
+        if (global_status == Status::Play || global_status == Status::Pause) {
+            global_status = legendsWindow.getStatus();
+        } else if (global_status == Status::ReportSuccess || global_status == Status::ReportFail) {
+            legendsWindow.setStatus(global_status);
         }
 
-        if (status == Status::Play) {
+        if (global_status == Status::Play) {
 
             metrics->updateMetrics(*environment, clock.getElapsedTime());
     
@@ -109,22 +109,19 @@ int Application::run() {
     
             agentController->updateAgents(*environment);
 
-        } else if (status == Status::Stop) {
+        } else if (global_status == Status::Stop) {
 
             #ifdef _WIN32
-                if (pthread_create(&ptid, NULL, &generate_report_windows, NULL) != 0) {
+                if (pthread_create(&ptid, NULL, &generate_report_windows, NULL) != EXIT_SUCCESS) {
                     perror("ERROR: pthread_create() error for windows");
-                    return EXIT_FAILURE;
                 }
             #elif __APPLE__
-                if (pthread_create(&ptid, NULL, &generate_report_macos, NULL) != 0) {
+                if (pthread_create(&ptid, NULL, &generate_report_macos, NULL) != EXIT_SUCCESS) {
                     perror("ERROR: pthread_create() error for macos");
-                    return EXIT_FAILURE;
                 }
             #endif
 
-            status = Status::Stopped;
-
+            global_status = Status::Stopped;
         }
 
         window.setView(simDisplay.getView());
@@ -138,8 +135,33 @@ int Application::run() {
         window.display();
     }
 
-    pthread_join(ptid, NULL);
     ImGui::SFML::Shutdown();
 
     return EXIT_SUCCESS;
+}
+
+void *generate_report_macos(void *arg) {
+    std::filesystem::permissions(report_script_macos, std::filesystem::perms::owner_all);
+
+    try {
+        system(report_script_macos.string().c_str());
+    } catch (const std::exception& e) {
+        global_status = Status::ReportFail;
+    }
+
+    global_status = Status::ReportSuccess;
+    pthread_exit(NULL);
+}
+
+void *generate_report_windows(void *arg) {
+    std::filesystem::permissions(report_script_windows, std::filesystem::perms::owner_all);
+
+    try {
+        system(report_script_windows.string().c_str());
+    } catch (const std::exception& e) {
+        global_status = Status::ReportFail;
+    }
+
+    global_status = Status::ReportFail;
+    pthread_exit(NULL);
 }

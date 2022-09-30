@@ -72,27 +72,3 @@ void Metrics::createDataFile(std::string filename) {
 
     out.close();
 };
-
-void *generate_report_macos(void *arg) {
-    std::filesystem::permissions(report_script_macos, std::filesystem::perms::owner_all);
-
-    try {
-        system(report_script_macos.string().c_str());
-    } catch (const std::exception& e) {
-        std::cout << "ERROR: Failed to generate report." << std::endl;
-    }
-
-    pthread_exit(NULL);
-}
-
-void *generate_report_windows(void *arg) {
-    std::filesystem::permissions(report_script_windows, std::filesystem::perms::owner_all);
-
-    try {
-        system(report_script_windows.string().c_str());
-    } catch (const std::exception& e) {
-        std::cout << "ERROR: Failed to generate report." << std::endl;
-    }
-
-    pthread_exit(NULL);
-}

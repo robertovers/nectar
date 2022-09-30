@@ -11,6 +11,17 @@
 #ifndef application_hpp
 #define application_hpp
 
+#include <fstream>
+#include <pthread.h>
+#include "imgui.h"
+#include "imgui-SFML.h"
+#include "application.hpp"
+#include "environment.hpp"
+#include "basicMapGenerator.hpp"
+#include "agentController.hpp"
+#include "utility.hpp"
+#include "display/statsWindow.hpp"
+#include "display/legendsWindow.hpp"
 #include "display/simulationDisplay.hpp"
 
 /**
@@ -31,6 +42,7 @@ class Application {
          * @brief Runs the simulation by initialising the simulation loop.
          */
         int run();
+
 };
 
 #endif

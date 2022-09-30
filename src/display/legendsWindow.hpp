@@ -30,7 +30,9 @@ enum Status {
     Play,
     Pause,
     Stop,
-    Stopped
+    Stopped,
+    ReportSuccess,
+    ReportFail
 };
 
 /**
@@ -49,6 +51,8 @@ public:
     void draw(int windowX=-1, int windowY=-1);
 
     Status getStatus();
+
+    void setStatus(Status newStatus);
 protected:
     /// @brief default position of the menu in the main window
     ImVec2 defaultPosition = ImVec2(0, 0.5);
