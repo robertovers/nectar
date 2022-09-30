@@ -14,12 +14,11 @@ int main() {
     Application app;
     app.run();
 
-    #ifdef _WIN32
-        generate_report_windows();
-    #elif __APPLE__
-        generate_report_macos();
-    #endif
-
+    // #ifdef _WIN32
+    //     generate_report_windows();
+    // #elif __APPLE__
+    //     generate_report_macos();
+    // #endif
 
     return 0;
 }
