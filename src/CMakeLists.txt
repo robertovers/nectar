@@ -22,13 +22,13 @@ FetchContent_MakeAvailable(SFML)
 # for UI
 FetchContent_Declare(imgui
     GIT_REPOSITORY https://github.com/ocornut/imgui.git
-    GIT_TAG v1.87 
+    GIT_TAG master # previously used: v1.87 
 )
 FetchContent_MakeAvailable(imgui)
 FetchContent_Declare(
   imgui-sfml
   GIT_REPOSITORY https://github.com/eliasdaler/imgui-sfml.git
-  GIT_TAG        v2.5
+  GIT_TAG master  # previously used: v2.5
 )
 set(IMGUI_DIR ${imgui_SOURCE_DIR})
 option(IMGUI_SFML_FIND_SFML "Use find_package to find SFML" OFF)
@@ -51,7 +51,9 @@ add_library(
   plant.cpp
   utility.cpp
   "display/simulationDisplay.cpp"
-  "display/statsWindow.cpp")
+  "display/statsWindow.cpp" 
+  "display/menu.cpp"
+  "display/legendsWindow.cpp")
 
 target_link_libraries(nectar_lib PUBLIC sfml-graphics)
 target_link_libraries(nectar_lib PUBLIC ImGui-SFML::ImGui-SFML)
@@ -65,6 +67,13 @@ add_executable(
 
 target_link_libraries(nectar PUBLIC nectar_lib)
 target_compile_features(nectar PRIVATE cxx_std_17)
+
+# add report generation directory
+add_custom_command(
+  TARGET nectar POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+  ${CMAKE_SOURCE_DIR}/src/reporting/ $<TARGET_FILE_DIR:nectar>/reporting/
+)
 
 # copy SFML dlls, for windows
 if (WIN32 AND BUILD_SHARED_LIBS)

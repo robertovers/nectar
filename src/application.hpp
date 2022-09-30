@@ -22,7 +22,6 @@
 class Application {
 
     public:
-
         /**
          * @brief Construct a new Application object.
          */
@@ -31,7 +30,7 @@ class Application {
         /**
          * @brief Runs the simulation by initialising the simulation loop.
          */
-        void run();
+        int run();
 };
 
 #endif
