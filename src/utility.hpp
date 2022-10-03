@@ -1,7 +1,6 @@
 #ifndef utility_hpp
 #define utility_hpp
 
-#include <SFML/Graphics.hpp>
 #include <string>
 #include <filesystem>
 #include "environment.hpp"
@@ -30,6 +29,41 @@ struct ID {
     };
 };
 
+
+///@brief Parameters structure for storing simulation parameter values.
+struct Parameters {
+
+    ///@brief Number of rows for the simulation map. Note: Each grid on the map represents space required for a single crop
+    int rows = 100;
+
+    ///@brief Number of columns for the simulation map. Note: Each grid on the map represents space required for a single crop
+    int columns = 100;
+
+    ///@brief Scale of each grid on the simulation map. Note: Does not currently affect flight speed 
+    int scale = 8;
+
+    ///@brief Number of bees to use in the simulation.
+    int bees = 50;
+
+    ///@brief Probability of a soybean being planted in each grid from 0-1.
+    float soybean_p = 0.1;
+
+    ///@brief Boolean for the exit status of the simulation conguration display 
+    bool normal_exit = false;
+};
+
+/**
+ * @brief simconfigUI function for a UI display for configuring simulation parameters.
+ * 
+ * The simcomfigUI functions creates a display with parameters and 
+ * textboxes/sliders containing the default parameter values. These
+ * textboxes/slides can then be altered by the user and finalised 
+ * through clicking the display simulation button. 
+ * 
+ * @return Parameters structure of simulation parameter values to be used.
+ */
+Parameters simconfigUI();
+
 /**
  * @brief Struct containing all colours used by different Locations in the simulation
  */
@@ -46,8 +80,10 @@ struct EnvColours {
 
 /// @brief Struct containing pointers to the overlays to used by Soybeans
 struct SoybeanOverlays {
+
     /// @brief Overlay used when displaying pollen data
     std::shared_ptr<sf::Shape> pollen;
+
     /// @brief Overlay used when displaying nectar data
     std::shared_ptr<sf::Shape> nectar;
 
