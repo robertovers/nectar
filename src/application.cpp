@@ -25,7 +25,7 @@ int Application::run() {
     // initial simulation settings
     auto envColours = EnvColours();  // default colours
     auto soybeanOverlays = SoybeanOverlays();
-    int rows = 100; int columns = 100; int initialWindowScale = 8;
+    int rows = 75; int columns = 75; int initialWindowScale = 10;
     float initialWindowWidth = rows * initialWindowScale;
     float initialWindowHeight = columns * initialWindowScale;
 
