@@ -2,22 +2,35 @@ import pandas as pd
 import matplotlib.pyplot as plt 
 
 def generate_report(datafile):
-    sim_data = pd.read_csv(datafile);
 
-    time = sim_data["time"];
-    nectar = sim_data["nectar"];
-    pollinated = sim_data["pollinated"];
+    sim_data = pd.read_csv(datafile)
 
-    figure, axis = plt.subplots(2, 1);
+    time = sim_data["time"]
+    nectar = sim_data["nectar"]
+    pollinated = sim_data["pollinated"]
 
-    axis[0].plot(time, nectar);
-    axis[0].set_title("Nectar in Hive");
+    figure, axis = plt.subplots(3, 1)
 
-    axis[1].plot(time, pollinated);
-    axis[1].set_title("No. of Pollinated Flowers");
+    figure.suptitle("Nectar Simulation Report")
 
-    plt.tight_layout();
-    plt.savefig("plot.pdf");
+    figure.set_size_inches(8.27, 11.69)
+
+    axis[0].axis("off")
+
+    axis[1].plot(time, nectar)
+    axis[1].set_title("Nectar in Hive")
+    axis[1].set_ylabel("Nectar (milligrams)")
+    axis[1].set_xlabel("Time (seconds)")
+
+    axis[2].plot(time, pollinated)
+    axis[2].set_title("No. of Pollinated Flowers")
+    axis[2].set_ylabel("No. of Flowers")
+    axis[2].set_xlabel("Time (seconds)")
+
+    figure.tight_layout()
+    plt.show()
+    figure.savefig("plot.pdf")
 
 if __name__ == '__main__':
     generate_report("reporting/sim_data.csv")
+
