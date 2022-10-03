@@ -22,8 +22,9 @@
 Application::Application() { }
 
 void Application::run() { 
-    // initial display for acquiring params from user
-    Parameters params = simconfigUI();
+    
+    // Acquire simulation parameters via initial user interface
+    Parameters params = simconfigUI();     
 
     // Attempt at making program conclude early if initial UI is not closed via load simulation button. But not working...
     if (!params.normal_exit) {
