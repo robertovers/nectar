@@ -1,12 +1,10 @@
 #include "environment.hpp"
 
-Environment::Environment() : width(0), height(0) { }
-
-Environment::Environment(int w, int h) : width(w), height(h) {
+Environment::Environment(int w, int h, shared_ptr<sf::Color> locColour) : width(w), height(h) {
     for (int y=0; y<height; y++) {
         locations.push_back(vector_shared_ptr<Location>(width));
         for (int x=0; x<width; x++) {
-            locations[y][x] = std::make_shared<Location>(x, y);
+            locations[y][x] = std::make_shared<Location>(x, y, locColour);
         }
     }
 }

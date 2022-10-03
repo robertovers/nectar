@@ -9,11 +9,20 @@
 
 class Environment {
     public:
-        Environment();
-        Environment(int w, int h);
-        vector2D_shared_ptr<Location>& getLocations();
-        shared_ptr<Location> getLocation(int x, int y);
-        shared_ptr<Hive> getHive();
+        /**
+         * @brief Construct a new Environment object.
+         * 
+         * @param w width in tiles
+         * @param h height in tiles
+         */
+        Environment(int w, int h, shared_ptr<sf::Color> locColour);
+
+        /**
+         * @brief Renders the environment to the target.
+         * 
+         * @param target a reference to a render target.
+         * @param states states to be applied when rendering to the target.
+         */
         void draw(sf::RenderTarget& target, sf::RenderStates states);
         void setHive(shared_ptr<Hive> h);
         int getSize() const;

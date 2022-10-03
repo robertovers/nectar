@@ -10,6 +10,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <fstream>
 #include "imgui.h"
 #include "imgui-SFML.h"
 #include "application.hpp"
@@ -18,10 +19,11 @@
 #include "agentController.hpp"
 #include "utility.hpp"
 #include "display/statsWindow.hpp"
+#include "display/legendsWindow.hpp"
 
 Application::Application() { }
 
-void Application::run() { 
+int Application::run() { 
     
     // Acquire simulation parameters via initial user interface
     Parameters params = simconfigUI();     
@@ -31,16 +33,24 @@ void Application::run() {
         std::cout << "Program exited by user\n";
         exit(1);
     }
-
-    // simulation window start
+    
+    // simulation settings
+    auto envColours = EnvColours();  // default colours
+    auto soybeanOverlays = SoybeanOverlays();
     float initialWindowWidth = params.rows * params.scale;
     float initialWindowHeight = params.columns * params.scale;
+
 
     sf::Clock clock;
     auto metrics = std::make_shared<Metrics>();
 
+    // set up window
     sf::RenderWindow window(sf::VideoMode(initialWindowWidth, initialWindowHeight), "Nectar");
-
+    sf::Image icon;
+    if (icon.loadFromFile("bee_hex.png")) {
+        window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+    };
+    
     window.setFramerateLimit(30);
 
     // set up environment
@@ -52,14 +62,26 @@ void Application::run() {
     ImGui::SFML::Init(window);
 
     StatsWindow statsWindow = StatsWindow(metrics);
+    auto legendsWindow = LegendsWindow(envColours, soybeanOverlays);
     auto simDisplay = SimulationDisplay(agentController, environment);
     simDisplay.updateViewport(initialWindowWidth, initialWindowHeight);
-   
+    
+    // metric logging
+    Metrics::createDataFile(DATA_OUT);
+    float cur_log, last_log = 0;
+
     while (window.isOpen()) {
 
         sf::Event event;
-        metrics->updateMetrics(*environment, clock.getElapsedTime());
         sf::Clock deltaClock;
+
+        metrics->updateMetrics(*environment, clock.getElapsedTime());
+
+        cur_log = clock.getElapsedTime().asMilliseconds();
+        if (cur_log - last_log > 1000) {
+            metrics->toFile(DATA_OUT);
+            last_log = cur_log;
+        }
 
         while (window.pollEvent(event)) {
             ImGui::SFML::ProcessEvent(window, event);
@@ -81,10 +103,14 @@ void Application::run() {
         simDisplay.draw(window, sf::RenderStates());
 
         statsWindow.draw();
+        legendsWindow.draw();
 
         ImGui::SFML::Render(window);
 
         window.display();
     }
+
     ImGui::SFML::Shutdown();
+
+    return EXIT_SUCCESS;
 }
