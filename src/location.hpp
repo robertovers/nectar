@@ -115,6 +115,7 @@ class Location : public sf::Drawable {
         int getID();
 
     protected:
+
         /**
          * @brief Renders this location to the target.
          * 

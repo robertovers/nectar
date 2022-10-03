@@ -41,6 +41,7 @@ class RowMapGenerator : MapGenerator {
 		Environment generateEnvironment(AgentController& agentController);
 
 	private:
+
 		/// @brief length of the map
 		int envSizeX;
 
