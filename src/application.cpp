@@ -49,8 +49,7 @@ int Application::run() {
     
     window.setFramerateLimit(30);
 
-    // set up environment
-    
+    // set up environments
     MapGenerator* mapGenerator;
     switch (params.selectedGenerator) {
         case 0:
@@ -155,7 +154,10 @@ int Application::run() {
         window.display();
     }
 
-    reportThread.join();
+    if (reportThread.joinable()) {
+        reportThread.join();
+    }
+
     ImGui::SFML::Shutdown();
 
     return EXIT_SUCCESS;
