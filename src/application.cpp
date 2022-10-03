@@ -9,6 +9,7 @@
  */
 
 #include <SFML/Graphics.hpp>
+#include <thread>
 #include "application.hpp"
 
 const std::string DATA_OUT = "reporting/sim_data.csv";
@@ -58,8 +59,8 @@ int Application::run() {
     Metrics::createDataFile(DATA_OUT);
     float cur_log, last_log = 0;
 
-    // multithreading
-    pthread_t ptid;
+    // multithreading for report generation
+    std::thread reportThread;
 
     while (window.isOpen()) {
 
@@ -112,13 +113,9 @@ int Application::run() {
 
             // begin generating report on new thread
             #ifdef _WIN32
-                if (pthread_create(&ptid, NULL, &generate_report_windows, NULL) != EXIT_SUCCESS) {
-                    perror("ERROR: pthread_create() error for windows");
-                }
+                reportThread = std::thread(generate_report_windows);
             #elif __APPLE__
-                if (pthread_create(&ptid, NULL, &generate_report_macos, NULL) != EXIT_SUCCESS) {
-                    perror("ERROR: pthread_create() error for macos");
-                }
+                reportThread = std::thread(generate_report_macos);
             #endif
 
             global_status = Status::Stopped;
@@ -135,13 +132,13 @@ int Application::run() {
         window.display();
     }
 
-    pthread_join(ptid, NULL);
+    reportThread.join();
     ImGui::SFML::Shutdown();
 
     return EXIT_SUCCESS;
 }
 
-void *generate_report_macos(void *arg) {
+void generate_report_macos() {
     std::filesystem::permissions(report_script_macos, std::filesystem::perms::owner_all);
 
     try {
@@ -151,10 +148,9 @@ void *generate_report_macos(void *arg) {
     }
 
     global_status = Status::ReportSuccess;
-    pthread_exit(NULL);
 }
 
-void *generate_report_windows(void *arg) {
+void generate_report_windows() {
     std::filesystem::permissions(report_script_windows, std::filesystem::perms::owner_all);
 
     try {
@@ -164,5 +160,4 @@ void *generate_report_windows(void *arg) {
     }
 
     global_status = Status::ReportFail;
-    pthread_exit(NULL);
 }

@@ -12,7 +12,6 @@
 #define application_hpp
 
 #include <fstream>
-#include <pthread.h>
 #include "imgui.h"
 #include "imgui-SFML.h"
 #include "application.hpp"
@@ -46,19 +45,19 @@ class Application {
 };
 
 /**
- * @brief Thread function for generating reports on MacOS
+ * @brief Function for generating reports on MacOS
  * 
  * @param arg 
  * @return void* 
  */
-void *generate_report_macos(void *arg);
+void generate_report_macos();
 
 /**
- * @brief Thread function for generating reports on Windows
+ * @brief Function for generating reports on Windows
  * 
  * @param arg 
  * @return void* 
  */
-void *generate_report_windows(void *arg);
+void generate_report_windows();
 
 #endif
