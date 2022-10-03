@@ -47,7 +47,6 @@ add_library(
   environment.cpp
   hive.cpp
   honeybee.cpp
-  InitialUI.cpp
   location.cpp
   plant.cpp
   rowMapGenerator.cpp
@@ -63,7 +62,6 @@ add_executable(
   nectar 
   main.cpp
   application.cpp
-  initialUI.cpp
 )
 
 target_link_libraries(nectar PUBLIC nectar_lib)
