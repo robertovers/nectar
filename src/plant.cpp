@@ -1,11 +1,12 @@
 #include "plant.hpp"
+#include <iostream>
 
 Plant::~Plant() { }
 
 Plant::Plant(int x, int y, shared_ptr<sf::Color> colour, shared_ptr<sf::Color> nectarColour, shared_ptr<sf::Color> pollenColour) : Location(x, y, colour) {
     this->nectarColour = nectarColour;
     this->pollinatedColour = pollenColour;
-    nectar = std::rand() % MAX_NECTAR + 1;
+    nectar = static_cast <float> (rand()) / static_cast <float> (RAND_MAX / MAX_NECTAR);
 }
 
 bool Plant::isPlant() {
@@ -33,7 +34,7 @@ bool Plant::hasLotsOfNectar() {
 }
 
 float Plant::harvestNectar() {
-    float amount = 1;
+    float amount = 0.02;
     if (nectar >= amount) {
         nectar -= amount;
         return amount;

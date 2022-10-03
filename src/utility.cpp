@@ -86,6 +86,7 @@ void Parameters::check_limits(){
 
 Parameters simconfigUI(){
     Parameters parameters;                              
+    static int dimensions[2]={parameters.columns,parameters.rows};
 
     //SFMl & Imgui Window Initialization
     sf::RenderWindow window(sf::VideoMode(WINDOWWIDTH, WINDOWHEIGHT), "Simulation Parameters", sf::Style::Titlebar);
@@ -197,6 +198,7 @@ void getDefaultParameterWidgets(Parameters* parameters){
     parameters->rows = dimensions[0];
     parameters->columns = dimensions[1];
     parameters->check_limits();
+
 }
 
 EnvColours::EnvColours() {
