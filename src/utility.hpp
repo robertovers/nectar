@@ -50,6 +50,8 @@ struct Parameters {
 
     ///@brief Boolean for the exit status of the simulation conguration display 
     bool normal_exit = false;
+
+    void check_limits();
 };
 
 /**

@@ -63,6 +63,24 @@ void Metrics::createDataFile(std::string filename) {
     out.close();
 };
 
+#define INT_LOWER_LIM 1
+#define ROWS_UPPER_LIM 400
+#define COLS_UPPER_LIM 400
+#define SCALE_UPPER_LIM 50 
+#define BEES_UPPER_LIM 10000
+
+void Parameters::check_limits(){
+    int int_lower_lim = 0;
+    if (rows < INT_LOWER_LIM) rows = INT_LOWER_LIM;
+    if (columns < INT_LOWER_LIM) columns = INT_LOWER_LIM;
+    if (scale < INT_LOWER_LIM) scale = INT_LOWER_LIM;
+    if (bees < INT_LOWER_LIM) bees = INT_LOWER_LIM;
+    if (rows > ROWS_UPPER_LIM) rows = ROWS_UPPER_LIM;
+    if (columns > COLS_UPPER_LIM) columns = COLS_UPPER_LIM;
+    if (scale > SCALE_UPPER_LIM) scale = SCALE_UPPER_LIM;
+    if (bees > BEES_UPPER_LIM) bees = BEES_UPPER_LIM;
+}
+
 #define WINDOWHEIGHT 196
 #define WINDOWWIDTH 401
 
@@ -106,6 +124,7 @@ Parameters simconfigUI(){
         // Update parameter values
         parameters.rows = dimensions[0];
         parameters.columns = dimensions[1];
+        parameters.check_limits();
 
         // Display Simulation Widget
         static int ds_clicked=0;
