@@ -57,7 +57,6 @@ add_library(
 
 target_link_libraries(nectar_lib PUBLIC sfml-graphics)
 target_link_libraries(nectar_lib PUBLIC ImGui-SFML::ImGui-SFML)
-target_link_libraries(nectar_lib PUBLIC pthread)
 
 # Build simulator
 add_executable(

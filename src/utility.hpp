@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <filesystem>
-#include <pthread.h>
 #include "environment.hpp"
 #include "templates.hpp"
 
