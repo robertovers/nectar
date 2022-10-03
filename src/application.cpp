@@ -21,13 +21,20 @@ Status global_status = Status::Play;
 Application::Application() { }
 
 int Application::run() {
+    // Acquire simulation parameters via initial user interface
+    Parameters params = simconfigUI();     
+
+    // Attempt at making program conclude early if initial UI is not closed via load simulation button. But not working...
+    if (!params.normal_exit) {
+        std::cout << "Program exited by user\n";
+        exit(1);
+    }
 
     // initial simulation settings
     auto envColours = EnvColours();  // default colours
     auto soybeanOverlays = SoybeanOverlays();
-    int rows = 100; int columns = 100; int initialWindowScale = 8;
-    float initialWindowWidth = rows * initialWindowScale;
-    float initialWindowHeight = columns * initialWindowScale;
+    float initialWindowWidth = params.rows * params.scale;
+    float initialWindowHeight = params.columns * params.scale;
 
     sf::Clock clock;
     auto metrics = std::make_shared<Metrics>();
@@ -42,7 +49,7 @@ int Application::run() {
     window.setFramerateLimit(30);
 
     // set up environment
-    BasicMapGenerator mapGenerator = BasicMapGenerator(envColours, soybeanOverlays, rows, columns, 100, 20);
+    BasicMapGenerator mapGenerator = BasicMapGenerator(envColours, soybeanOverlays, params.rows, params.columns, params.bees, params.soybean_p);
     auto agentController = std::make_shared<AgentController>();
     auto environment = std::make_shared<Environment>(mapGenerator.generateEnvironment(*agentController));
     environment->initLookupTable();
@@ -72,17 +79,14 @@ int Application::run() {
             ImGui::SFML::ProcessEvent(window, event);
 
             if (event.type == sf::Event::Closed) {
-
                 window.close();
 
             } else if (event.type == sf::Event::Resized) {
-
                 simDisplay.updateViewport(event.size.width, event.size.height);
 
                 ImGui::SFML::Update(window, deltaClock.restart());
                 statsWindow.draw(event.size.width, event.size.height);
                 ImGui::SFML::Render(window);
-
             }
         }
 
