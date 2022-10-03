@@ -15,11 +15,14 @@ The project was developed as part of the final-year Computer Science project at 
 
 ## Install
 
-*TODO: Add more detail, include UNIX.*
+#### Required dependencies
+- [CMake](https://cmake.org)
 
-[CMake](https://cmake.org) is required to build nectar, and optionally, [Doxygen](https://doxygen.nl/download.html) for generating documentation.
+#### Optional dependencies
+- [Doxygen](https://doxygen.nl/download.html) (for generating documentation)
+- [Python](https://python.org) (for generating simulation reports)
 
-### macOS
+### MacOS
 
 For macOS users with homebrew, both CMake and Doxygen can be installed with:
 
@@ -44,6 +47,8 @@ Once CMake is installed, clone the nectar repository using:
 ```
 git clone https://github.com/robertovers/nectar.git
 ```
+
+### Linux
 
 ## Usage
 
