@@ -7,6 +7,7 @@
  * @brief Class representing a Location containing an unspecified plant
  * @date 2022-09-28
  */
+
 #ifndef PLANT_HPP
 #define PLANT_HPP
 
