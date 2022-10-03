@@ -159,5 +159,5 @@ void generate_report_windows() {
         global_status = Status::ReportFail;
     }
 
-    global_status = Status::ReportFail;
+    global_status = Status::ReportSuccess;
 }
