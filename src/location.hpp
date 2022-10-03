@@ -45,6 +45,7 @@ class Location : public sf::Drawable {
         int getX();
         int getY();
     protected:
+
         /**
          * @brief Renders this location to the target.
          * 
