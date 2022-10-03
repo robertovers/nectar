@@ -25,7 +25,7 @@ int Application::run() {
     // Acquire simulation parameters via initial user interface
     Parameters params = simconfigUI();     
 
-    // Attempt at making program conclude early if initial UI is not closed via load simulation button. But not working...
+    // Program concludes early if initial UI is not closed via load simulation button
     if (params.exit_status) {
         std::cout << "Program exited by user\n";
         exit(1);

@@ -142,10 +142,13 @@ Parameters simconfigUI(){
 };
 
 void getMapGeneratorWidgets(Parameters* parameters, int* mapGeneratorSelected){
-    // Map Generator Combo Box
+    
+    // Map Generator Combo Box Setup
     const char* mapGenerators[] = { "Basic Map Generator", "Row Map Generator" };   // Must be in a specific order
     static int selected_generator_id = 0;
     const char* combo_preview_value = mapGenerators[selected_generator_id];  // The preview value visible before opening the combo
+    
+    // Map Generator Combo Box 
     if (ImGui::BeginCombo("Map Generator", combo_preview_value, 0)){
         for (int n = 0; n < IM_ARRAYSIZE(mapGenerators); n++){
             const bool is_selected = (selected_generator_id == n);
