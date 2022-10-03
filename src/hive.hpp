@@ -34,6 +34,7 @@ class Hive : public Location {
          * 
          * @param x the x-coordinate for the hive.
          * @param y the y-coordinate for the hive.
+         * @param colour the colour of the hive when displayed
          */
         Hive(int x, int y, shared_ptr<sf::Color> colour) : Location(x, y, colour) {};
 
