@@ -19,7 +19,7 @@
 /**
  * @brief Class managing the display of the simulation.
  * 
- * It manages the simulation's View (which attempts to fill the window whilst maintaining the simulation's aspect ratio)
+ * It manages the simulation's View (which attempts to fill the window whilst maintaining its aspect ratio)
  * and drawing the entire simulation to a render target.
  */
 class SimulationDisplay {
@@ -47,7 +47,7 @@ public:
      */
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 private: 
-    ///  @brief the View that dictates how the simulation should be drawn
+    ///  @brief the View that dictattets how the simulation should be drawn
     sf::View view = sf::View();
     ///  @brief The controller containing the agents in the simulation
     shared_ptr<AgentController> agentController;
