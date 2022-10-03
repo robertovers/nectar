@@ -7,26 +7,55 @@
 #include "templates.hpp"
 
 struct Metrics {
+
+    /// @brief The days component of the runtime.
     int days;
+
+    /// @brief The hours component of the runtime.
     int hours;
+
+    /// @brief The minutes component of the runtime.
     int mins;
+
+    /// @brief The seconds component of the runtime.
     int secs;
+
+    /// @brief The total seconds elapsed.
     int secs_elapsed;
+
+    /// @brief The total amount of nectar in the hive (in milligrams).
     float hive_nectar;
+
+    /// @brief The total number of pollinated flowers.
     float pollinated_count;
 
+    /// @brief Updates the metrics according to the current state.
+    /// @param env a reference to the simulation environment
+    /// @param time the current time as an sf::Time object
     void updateMetrics(Environment& env, sf::Time time);
+
+    /// @brief Generates a string of the time stored in the metrics object.
+    /// @return a string
     std::string timeString();
+
+    /// @brief Prints the metrics to the console. Useful when debugging.
     void toConsole();
+
+    /// @brief Writes the metrics to a file.
+    /// @param filename a file path
     void toFile(std::string filename);
     static void createDataFile(std::string filename);
 };
 
 struct ID {
+
+    /// @brief Generates a unique ID
+    /// @return an integer ID
     static int generateID() {
         static std::atomic<std::uint64_t> id { 0 };
         return id++;
     };
+
 };
 
 
