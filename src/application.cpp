@@ -14,7 +14,7 @@
 
 const std::string DATA_OUT = "reporting/sim_data.csv";
 const std::filesystem::path report_script_macos = "reporting/generate_macos.sh";
-const std::filesystem::path report_script_windows = "reporting/generate_windows.sh";
+const std::filesystem::path report_script_windows = "reporting\\generate_windows.bat";
 
 Status global_status = Status::Play;
 
