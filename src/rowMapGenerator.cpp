@@ -9,20 +9,19 @@
  */
 
 #include "rowMapGenerator.hpp"
-#include <iostream>
 
-RowMapGenerator::RowMapGenerator(Parameters params)
+RowMapGenerator::RowMapGenerator(EnvColours envColours, SoybeanOverlays soybeanOverlays, int envSizeX, int envSizeY, int beeCount)
 {
-    if (params.rows <= 0) {
+    if (envSizeX <= 0) {
         throw std::invalid_argument("X value must be positive integer");
     }
-    if (params.columns <= 0) {
+    if (envSizeY <= 0) {
         throw std::invalid_argument("Y value must be positive integer");
     }
 
-    this->envSizeX = params.columns;
-    this->envSizeY = params.rows;
-    this->beeCount = params.bees;
+    this->envSizeX = envSizeX;
+    this->envSizeY = envSizeY;
+    this->beeCount = beeCount;
     this->envColours = envColours;
     this->soybeanOverlays = soybeanOverlays;
 }
