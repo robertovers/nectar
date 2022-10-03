@@ -137,7 +137,10 @@ int Application::run() {
         window.display();
     }
 
-    reportThread.join();
+    if (reportThread.joinable()) {
+        reportThread.join();
+    }
+
     ImGui::SFML::Shutdown();
 
     return EXIT_SUCCESS;

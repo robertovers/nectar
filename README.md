@@ -6,18 +6,23 @@ Nectar is a simulation tool used to study Honeybee pollination behaviour. It is 
 
 The project was developed as part of the final-year Computer Science project at Monash University, during 2022. The project team consists of Jireh Chen, Ethan Cheng, Lucille Grasso & Robert Overs.
 
+<img src="https://imgur.com/z2KH0T2.png" width="70%">
+
 ## Features
-- *TODO*
-- *TODO*
-- *TODO*
+- Efficient engine capable of simulating thousands of bees
+- Responsive UI with multiple display options and customisable colours
+- Automatic report and documentation generation
 
 ## Install
 
-*TODO: Add more detail, include UNIX.*
+#### Required dependencies
+- [CMake](https://cmake.org)
 
-[CMake](https://cmake.org) is required to build nectar, and optionally, [Doxygen](https://doxygen.nl/download.html) for generating documentation.
+#### Optional dependencies
+- [Doxygen](https://doxygen.nl/download.html) (for generating documentation)
+- [Python](https://python.org) (for generating simulation reports)
 
-### macOS
+### MacOS
 
 For macOS users with homebrew, both CMake and Doxygen can be installed with:
 
@@ -43,9 +48,9 @@ Once CMake is installed, clone the nectar repository using:
 git clone https://github.com/robertovers/nectar.git
 ```
 
-## Usage
+### Linux
 
-*TODO: Add info about Doxygen and options.*
+## Usage
 
 Navigate to the `nectar` directory and run:
 
@@ -59,6 +64,10 @@ The executable will be contained in `build/src`, and can be run with:
 ```
 ./build/src/nectar
 ```
+
+##
+
+Once built, the documentation can be location at `build/src/doc_doxygen`. Opening the `index.html` file within the html folder will load a webpage containing documentation for the project.
 
 ## Tests
 

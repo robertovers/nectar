@@ -14,7 +14,7 @@
 #include <sstream>
 #include <string>
 #include <SFML/Graphics.hpp>
-
+#include <cmath>
 
 StatsWindow::StatsWindow(shared_ptr<Metrics> metrics) {
     this->metrics = metrics;
@@ -28,7 +28,7 @@ void StatsWindow::draw(int windowX, int windowY) {
     std::stringstream pollinationCountInfo;
 
     runTimeInfo << "Runtime: " << metrics->timeString();
-    hiveNectarInfo << "Nectar in hive: " << metrics->hive_nectar;
+    hiveNectarInfo << "Nectar in hive: " << std::ceil(metrics->hive_nectar*100) / 100.0 << " mg";
     pollinationCountInfo << "Soybeans pollinated: " << metrics->pollinated_count;
 
     // configure window

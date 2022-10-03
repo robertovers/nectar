@@ -13,6 +13,8 @@
 #include "plant.hpp"
 #include "hive.hpp"
 
+const float POLLINATION_CHANCE = 0.5;
+
 HoneyBee::HoneyBee() {
     pos.x = 0;
     pos.y = 0;
@@ -71,7 +73,7 @@ void HoneyBee::update(Environment& env) {
             if (found_plant == target) {
                 addMemory(found_plant);
 
-                if (!found_plant->isPollinated()) {
+                if (!found_plant->isPollinated() && (rand() % 1) < POLLINATION_CHANCE) {
                     found_plant->pollinate();
                     env.incPollinatedCount();
                 }
