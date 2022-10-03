@@ -11,9 +11,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
+include <thread>
 #include "imgui.h"
 #include "imgui-SFML.h"
-#include <thread>
 #include "application.hpp"
 
 const std::string DATA_OUT = "reporting/sim_data.csv";
