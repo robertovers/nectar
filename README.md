@@ -6,7 +6,7 @@ Nectar is a simulation tool used to study Honeybee pollination behaviour. It is 
 
 The project was developed as part of the final-year Computer Science project at Monash University, during 2022. The project team consists of Jireh Chen, Ethan Cheng, Lucille Grasso & Robert Overs.
 
-<img src="https://imgur.com/vj08WaS.png" width="60%">
+<img src="https://imgur.com/z2KH0T2.png" width="70%">
 
 ## Features
 - Efficient engine capable of simulating thousands of bees
