@@ -1,3 +1,13 @@
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ *
+ * @file utility.hpp
+ * @brief File containing utility functions used throughout the project. 
+ * @date 2022-10-04
+ */
+
 #ifndef utility_hpp
 #define utility_hpp
 
@@ -6,6 +16,7 @@
 #include "environment.hpp"
 #include "templates.hpp"
 
+/// @brief Struct for storing a timestamp of simulation statistics.
 struct Metrics {
 
     /// @brief The days component of the runtime.
@@ -58,26 +69,25 @@ struct ID {
 
 };
 
-
-///@brief Parameters structure for storing simulation parameter values.
+/// @brief Parameters structure for storing simulation parameter values.
 struct Parameters {
 
-    ///@brief Number of rows for the simulation map. Note: Each grid on the map represents space required for a single crop
+    /// @brief Number of rows for the simulation map. Note: Each grid on the map represents space required for a single crop
     int rows = 100;
 
-    ///@brief Number of columns for the simulation map. Note: Each grid on the map represents space required for a single crop
+    /// @brief Number of columns for the simulation map. Note: Each grid on the map represents space required for a single crop
     int columns = 100;
 
-    ///@brief Scale of each grid on the simulation map. Note: Does not currently affect flight speed 
+    /// @brief Scale of each grid on the simulation map. Note: Does not currently affect flight speed 
     int scale = 8;
 
-    ///@brief Number of bees to use in the simulation.
+    /// @brief Number of bees to use in the simulation.
     int bees = 50;
 
-    ///@brief Probability of a soybean being planted in each grid from 0-1.
+    /// @brief Probability of a soybean being planted in each grid from 0-1.
     float soybean_p = 0.1;
 
-    ///@brief Boolean for the exit status of the simulation conguration display 
+    /// @brief Boolean for the exit status of the simulation conguration display 
     bool normal_exit = false;
 };
 

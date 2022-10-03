@@ -1,3 +1,13 @@
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ *
+ * @file templates.hpp
+ * @brief File containing typename templates used. 
+ * @date 2022-10-04
+ */
+
 #ifndef templates_hpp
 #define templates_hpp
 
