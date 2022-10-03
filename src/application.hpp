@@ -50,7 +50,7 @@ class Application {
  * @param arg 
  * @return void* 
  */
-void generate_report_macos();
+void generate_report_macos(Parameters params);
 
 /**
  * @brief Function for generating reports on Windows
@@ -58,6 +58,6 @@ void generate_report_macos();
  * @param arg 
  * @return void* 
  */
-void generate_report_windows();
+void generate_report_windows(Parameters params);
 
 #endif
