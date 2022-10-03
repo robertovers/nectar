@@ -50,7 +50,7 @@ int Application::run() {
     window.setFramerateLimit(30);
 
     // set up environment
-    BasicMapGenerator mapGenerator = BasicMapGenerator(envColours, soybeanOverlays, params.rows, params.columns, params.bees, params.soybean_p);
+    BasicMapGenerator mapGenerator = BasicMapGenerator(envColours, soybeanOverlays, params.rows, params.columns, params.bees, params.soybean_p*100);
     auto agentController = std::make_shared<AgentController>();
     auto environment = std::make_shared<Environment>(mapGenerator.generateEnvironment(*agentController));
     environment->initLookupTable();
