@@ -56,7 +56,7 @@ def generate_report(datafile):
     axis[2].set_xlabel(timescale_string)
 
     figure.tight_layout()
-    figure.savefig("reporting/nectar_report.pdf")
+    figure.savefig("nectar_report.pdf")
 
 
 if __name__ == '__main__':
