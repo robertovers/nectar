@@ -7,6 +7,7 @@
  * @brief MapGenerator for generating an Environment with Soybeans and empty Locations in alternating, horizontal, 1-block wide rows. Honeybees are randomly scattered around.
  * @date 2022-09-28
  */
+
 #include "rowMapGenerator.hpp"
 
 RowMapGenerator::RowMapGenerator(EnvColours envColours, SoybeanOverlays soybeanOverlays, int envSizeX, int envSizeY, int beeCount)

@@ -8,3 +8,4 @@ out
 *.o
 
 main
+imgui.ini
