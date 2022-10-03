@@ -51,8 +51,8 @@ def generate_report(datafile):
 
     # Plot pollination graph
     axis[2].plot(time, pollinated)
-    axis[2].set_title("No. of Pollinated Flowers")
-    axis[2].set_ylabel("No. of Flowers")
+    axis[2].set_title("Number of Pollinated Flowers")
+    axis[2].set_ylabel("Pollinated flowers")
     axis[2].set_xlabel(timescale_string)
 
     figure.tight_layout()
