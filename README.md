@@ -90,7 +90,8 @@ cmake --build build
 The executable will be contained in `build/src`, and can be run with:
 
 ```
-./build/src/nectar
+cd build/src
+./nectar
 ```
 
 Once built, the documentation can be location at `build/src/doc_doxygen`. Opening the `index.html` file within the html folder will load a webpage containing documentation for the project. Report and data files can be found in `build/src/reporting` once the simulation is complete.
