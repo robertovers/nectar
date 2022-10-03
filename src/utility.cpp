@@ -113,17 +113,22 @@ Parameters simconfigUI(){
         ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x + 20, main_viewport->WorkPos.y + 20), ImGuiCond_FirstUseEver);
 
         // Adds required widgets to window 
-        static int mapSelectionStatus = 0;              // mapSelectionStatus = 0 represents incomplete Map Selection
+        static int mapGeneratorSelected = 0;              // mapGeneratorSelected = 0 represents incomplete Map Selection
         ImGui::Begin("Simulation Parameters", NULL, window_flags);
-        switch (mapSelectionStatus) {
-            case 0:
-                getMapGeneratorWidgets(&mapSelectionStatus);
-                break;
-            case 1:
-                getParameterWidgets(&parameters, &window);
-                break;
-            default:
-                std::cout << "Invalid mapSelectionStatus value of %d.\n", mapSelectionStatus;
+        if (!mapGeneratorSelected){
+            getMapGeneratorWidgets(&parameters, &mapGeneratorSelected);
+        }
+        else{
+            switch (parameters.selectedGenerator) {
+                case 0:
+                    getParameterWidgets(&parameters, &window);
+                    break;
+                case 1:
+                    getParameterWidgets(&parameters, &window);
+                    break;
+                default:
+                    break;
+            }
         }
         
         // Clear & Display/Render UI
@@ -136,20 +141,16 @@ Parameters simconfigUI(){
     return parameters;    
 };
 
-void getMapGeneratorWidgets(int* mapSelectionStatus){
+void getMapGeneratorWidgets(Parameters* parameters, int* mapGeneratorSelected){
     // Map Generator Combo Box
-    const char* mapGenerators[] = { "Basic Map Generator", "Row Map Generator" };
+    const char* mapGenerators[] = { "Basic Map Generator", "Row Map Generator" };   // Must be in a specific order
     static int selected_generator_id = 0;
     const char* combo_preview_value = mapGenerators[selected_generator_id];  // The preview value visible before opening the combo
     if (ImGui::BeginCombo("Map Generator", combo_preview_value, 0)){
         for (int n = 0; n < IM_ARRAYSIZE(mapGenerators); n++){
             const bool is_selected = (selected_generator_id == n);
-
-            if (ImGui::Selectable(mapGenerators[n], is_selected)) 
-                selected_generator_id = n;
-
-            if (is_selected)                    // Set the initial focus when opening the combo (scrolling + keyboard navigation focus) ## Source: imgui_demo.cpp
-                ImGui::SetItemDefaultFocus();
+            if (ImGui::Selectable(mapGenerators[n], is_selected))   selected_generator_id = n;
+            if (is_selected) ImGui::SetItemDefaultFocus();
         }
         ImGui::EndCombo();
     }
@@ -157,33 +158,33 @@ void getMapGeneratorWidgets(int* mapSelectionStatus){
     // Confirm Map Type Widget
     static int cmt_clicked=0;
     if(ImGui::Button("Confirm Map Type")) cmt_clicked ++;
-    if(cmt_clicked)
-        *mapSelectionStatus = 1;
+    if(cmt_clicked) {
+        *mapGeneratorSelected = 1;
+        parameters->selectedGenerator = selected_generator_id;
+    }
 };
 
-void getParameterWidgets(Parameters* params, sf::RenderWindow* window){
-    Parameters parameters = *params;
-    static int dimensions[2]={parameters.columns,parameters.rows};
+void getParameterWidgets(Parameters* parameters, sf::RenderWindow* window){
+    static int dimensions[2]={parameters->columns,parameters->rows};
 
     // Parameter widgets
     ImGui::InputInt2("Grid Dimensions", &dimensions[0]);
-    ImGui::InputInt("Scale", &parameters.scale);
-    ImGui::InputInt("Bees", &parameters.bees);    
-    ImGui::SliderFloat("Soybean Probability", &parameters.soybean_p, 0.0f, 1.0f, "%.2f", ImGuiSliderFlags_None);
+    ImGui::InputInt("Scale", &parameters->scale);
+    ImGui::InputInt("Bees", &parameters->bees);    
+    ImGui::SliderFloat("Soybean Probability", &parameters->soybean_p, 0.0f, 1.0f, "%.2f", ImGuiSliderFlags_None);
 
     // Update parameter values
-    parameters.rows = dimensions[0];
-    parameters.columns = dimensions[1];
-    parameters.check_limits();
+    parameters->rows = dimensions[0];
+    parameters->columns = dimensions[1];
+    parameters->check_limits();
 
     // Display Simulation Widget
     static int ds_clicked=0;
     if(ImGui::Button("Start Simulation")) {
         ds_clicked ++;
-        std::cout << "Start Simulation Button Clicked, normal_exit = " << parameters.exit_status << std::endl ;
     }
     if(ds_clicked) {
-        parameters.exit_status = 0;
+        parameters->exit_status = 0;
         window->close();
     }
 

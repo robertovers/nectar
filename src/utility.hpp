@@ -6,6 +6,8 @@
 #include "environment.hpp"
 #include "templates.hpp"
 
+// -----------------------------------------METRICS---------------------------------------------
+
 struct Metrics {
     int days;
     int hours;
@@ -29,6 +31,7 @@ struct ID {
     };
 };
 
+// -----------------------------------------INITIAL DISPLAY---------------------------------------------
 
 ///@brief Parameters structure for storing simulation parameter values.
 struct Parameters {
@@ -49,7 +52,7 @@ struct Parameters {
     float soybean_p = 0.1;
 
     /**
-     * @brief  Number indicating the exit status of the simulation conguration display 
+     * @brief Number indicating the exit status of the simulation conguration display 
      * 
      * 0: Normal exit
      * 1: User exit
@@ -57,6 +60,15 @@ struct Parameters {
      */
     int exit_status = 0;
 
+    /**
+     * @brief Number indicating the type of map generator selected
+     * 
+     * 0: Basic
+     * 1: Row
+     */
+    int selectedGenerator = 0;
+
+    /// @brief function that resticts parameters within the parameter limits set in utility.cpp
     void check_limits();
 };
 
@@ -72,9 +84,23 @@ struct Parameters {
  */
 Parameters simconfigUI();
 
-void getWidgets(Parameters parameters, sf::RenderWindow* window, int* mapGeneratorSelectionStatus);
-void getMapGeneratorWidgets(int* mapGeneratorSelectionStatus);
+/**
+ * @brief Sets up widgets for selecting a map generator
+ * 
+ * @param mapGeneratorSelectionStatus Boolean to be made true with the user confirms their selection of a map generator
+ */
+void getMapGeneratorWidgets(Parameters* parameters, int* mapGeneratorSelectionStatus);
+
+/**
+ * @brief Sets up widgets for selecting simulation parameters
+ * 
+ * @param parameters 
+ * @param window 
+ */
 void getParameterWidgets(Parameters* parameters, sf::RenderWindow* window);
+
+
+// -----------------------------------------SIMULATION FEATURES---------------------------------------------
 
 /**
  * @brief Struct containing all colours used by different Locations in the simulation
