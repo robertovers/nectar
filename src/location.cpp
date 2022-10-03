@@ -1,8 +1,16 @@
-#include "location.hpp"
-#include "location.hpp"
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ * 
+ * @file location.cpp
+ * @brief Base class for a single location tile.
+ * @date 2022-09-19
+ */
+
 #include "location.hpp"
 #include "agent.hpp"
-
+#include "utility.hpp"
 
 Location::Location() : Location(0, 0) { }
 
@@ -54,4 +62,12 @@ int Location::getY() {
 
 bool Location::isPlant() {
     return false;
+}
+
+int Location::getID() {
+    return id;
+}
+
+std::vector<std::reference_wrapper<Agent>>& Location::getAgents() {
+    return agents;
 }

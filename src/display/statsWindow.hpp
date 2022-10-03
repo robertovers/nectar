@@ -31,6 +31,9 @@ class StatsWindow : Menu {
         StatsWindow(shared_ptr<Metrics> metrics);
         /**
          * @brief Draw the statistics window.
+         * 
+         * @param windowX The width of the window that the Stats Window will be drawn to, in pixels. -1 if not specified
+         * @param windowY The height of the window that the Stats Window will be drawn to, in pixels. -1 if not specified
          */
         void draw(int windowX = -1, int windowY = -1) override;
     private:

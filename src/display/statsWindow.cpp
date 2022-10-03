@@ -21,7 +21,7 @@ StatsWindow::StatsWindow(shared_ptr<Metrics> metrics) {
     defaultPosition = ImVec2(20, 20);
 }
 
-void StatsWindow::draw() {
+void StatsWindow::draw(int windowX, int windowY) {
     // create info strings
     std::stringstream runTimeInfo;
     std::stringstream hiveNectarInfo;
@@ -34,8 +34,8 @@ void StatsWindow::draw() {
     // configure window
     ImGui::SetNextWindowPos(defaultPosition, ImGuiCond_Once);  // set up initial position
     ImGui::SetNextWindowSize(ImVec2(0.0, 0.0));  // auto resize
-    ImGui::Begin("Simulation statistics");
 
+    ImGui::Begin("Simulation statistics");
     // move window if needed, and outside visible area
     bool checkWindowPosition = windowX != -1 and windowY != -1;
     if (checkWindowPosition) {

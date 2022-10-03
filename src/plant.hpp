@@ -11,7 +11,7 @@
 #define PLANT_HPP
 
 #include <SFML/Graphics.hpp>
-#include "agent.hpp"
+#include "location.hpp"
 
 /**
 * @brief Class representing a Location containing an unspecified plant
@@ -97,6 +97,5 @@ class Plant : public Location {
         /// @brief The maximum amount of nectar the Plant can contain.
         const int MAX_NECTAR = 20;
 };
-
 
 #endif
