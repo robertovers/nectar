@@ -1,17 +1,17 @@
 #include "basicMapGenerator.hpp"
 
-BasicMapGenerator::BasicMapGenerator(EnvColours envColours, SoybeanOverlays soybeanOverlays, int envSizeX, int envSizeY, int beeCount = 0, int cropChance = 0) {
-    if (envSizeX <= 0) {
+BasicMapGenerator::BasicMapGenerator(Parameters params) {
+    if (params.rows <= 0) {
         throw std::invalid_argument("X value must be positive integer");
     }
-    if (envSizeY <= 0) {
+    if (params.columns <= 0) {
         throw std::invalid_argument("Y value must be positive integer");
     }
 
-    this->envSizeX = envSizeX;
-    this->envSizeY = envSizeY;
-    this->beeCount = beeCount;
-    this->cropChance = cropChance;
+    this->envSizeX = params.columns;
+    this->envSizeY = params.rows;
+    this->beeCount = params.bees;
+    this->cropChance = params.soybean_p * 100;
     this->envColours = envColours;
     this->soybeanOverlays = soybeanOverlays;
 }
