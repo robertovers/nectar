@@ -64,10 +64,10 @@ void Metrics::createDataFile(std::string filename) {
 
 
 Parameters::Parameters() {
-    rows=50;
-    columns=50;
-    scale=20;
-    bees=50;
+    rows=100;
+    columns=100;
+    scale=8;
+    bees=100;
     soybean_p=.2;
     normal_exit=false;
 };

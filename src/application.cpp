@@ -26,29 +26,19 @@ Application::Application() { }
 
 int Application::run() { 
     
-    // Acquire simulation parameters via initial user interface
-    Parameters params = simconfigUI();     
+    Parameters params = simconfigUI();         // Acquire simulation parameters via initial user interface
 
-    // Attempt at making program conclude early if initial UI is not closed via load simulation button. But not working...
+    // Program concludes early if initial UI is not closed via load simulation button
     if (!params.normal_exit) {
         std::cout << "Program exited by user\n";
         exit(1);
     }
     
     // simulation settings
-    auto envColours = EnvColours();  // default colours
-    auto soybeanOverlays = SoybeanOverlays();
     float initialWindowWidth = params.rows * params.scale;
     float initialWindowHeight = params.columns * params.scale;
-
-int Application::run() {
-
-    // initial simulation settings
     auto envColours = EnvColours();  // default colours
     auto soybeanOverlays = SoybeanOverlays();
-    int rows = 100; int columns = 100; int initialWindowScale = 8;
-    float initialWindowWidth = rows * initialWindowScale;
-    float initialWindowHeight = columns * initialWindowScale;
 
     sf::Clock clock;
     auto metrics = std::make_shared<Metrics>();
@@ -92,18 +82,10 @@ int Application::run() {
             ImGui::SFML::ProcessEvent(window, event);
 
             if (event.type == sf::Event::Closed) {
-
                 window.close();
-
-            } else if (event.type == sf::Event::Resized) {
-
+            }
+            else if (event.type == sf::Event::Resized) {
                 simDisplay.updateViewport(event.size.width, event.size.height);
-             }
-        }   
-                ImGui::SFML::Update(window, deltaClock.restart());
-                statsWindow.draw(event.size.width, event.size.height);
-                ImGui::SFML::Render(window);
-
             }
         }
 
