@@ -11,6 +11,8 @@ set(MSVC_VERSION 1920)
  
 include(FetchContent)
 
+# == SFML - for graphics components ==
+
 FetchContent_Declare(
   SFML
   GIT_REPOSITORY https://github.com/SFML/SFML.git
@@ -19,24 +21,30 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(SFML)
 
-# for UI
-FetchContent_Declare(imgui
-    GIT_REPOSITORY https://github.com/ocornut/imgui.git
-    GIT_TAG master # previously used: v1.87 
+# == IMGUI - for UI components ==
+
+FetchContent_Declare(
+  imgui
+  GIT_REPOSITORY https://github.com/ocornut/imgui.git
+  GIT_TAG master # previously used: v1.87 
 )
+
 FetchContent_MakeAvailable(imgui)
+
 FetchContent_Declare(
   imgui-sfml
   GIT_REPOSITORY https://github.com/eliasdaler/imgui-sfml.git
   GIT_TAG master  # previously used: v2.5
 )
+
 set(IMGUI_DIR ${imgui_SOURCE_DIR})
 option(IMGUI_SFML_FIND_SFML "Use find_package to find SFML" OFF)
 option(IMGUI_SFML_IMGUI_DEMO "Build imgui_demo.cpp" ON)
 
 FetchContent_MakeAvailable(imgui-sfml)
 
-# library, for reuse with tests
+# == Add files and link external libraries ==
+
 add_library(
   nectar_lib STATIC 
   agent.cpp
@@ -57,8 +65,10 @@ add_library(
 
 target_link_libraries(nectar_lib PUBLIC sfml-graphics)
 target_link_libraries(nectar_lib PUBLIC ImGui-SFML::ImGui-SFML)
+target_link_libraries(nectar_lib PUBLIC pthread)
 
-# Build simulator
+# == Add executable and link libraries == 
+
 add_executable(
   nectar 
   main.cpp
@@ -68,14 +78,8 @@ add_executable(
 target_link_libraries(nectar PUBLIC nectar_lib)
 target_compile_features(nectar PRIVATE cxx_std_17)
 
-# add report generation directory
-add_custom_command(
-  TARGET nectar POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_directory
-  ${CMAKE_SOURCE_DIR}/src/reporting/ $<TARGET_FILE_DIR:nectar>/reporting/
-)
+# == Copy SFML dlls, for windows == 
 
-# copy SFML dlls, for windows
 if (WIN32 AND BUILD_SHARED_LIBS)
   add_custom_command(
     TARGET nectar POST_BUILD
@@ -83,7 +87,8 @@ if (WIN32 AND BUILD_SHARED_LIBS)
   )
 endif()
 
-# copy icon image
+# == Copy icon image == 
+
 add_custom_command(
     TARGET nectar POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}"/src/img/bee_hex.png" $<TARGET_FILE_DIR:nectar> COMMAND_EXPAND_LISTS
@@ -115,6 +120,16 @@ if (DOXYGEN_FOUND)
 else (DOXYGEN_FOUND)
   message("Doxygen need to be installed to generate the doxygen documentation")
 endif (DOXYGEN_FOUND)
+
+################################################################################
+# Report generation
+################################################################################
+
+add_custom_command(
+  TARGET nectar POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+  ${CMAKE_SOURCE_DIR}/src/reporting/ $<TARGET_FILE_DIR:nectar>/reporting/
+)
 
 ################################################################################
 # Install

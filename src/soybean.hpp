@@ -7,6 +7,7 @@
  * @brief Class representing a Location containing a soybean plant
  * @date 2022-09-28
  */
+
 #ifndef soybean_hpp
 #define soybean_hpp
 
@@ -19,6 +20,7 @@
  * Soybeans contain values and behaviours analogous to real-world soybean plants
  */
 class Soybean : public Plant {
+
     public:
         /**
         * @brief Construct a Soybean object with the given properties
@@ -29,7 +31,7 @@ class Soybean : public Plant {
         * @param nectarColour the colour of the nectar symbol
         * @param pollenColour the colour of the pollinated symbol
         * @param soybeanOverlays pointers to the overlays to be used by Soybeans
-         */
+        */
         Soybean(int x, int y, shared_ptr<sf::Color> colour, shared_ptr<sf::Color> nectarColour, shared_ptr<sf::Color> pollenColour, SoybeanOverlays soybeanOverlays);
 };
 
