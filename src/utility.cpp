@@ -115,11 +115,28 @@ Parameters simconfigUI(){
 
         // Adding widgets to window
         ImGui::Begin("Simulation Parameters", NULL, window_flags);
-
+        ImGui::ShowDemoWindow();
         ImGui::InputInt2("Grid Dimensions", &dimensions[0]);
         ImGui::InputInt("Scale", &parameters.scale);
         ImGui::InputInt("Bees", &parameters.bees);    
         ImGui::SliderFloat("Soybean Probability", &parameters.soybean_p, 0.0f, 1.0f, "%.2f", ImGuiSliderFlags_None);
+
+            // Combo box for map generator
+        const char* mapGenerators[] = { "Basic Map Generator", "Row Map Generator" };
+        static int selected_generator_id = 0;
+        const char* combo_preview_value = mapGenerators[selected_generator_id];  // The preview value visible before opening the combo
+        if (ImGui::BeginCombo("Map Generator", combo_preview_value, 0)){
+            for (int n = 0; n < IM_ARRAYSIZE(mapGenerators); n++){
+                const bool is_selected = (selected_generator_id == n);
+                if (ImGui::Selectable(mapGenerators[n], is_selected))
+                    selected_generator_id = n;
+
+                // Set the initial focus when opening the combo (scrolling + keyboard navigation focus) ## Source: imgui_demo.cpp
+                if (is_selected)
+                    ImGui::SetItemDefaultFocus();
+            }
+            ImGui::EndCombo();
+        }
 
         // Update parameter values
         parameters.rows = dimensions[0];
