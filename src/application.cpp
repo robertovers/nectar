@@ -9,24 +9,23 @@
  */
 
 #include <SFML/Graphics.hpp>
-#include <fstream>
-#include "imgui.h"
-#include "imgui-SFML.h"
+#include <thread>
 #include "application.hpp"
-#include "environment.hpp"
-#include "basicMapGenerator.hpp"
-#include "agentController.hpp"
-#include "utility.hpp"
-#include "display/statsWindow.hpp"
-#include "display/legendsWindow.hpp"
+
+const std::string DATA_OUT = "reporting/sim_data.csv";
+const std::filesystem::path report_script_macos = "reporting/generate_macos.sh";
+const std::filesystem::path report_script_windows = "reporting\\generate_windows.bat";
+
+Status global_status = Status::Play;
 
 Application::Application() { }
 
-int Application::run() { 
+int Application::run() {
+
     // initial simulation settings
     auto envColours = EnvColours();  // default colours
     auto soybeanOverlays = SoybeanOverlays();
-    int rows = 100; int columns = 100; int initialWindowScale = 10;
+    int rows = 100; int columns = 100; int initialWindowScale = 8;
     float initialWindowWidth = rows * initialWindowScale;
     float initialWindowHeight = columns * initialWindowScale;
 
@@ -60,38 +59,67 @@ int Application::run() {
     Metrics::createDataFile(DATA_OUT);
     float cur_log, last_log = 0;
 
+    // multithreading for report generation
+    std::thread reportThread;
+
     while (window.isOpen()) {
 
         sf::Event event;
         sf::Clock deltaClock;
 
-        metrics->updateMetrics(*environment, clock.getElapsedTime());
-
-        cur_log = clock.getElapsedTime().asMilliseconds();
-        if (cur_log - last_log > 1000) {
-            metrics->toFile(DATA_OUT);
-            last_log = cur_log;
-        }
-
+        // event loop
         while (window.pollEvent(event)) {
             ImGui::SFML::ProcessEvent(window, event);
 
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed) {
+
                 window.close();
-            else if (event.type == sf::Event::Resized) {
+
+            } else if (event.type == sf::Event::Resized) {
+
                 simDisplay.updateViewport(event.size.width, event.size.height);
 
                 ImGui::SFML::Update(window, deltaClock.restart());
                 statsWindow.draw(event.size.width, event.size.height);
                 ImGui::SFML::Render(window);
-             }
-        }   
 
-        ImGui::SFML::Update(window, deltaClock.restart());
+            }
+        }
 
         window.clear();
 
-        agentController->updateAgents(*environment);
+        ImGui::SFML::Update(window, deltaClock.restart());
+
+        // status updates
+        if (global_status == Status::Play || global_status == Status::Pause) {
+            global_status = legendsWindow.getStatus();
+        } else if (global_status == Status::ReportSuccess || global_status == Status::ReportFail) {
+            legendsWindow.setStatus(global_status);
+        }
+
+        if (global_status == Status::Play) {
+
+            metrics->updateMetrics(*environment, clock.getElapsedTime());
+    
+            cur_log = clock.getElapsedTime().asMilliseconds();
+            if (cur_log - last_log > 1000) {
+                metrics->toFile(DATA_OUT);
+                last_log = cur_log;
+            }
+    
+            agentController->updateAgents(*environment);
+
+        } else if (global_status == Status::Stop) {
+
+            // begin generating report on new thread
+            #ifdef _WIN32
+                reportThread = std::thread(generate_report_windows);
+            #elif __APPLE__
+                reportThread = std::thread(generate_report_macos);
+            #endif
+
+            global_status = Status::Stopped;
+        }
 
         window.setView(simDisplay.getView());
         simDisplay.draw(window, sf::RenderStates());
@@ -104,7 +132,32 @@ int Application::run() {
         window.display();
     }
 
+    reportThread.join();
     ImGui::SFML::Shutdown();
 
     return EXIT_SUCCESS;
+}
+
+void generate_report_macos() {
+    std::filesystem::permissions(report_script_macos, std::filesystem::perms::owner_all);
+
+    try {
+        system(report_script_macos.string().c_str());
+    } catch (const std::exception& e) {
+        global_status = Status::ReportFail;
+    }
+
+    global_status = Status::ReportSuccess;
+}
+
+void generate_report_windows() {
+    std::filesystem::permissions(report_script_windows, std::filesystem::perms::owner_all);
+
+    try {
+        system(report_script_windows.string().c_str());
+    } catch (const std::exception& e) {
+        global_status = Status::ReportFail;
+    }
+
+    global_status = Status::ReportSuccess;
 }

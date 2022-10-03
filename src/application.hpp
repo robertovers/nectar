@@ -11,6 +11,16 @@
 #ifndef application_hpp
 #define application_hpp
 
+#include <fstream>
+#include "imgui.h"
+#include "imgui-SFML.h"
+#include "application.hpp"
+#include "environment.hpp"
+#include "basicMapGenerator.hpp"
+#include "agentController.hpp"
+#include "utility.hpp"
+#include "display/statsWindow.hpp"
+#include "display/legendsWindow.hpp"
 #include "display/simulationDisplay.hpp"
 
 /**
@@ -31,6 +41,23 @@ class Application {
          * @brief Runs the simulation by initialising the simulation loop.
          */
         int run();
+
 };
+
+/**
+ * @brief Function for generating reports on MacOS
+ * 
+ * @param arg 
+ * @return void* 
+ */
+void generate_report_macos();
+
+/**
+ * @brief Function for generating reports on Windows
+ * 
+ * @param arg 
+ * @return void* 
+ */
+void generate_report_windows();
 
 #endif

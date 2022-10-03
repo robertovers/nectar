@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <filesystem>
 #include "environment.hpp"
 #include "templates.hpp"
 
@@ -21,8 +22,6 @@ struct Metrics {
     void toFile(std::string filename);
     static void createDataFile(std::string filename);
 };
-
-const std::string DATA_OUT = "reporting/sim_data.csv";
 
 struct ID {
     static int generateID() {
@@ -54,6 +53,28 @@ struct SoybeanOverlays {
 
     /// @brief Create a SoybeanOverlays object, containing default, full-location-sized overlays
     SoybeanOverlays();
+};
+
+/// @brief Enum for different status' of the simulation
+enum Status {
+
+    // Simulation currently running
+    Play,
+
+    // Simulation currently paused
+    Pause,
+
+    // Simulation signalled to stop
+    Stop,
+
+    // Simulation currently stopped
+    Stopped,
+
+    // Report generated successfully
+    ReportSuccess,
+
+    // Report generation failed
+    ReportFail
 };
 
 #endif

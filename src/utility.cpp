@@ -3,12 +3,11 @@
 #include "utility.hpp"
 
 void Metrics::updateMetrics(Environment&env, sf::Time time) {
-    int current_secs = time.asSeconds();
-    int secs_elapsed = current_secs;
-    days = current_secs / 86400;
-    hours = (current_secs / 3600) % 24;
-    mins = (current_secs / 60) % 60;
-    secs = current_secs % 60;
+    secs_elapsed = time.asSeconds();
+    days = secs_elapsed / 86400;
+    hours = (secs_elapsed / 3600) % 24;
+    mins = (secs_elapsed / 60) % 60;
+    secs = secs_elapsed % 60;
     hive_nectar = env.getHive()->getNectar();
     pollinated_count = env.getPollinatedCount();
 }
@@ -54,7 +53,7 @@ void Metrics::toFile(std::string filename) {
 
     out << secs_elapsed     << ","
         << hive_nectar      << ","
-        << pollinated_count << ","
+        << pollinated_count 
         << std::endl;
 
     out.close();
@@ -67,7 +66,7 @@ void Metrics::createDataFile(std::string filename) {
     
     out << "time"       << ","
         << "nectar"     << ","
-        << "pollinated" << ","
+        << "pollinated"
         << std::endl;
 
     out.close();
