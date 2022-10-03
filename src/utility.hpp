@@ -48,8 +48,14 @@ struct Parameters {
     ///@brief Probability of a soybean being planted in each grid from 0-1.
     float soybean_p = 0.1;
 
-    ///@brief Boolean for the exit status of the simulation conguration display 
-    bool normal_exit = false;
+    /**
+     * @brief  Number indicating the exit status of the simulation conguration display 
+     * 
+     * 0: Normal exit
+     * 1: User exit
+     * Otherwise: Error
+     */
+    int exit_status = 0;
 
     void check_limits();
 };
@@ -65,6 +71,10 @@ struct Parameters {
  * @return Parameters structure of simulation parameter values to be used.
  */
 Parameters simconfigUI();
+
+void getWidgets(Parameters parameters, sf::RenderWindow* window, int* mapGeneratorSelectionStatus);
+void getMapGeneratorWidgets(int* mapGeneratorSelectionStatus);
+void getParameterWidgets(Parameters* parameters, sf::RenderWindow* window);
 
 /**
  * @brief Struct containing all colours used by different Locations in the simulation
