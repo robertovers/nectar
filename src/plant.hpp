@@ -116,7 +116,7 @@ class Plant : public Location {
 
     private:
 
-        /// @brief The maximum amount of nectar the Plant can contain.
+        /// @brief The maximum amount of nectar (in mg) the Plant can contain.
         const float MAX_NECTAR = 0.5;
 };
 
