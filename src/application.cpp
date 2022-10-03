@@ -11,9 +11,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
+include <thread>
 #include "imgui.h"
 #include "imgui-SFML.h"
-#include <thread>
 #include "application.hpp"
 
 const std::string DATA_OUT = "reporting/sim_data.csv";
@@ -40,15 +40,6 @@ int Application::run() {
     auto soybeanOverlays = SoybeanOverlays();
     float initialWindowWidth = params.rows * params.scale;
     float initialWindowHeight = params.columns * params.scale;
-
-int Application::run() {
-
-    // initial simulation settings
-    auto envColours = EnvColours();  // default colours
-    auto soybeanOverlays = SoybeanOverlays();
-    int rows = 100; int columns = 100; int initialWindowScale = 8;
-    float initialWindowWidth = rows * initialWindowScale;
-    float initialWindowHeight = columns * initialWindowScale;
 
     sf::Clock clock;
     auto metrics = std::make_shared<Metrics>();
