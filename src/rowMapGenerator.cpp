@@ -1,6 +1,15 @@
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ *
+ * @file rowMapGenerator.cpp
+ * @brief MapGenerator for generating an Environment with Soybeans and empty Locations in alternating, horizontal, 1-block wide rows. Honeybees are randomly scattered around.
+ * @date 2022-09-28
+ */
 #include "rowMapGenerator.hpp"
 
-RowMapGenerator::RowMapGenerator(int envSizeX, int envSizeY, int beeCount)
+RowMapGenerator::RowMapGenerator(EnvColours envColours, SoybeanOverlays soybeanOverlays, int envSizeX, int envSizeY, int beeCount)
 {
     if (envSizeX <= 0) {
         throw std::invalid_argument("X value must be positive integer");
@@ -12,11 +21,13 @@ RowMapGenerator::RowMapGenerator(int envSizeX, int envSizeY, int beeCount)
     this->envSizeX = envSizeX;
     this->envSizeY = envSizeY;
     this->beeCount = beeCount;
+    this->envColours = envColours;
+    this->soybeanOverlays = soybeanOverlays;
 }
 
 Environment RowMapGenerator::generateEnvironment(AgentController& agentController)
 {
-    Environment generatedEnvironment = Environment(envSizeX, envSizeY);
+    Environment generatedEnvironment = Environment(envSizeX, envSizeY, envColours.locationColour);
     // randomly scatter bees throughout map
     int placedBees = 0;
     while (placedBees < beeCount) {
@@ -28,12 +39,12 @@ Environment RowMapGenerator::generateEnvironment(AgentController& agentControlle
         placedBees++;
     }
 
-    // replace locations with plants
+    // replace rows of locations with plants
     auto& rows = generatedEnvironment.getLocations();
     for (int i = 0; i < rows.size(); i += 2) {
         for (auto& location : rows[i]) {
             generatedEnvironment.changeLocation(location->getX(), location->getY(), 
-            shared_ptr<Soybean>(std::make_shared<Soybean>(location->getX(), location->getY())));
+                shared_ptr<Soybean>(std::make_shared<Soybean>(location->getX(), location->getY(), envColours.soybeanColour, envColours.nectarColour, envColours.pollenColour, soybeanOverlays)));
         }
     }
 
