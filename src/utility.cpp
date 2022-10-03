@@ -112,23 +112,42 @@ Parameters simconfigUI(){
         const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
         ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x + 20, main_viewport->WorkPos.y + 20), ImGuiCond_FirstUseEver);
 
-        // Adds required widgets to window 
-        static int mapGeneratorSelected = 0;              // mapGeneratorSelected = 0 represents incomplete Map Selection
+        // Adding widgets to window
         ImGui::Begin("Simulation Parameters", NULL, window_flags);
-        if (!mapGeneratorSelected){
-            getMapGeneratorWidgets(&parameters, &mapGeneratorSelected);
+
+        static int mapGeneratorConfirmed = 0;              // map generator initially not confirmed
+        if (!mapGeneratorConfirmed)                                         // Map generation widgets
+        {                             
+            getMapGeneratorWidgets(&parameters, &mapGeneratorConfirmed);    
         }
-        else{
-            switch (parameters.selectedGenerator) {
+        else                                                                // Parameter selection widgets
+        {
+            getDefaultParameterWidgets(&parameters);            // Default Parameter widgets    
+
+            // Additional Parameter widgets
+            switch (parameters.selectedGenerator) {             
                 case 0:
-                    getParameterWidgets(&parameters, &window);
+                    ImGui::SliderFloat("Soybean Probability", &parameters.soybean_p, 0.0f, 1.0f, "%.2f", ImGuiSliderFlags_None);
                     break;
                 case 1:
-                    getParameterWidgets(&parameters, &window);
                     break;
                 default:
                     break;
             }
+
+            // "Display Simulation" Widget Button
+            static int ds_clicked=0;
+            if(ImGui::Button("Start Simulation")) {
+                ds_clicked ++;
+            }
+            if(ds_clicked) {
+                parameters.exit_status = 0;
+                window.close();
+            }
+            /* Present for debugging/referenceing purposes
+            // Window size display
+            ImVec2 size = ImGui::GetWindowSize();
+            ImGui::SameLine();  ImGui::Text("Window size: [%2.fx%2.f]", size.x, size.y); */
         }
         
         // Clear & Display/Render UI
@@ -141,8 +160,7 @@ Parameters simconfigUI(){
     return parameters;    
 };
 
-void getMapGeneratorWidgets(Parameters* parameters, int* mapGeneratorSelected){
-    
+void getMapGeneratorWidgets(Parameters* parameters, int* mapGeneratorConfirmed){
     // Map Generator Combo Box Setup
     const char* mapGenerators[] = { "Basic Map Generator", "Row Map Generator" };   // Must be in a specific order
     static int selected_generator_id = 0;
@@ -162,38 +180,23 @@ void getMapGeneratorWidgets(Parameters* parameters, int* mapGeneratorSelected){
     static int cmt_clicked=0;
     if(ImGui::Button("Confirm Map Type")) cmt_clicked ++;
     if(cmt_clicked) {
-        *mapGeneratorSelected = 1;
+        *mapGeneratorConfirmed = 1;
         parameters->selectedGenerator = selected_generator_id;
     }
 };
 
-void getParameterWidgets(Parameters* parameters, sf::RenderWindow* window){
+void getDefaultParameterWidgets(Parameters* parameters){
     static int dimensions[2]={parameters->columns,parameters->rows};
 
-    // Parameter widgets
+    // Default Parameter widgets
     ImGui::InputInt2("Grid Dimensions", &dimensions[0]);
     ImGui::InputInt("Scale", &parameters->scale);
     ImGui::InputInt("Bees", &parameters->bees);    
-    ImGui::SliderFloat("Soybean Probability", &parameters->soybean_p, 0.0f, 1.0f, "%.2f", ImGuiSliderFlags_None);
 
     // Update parameter values
     parameters->rows = dimensions[0];
     parameters->columns = dimensions[1];
     parameters->check_limits();
-
-    // Display Simulation Widget
-    static int ds_clicked=0;
-    if(ImGui::Button("Start Simulation")) {
-        ds_clicked ++;
-    }
-    if(ds_clicked) {
-        parameters->exit_status = 0;
-        window->close();
-    }
-
-    // Window size display
-    ImVec2 size = ImGui::GetWindowSize();
-    ImGui::SameLine();  ImGui::Text("Window size: [%2.fx%2.f]", size.x, size.y); 
 }
 
 EnvColours::EnvColours() {

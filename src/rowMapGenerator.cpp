@@ -9,19 +9,20 @@
  */
 
 #include "rowMapGenerator.hpp"
+#include <iostream>
 
-RowMapGenerator::RowMapGenerator(EnvColours envColours, SoybeanOverlays soybeanOverlays, int envSizeX, int envSizeY, int beeCount)
+RowMapGenerator::RowMapGenerator(Parameters params)
 {
-    if (envSizeX <= 0) {
+    if (params.rows <= 0) {
         throw std::invalid_argument("X value must be positive integer");
     }
-    if (envSizeY <= 0) {
+    if (params.columns <= 0) {
         throw std::invalid_argument("Y value must be positive integer");
     }
 
-    this->envSizeX = envSizeX;
-    this->envSizeY = envSizeY;
-    this->beeCount = beeCount;
+    this->envSizeX = params.columns;
+    this->envSizeY = params.rows;
+    this->beeCount = params.bees;
     this->envColours = envColours;
     this->soybeanOverlays = soybeanOverlays;
 }
@@ -39,7 +40,7 @@ Environment RowMapGenerator::generateEnvironment(AgentController& agentControlle
         // TODO: add to location?
         placedBees++;
     }
-
+\
     // replace rows of locations with plants
     auto& rows = generatedEnvironment.getLocations();
     for (int i = 0; i < rows.size(); i += 2) {
@@ -48,6 +49,13 @@ Environment RowMapGenerator::generateEnvironment(AgentController& agentControlle
                 shared_ptr<Soybean>(std::make_shared<Soybean>(location->getX(), location->getY(), envColours.soybeanColour, envColours.nectarColour, envColours.pollenColour, soybeanOverlays)));
         }
     }
+
+    // add a hive
+    int hive_x = rand() % envSizeX;
+    int hive_y = rand() % envSizeY;
+    auto hive = shared_ptr<Hive>(std::make_shared<Hive>(hive_x, hive_y, envColours.hiveColour));
+    generatedEnvironment.changeLocation(hive_x, hive_y, hive);
+    generatedEnvironment.setHive(hive);
 
     return generatedEnvironment;
 }

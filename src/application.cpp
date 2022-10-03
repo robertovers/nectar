@@ -50,9 +50,28 @@ int Application::run() {
     window.setFramerateLimit(30);
 
     // set up environment
+    
+    MapGenerator* mapGenerator;
+    switch (params.selectedGenerator) {
+        case 0:
+            mapGenerator = new BasicMapGenerator(params);
+            break;
+        case 1:
+            mapGenerator = new RowMapGenerator(params);
+            break;
+        default:
+            break;
+    }
+    auto agentController = std::make_shared<AgentController>();
+    auto environment = std::make_shared<Environment>(mapGenerator->generateEnvironment(*agentController));
+
+    delete mapGenerator;
+    
+   /*
     BasicMapGenerator mapGenerator = BasicMapGenerator(params);
     auto agentController = std::make_shared<AgentController>();
     auto environment = std::make_shared<Environment>(mapGenerator.generateEnvironment(*agentController));
+    */
 
     // set up display parts
     ImGui::SFML::Init(window);

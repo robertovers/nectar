@@ -97,7 +97,7 @@ void getMapGeneratorWidgets(Parameters* parameters, int* mapGeneratorSelectionSt
  * @param parameters 
  * @param window 
  */
-void getParameterWidgets(Parameters* parameters, sf::RenderWindow* window);
+void getDefaultParameterWidgets(Parameters* parameters);
 
 
 // -----------------------------------------SIMULATION FEATURES---------------------------------------------

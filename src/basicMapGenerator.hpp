@@ -23,7 +23,7 @@
 /**
  * @brief MapGenerator that generates an Environment with Honeybees and Soybeans randomly scattered around
  */
-class BasicMapGenerator : MapGenerator {
+class BasicMapGenerator : public MapGenerator {
 	
 	public:
 		/**

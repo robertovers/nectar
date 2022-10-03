@@ -17,6 +17,7 @@
 #include "application.hpp"
 #include "environment.hpp"
 #include "basicMapGenerator.hpp"
+#include "rowMapGenerator.hpp"
 #include "agentController.hpp"
 #include "utility.hpp"
 #include "display/statsWindow.hpp"
