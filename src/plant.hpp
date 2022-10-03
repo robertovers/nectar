@@ -94,11 +94,13 @@ class Plant : public Location {
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
     protected:
+
         /// @brief Whether or not the plant is pollinated
         bool pollinated = false;
 
-        /// @brief The quantity of nectar within the plant. Should be less than MAX_NECTAR
-        float nectar = MAX_NECTAR;
+        /// @brief The quantity of nectar within the plant in milligrams.
+        /// Should be less than or equal to MAX_NECTAR.
+        float nectar = 0;
 
         /// @brief The colour of the sprite to be drawn over the location if pollinated.
         shared_ptr<sf::Color> pollinatedColour;
@@ -113,8 +115,9 @@ class Plant : public Location {
         shared_ptr<sf::Shape> nectarOverlay = nullptr;
 
     private:
+
         /// @brief The maximum amount of nectar the Plant can contain.
-        const int MAX_NECTAR = 20;
+        const float MAX_NECTAR = 0.5;
 };
 
 #endif
