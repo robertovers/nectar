@@ -118,9 +118,9 @@ int Application::run() {
 
             // begin generating report on new thread
             #ifdef _WIN32
-                reportThread = std::thread(generate_report_windows);
+                reportThread = std::thread(generate_report_windows, params);
             #elif __APPLE__
-                reportThread = std::thread(generate_report_macos);
+                reportThread = std::thread(generate_report_macos, params);
             #endif
 
             global_status = Status::Stopped;
@@ -146,11 +146,17 @@ int Application::run() {
     return EXIT_SUCCESS;
 }
 
-void generate_report_macos() {
+void generate_report_macos(Parameters params) {
     std::filesystem::permissions(report_script_macos, std::filesystem::perms::owner_all);
 
     try {
-        system(report_script_macos.string().c_str());
+        system((
+            report_script_macos.string() 
+            + " " + std::to_string(params.bees)
+            + " " + std::to_string(params.rows)
+            + " " + std::to_string(params.columns)
+            + " " + std::to_string(params.soybean_p)
+        ).c_str());
     } catch (const std::exception& e) {
         global_status = Status::ReportFail;
     }
@@ -158,11 +164,17 @@ void generate_report_macos() {
     global_status = Status::ReportSuccess;
 }
 
-void generate_report_windows() {
+void generate_report_windows(Parameters params) {
     std::filesystem::permissions(report_script_windows, std::filesystem::perms::owner_all);
 
     try {
-        system(report_script_windows.string().c_str());
+        system((
+            report_script_windows.string() 
+            + " " + std::to_string(params.bees)
+            + " " + std::to_string(params.rows)
+            + " " + std::to_string(params.columns)
+            + " " + std::to_string(params.soybean_p)
+        ).c_str());
     } catch (const std::exception& e) {
         global_status = Status::ReportFail;
     }

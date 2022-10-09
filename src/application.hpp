@@ -47,17 +47,15 @@ class Application {
 /**
  * @brief Function for generating reports on MacOS
  * 
- * @param arg 
- * @return void* 
+ * @param params the parameters used when generating the environment that the simulation was run on
  */
-void generate_report_macos();
+void generate_report_macos(Parameters params);
 
 /**
  * @brief Function for generating reports on Windows
  * 
- * @param arg 
- * @return void* 
+ * @param params the parameters used when generating the environment that the simulation was run on
  */
-void generate_report_windows();
+void generate_report_windows(Parameters params);
 
 #endif

@@ -1,3 +1,13 @@
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ *
+ * @file utility.cpp
+ * @brief File containing utility functions used throughout the project. 
+ * @date 2022-10-04
+ */
+
 #include <iostream>
 #include <fstream>
 #include "utility.hpp"
