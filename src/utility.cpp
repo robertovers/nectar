@@ -130,7 +130,7 @@ Parameters simconfigUI(){
         ImGui::SameLine();  ImGui::Text("Window size: [%2.fx%2.f]", size.x, size.y); 
         
         // Clear & Display/Render UI
-        window.clear(sf::Color(255,234,155,100));
+        window.clear(sf::Color::Black);
         ImGui::End();
         ImGui::SFML::Render(window);
         window.display();
