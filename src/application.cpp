@@ -37,7 +37,10 @@ int Application::run() {
     float initialWindowWidth = params.rows * params.scale;
     float initialWindowHeight = params.columns * params.scale;
 
+    int frames = 0, fps = 0;
+
     sf::Clock clock;
+    sf::Clock fpsClock;
     auto metrics = std::make_shared<Metrics>();
 
     // set up window
@@ -135,6 +138,14 @@ int Application::run() {
         ImGui::SFML::Render(window);
 
         window.display();
+
+        frames++;
+
+        if (fpsClock.getElapsedTime().asMilliseconds() > 999) {
+            std::cout << frames << std::endl;
+            frames = 0;
+            fpsClock.restart();
+        }
     }
 
     if (reportThread.joinable()) {
