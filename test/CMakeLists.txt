@@ -24,7 +24,7 @@ add_executable(
   agent_test.cpp
   honeybee_test.cpp
   #basicMapGenerator_test.cpp
-  #location_test.cpp
+  location_test.cpp
 )
 
 target_link_libraries(
