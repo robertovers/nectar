@@ -229,3 +229,33 @@ std::deque<shared_ptr<Location>> HoneyBee::getMemory() {
 int HoneyBee::getMemoryLimit() {
     return memory_limit;
 }
+
+void HoneyBee::_validateState() {
+
+    switch (behaviour)
+    {
+    case HoneybeeBehaviour::Searching:
+        assert(target == nullptr); // A002
+        assert(nectar < carry_capacity); // A005
+        break;
+
+    case HoneybeeBehaviour::Harvesting:
+    case HoneybeeBehaviour::HarvestingNotified:
+        assert(target != nullptr); // A001
+        assert(std::dynamic_pointer_cast<Plant>(target) != nullptr); // A003
+        break;
+
+    case HoneybeeBehaviour::Returning:
+        assert(target != nullptr); // A001
+        assert(nectar >= carry_capacity); // A006
+        assert(std::dynamic_pointer_cast<Hive>(target) != nullptr); // A004
+        break;
+
+    case HoneybeeBehaviour::ReturningToDance:
+        assert(target != nullptr); // A001
+        assert(std::dynamic_pointer_cast<Hive>(target) != nullptr); // A004
+        break;
+    }
+
+    assert(memory.size() <= memory_limit); // A007
+}
