@@ -19,7 +19,24 @@ TEST(LocationTest, AddAgent) {
     HoneyBee agent = HoneyBee();
     loc.addAgent(agent);
     EXPECT_EQ(loc.numAgents(), 1);
-    // TODO: check agent is actually added
+
+
+    // check agent is actually added
+    int id_a = agent.getID();
+    auto agents = loc.getAgents();
+    bool found = false;
+
+    auto equal_id = [id_a](Agent& b) { return b.getID() == id_a; };
+    auto it = std::find_if(agents.begin(), agents.end(), equal_id);
+    if (it != agents.end()) found = true;
+
+    EXPECT_EQ(found, true);
+}
+
+TEST(LocationTest, AddAnotherAgent) {
+    Location loc = Location();
+    HoneyBee agent = HoneyBee();
+    loc.addAgent(agent);
 
     // add new agent to location containing another agent
     HoneyBee anotherAgent = HoneyBee();
@@ -29,6 +46,10 @@ TEST(LocationTest, AddAgent) {
     // re-add existing agent
     loc.addAgent(agent);
     EXPECT_EQ(loc.numAgents(), 2);
+}
+
+TEST(LocationTest, AgentExists) {
+
 }
 
 // agent is removed
