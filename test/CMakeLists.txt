@@ -21,9 +21,12 @@ enable_testing()
 
 add_executable(
   nectar_test
+  agent_test.cpp
+  agentController_test.cpp
   honeybee_test.cpp
-  basicMapGenerator_test.cpp
   location_test.cpp
+  plant_test.cpp
+  #basicMapGenerator_test.cpp
 )
 
 target_link_libraries(
