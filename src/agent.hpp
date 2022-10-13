@@ -93,6 +93,13 @@ class Agent : public sf::Drawable {
          */
         void moveToTarget();
 
+        /**
+         * @brief Get the Pos object
+         * 
+         * @return sf::Vector2f 
+         */
+        sf::Vector2f getPos();
+
     protected:
 
         /// @brief Unique ID of the agent.
