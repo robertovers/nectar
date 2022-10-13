@@ -34,7 +34,10 @@ void Location::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 void Location::addAgent(Agent& a) {
-    agents.push_back(a);
+    int id_a = a.getID();
+    auto equal_id = [id_a](Agent& b) { return b.getID() == id_a; };
+    auto it = std::find_if(agents.begin(), agents.end(), equal_id);
+    if (it == agents.end()) agents.push_back(a);
 }
 
 void Location::removeAgent(Agent& a) {

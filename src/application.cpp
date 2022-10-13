@@ -17,6 +17,8 @@ const std::string DATA_OUT = "reporting/sim_data.csv";
 const std::filesystem::path report_script_macos = "reporting/generate_macos.sh";
 const std::filesystem::path report_script_windows = "reporting\\generate_windows.bat";
 
+std::vector<int> framerates;
+
 Status global_status = Status::Play;
 
 Application::Application() { }
@@ -37,7 +39,10 @@ int Application::run() {
     float initialWindowWidth = params.rows * params.scale;
     float initialWindowHeight = params.columns * params.scale;
 
+    int frames = 0, fps = 0;
+
     sf::Clock clock;
+    sf::Clock fpsClock;
     auto metrics = std::make_shared<Metrics>();
 
     // set up window
@@ -146,7 +151,25 @@ int Application::run() {
         ImGui::SFML::Render(window);
 
         window.display();
+
+        frames++;
+
+        if (fpsClock.getElapsedTime().asMilliseconds() > 999) {
+            std::cout << "Current FPS: " << frames << std::endl;
+            framerates.push_back(frames);
+            frames = 0;
+            fpsClock.restart();
+        }
     }
+
+    float avg_fps;
+    int total_fps = 0;
+    for (auto f : framerates) {
+        total_fps += f;
+    }
+    avg_fps = (float) total_fps / (float) framerates.size();
+
+    std::cout << "Average FPS: " << avg_fps << std::endl;
 
     if (reportThread.joinable()) {
         reportThread.join();

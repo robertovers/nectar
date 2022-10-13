@@ -45,6 +45,10 @@ int Agent::getID() {
     return id;
 }
 
+sf::Vector2f Agent::getPos() {
+    return pos;
+}
+
 void Agent::moveRandomWalk() {
     // generate a random direction
     float dx = direction_u.x + (rand() % 3 - 1);

@@ -1,7 +1,8 @@
 #include "plant.hpp"
 #include <iostream>
 
-Plant::~Plant() { }
+Plant::~Plant() { 
+}
 
 Plant::Plant(int x, int y, shared_ptr<sf::Color> colour, shared_ptr<sf::Color> nectarColour, shared_ptr<sf::Color> pollenColour) : Location(x, y, colour) {
     this->nectarColour = nectarColour;

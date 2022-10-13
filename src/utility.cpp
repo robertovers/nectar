@@ -162,7 +162,7 @@ Parameters simconfigUI(){
         }
         
         // Clear & Display/Render UI
-        window.clear(sf::Color(255,234,155,100));
+        window.clear(sf::Color::Black);
         ImGui::End();
         ImGui::SFML::Render(window);
         window.display();
