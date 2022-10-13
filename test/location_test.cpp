@@ -1,3 +1,5 @@
+
+
 #include <gtest/gtest.h>
 #include <algorithm>
 #include "../src/location.hpp"
@@ -17,9 +19,30 @@ TEST(LocationTest, AddAgent) {
     // add new agent to empty location
     Location loc = Location();
     HoneyBee agent = HoneyBee();
+    int id_a = agent.getID();
+    auto agents = loc.getAgents();
+    bool found = false;
+
+    auto equal_id = [id_a](Agent& b) { return b.getID() == id_a; };
+    auto it = std::find_if(agents.begin(), agents.end(), equal_id);
+    if (it != agents.end()) found = true;
+    EXPECT_EQ(found, false);
+
     loc.addAgent(agent);
+    agents = loc.getAgents();
     EXPECT_EQ(loc.numAgents(), 1);
-    // TODO: check agent is actually added
+
+    auto equal_id_2 = [id_a](Agent& b) { return b.getID() == id_a; };
+    auto it_2 = std::find_if(agents.begin(), agents.end(), equal_id_2);
+    if (it_2 != agents.end()) found = true;
+
+    EXPECT_EQ(found, true);
+}
+
+TEST(LocationTest, AddAnotherAgent) {
+    Location loc = Location();
+    HoneyBee agent = HoneyBee();
+    loc.addAgent(agent);
 
     // add new agent to location containing another agent
     HoneyBee anotherAgent = HoneyBee();
