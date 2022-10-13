@@ -3,7 +3,7 @@
  * Insect Simulation for Improved Pollination and Pest Control
  * Group CS6
  *
- * @file plant.hpp
+ * @file soybean.hpp
  * @brief Class representing a Location containing a soybean plant
  * @date 2022-09-28
  */

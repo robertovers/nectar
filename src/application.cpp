@@ -25,8 +25,8 @@ int Application::run() {
     // Acquire simulation parameters via initial user interface
     Parameters params = simconfigUI();     
 
-    // Attempt at making program conclude early if initial UI is not closed via load simulation button. But not working...
-    if (!params.normal_exit) {
+    // Program concludes early if initial UI is not closed via load simulation button
+    if (params.exit_status) {
         std::cout << "Program exited by user\n";
         exit(1);
     }
@@ -50,10 +50,21 @@ int Application::run() {
     window.setFramerateLimit(30);
 
     // set up environment
-    BasicMapGenerator mapGenerator = BasicMapGenerator(envColours, soybeanOverlays, params.rows, params.columns, params.bees, params.soybean_p*100);
+    MapGenerator* mapGenerator;
+    switch (params.selectedGenerator) {
+        case 0:
+            mapGenerator = new BasicMapGenerator(envColours, soybeanOverlays, params.rows, params.columns, params.bees, params.soybean_p*100);
+            break;
+        case 1:
+            mapGenerator = new RowMapGenerator(envColours, soybeanOverlays, params.rows, params.columns, params.bees);
+            break;
+        default:
+            break;
+    }
     auto agentController = std::make_shared<AgentController>();
-    auto environment = std::make_shared<Environment>(mapGenerator.generateEnvironment(*agentController));
+    auto environment = std::make_shared<Environment>(mapGenerator->generateEnvironment(*agentController));
     environment->initLookupTable();
+    delete mapGenerator;
 
     // set up display parts
     ImGui::SFML::Init(window);
@@ -118,9 +129,9 @@ int Application::run() {
 
             // begin generating report on new thread
             #ifdef _WIN32
-                reportThread = std::thread(generate_report_windows);
+                reportThread = std::thread(generate_report_windows, params);
             #elif __APPLE__
-                reportThread = std::thread(generate_report_macos);
+                reportThread = std::thread(generate_report_macos, params);
             #endif
 
             global_status = Status::Stopped;
@@ -146,11 +157,17 @@ int Application::run() {
     return EXIT_SUCCESS;
 }
 
-void generate_report_macos() {
+void generate_report_macos(Parameters params) {
     std::filesystem::permissions(report_script_macos, std::filesystem::perms::owner_all);
 
     try {
-        system(report_script_macos.string().c_str());
+        system((
+            report_script_macos.string() 
+            + " " + std::to_string(params.bees)
+            + " " + std::to_string(params.rows)
+            + " " + std::to_string(params.columns)
+            + " " + std::to_string(params.soybean_p)
+        ).c_str());
     } catch (const std::exception& e) {
         global_status = Status::ReportFail;
     }
@@ -158,11 +175,17 @@ void generate_report_macos() {
     global_status = Status::ReportSuccess;
 }
 
-void generate_report_windows() {
+void generate_report_windows(Parameters params) {
     std::filesystem::permissions(report_script_windows, std::filesystem::perms::owner_all);
 
     try {
-        system(report_script_windows.string().c_str());
+        system((
+            report_script_windows.string() 
+            + " " + std::to_string(params.bees)
+            + " " + std::to_string(params.rows)
+            + " " + std::to_string(params.columns)
+            + " " + std::to_string(params.soybean_p)
+        ).c_str());
     } catch (const std::exception& e) {
         global_status = Status::ReportFail;
     }

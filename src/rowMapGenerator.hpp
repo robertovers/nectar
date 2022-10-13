@@ -17,7 +17,8 @@
  /**
   * @brief MapGenerator for generating an Environment with Soybeans and empty Locations in alternating, horizontal, 1-block wide rows. Honeybees are randomly scattered around. 
   */
-class RowMapGenerator : MapGenerator {
+class RowMapGenerator : public MapGenerator {
+
 
 	public:
 		/**
@@ -31,6 +32,8 @@ class RowMapGenerator : MapGenerator {
 		* @throw invalid_argument if the given environment dimensions are negative or of size 0
 		*/
 		RowMapGenerator(EnvColours envColours, SoybeanOverlays soybeanOverlays, int envSizeX, int envSizeY, int beeCount);
+
+
 
 		/**
 		* @brief Generates a populated Environment for the simulation to run, with Soybeans and empty Locations in alternating, horizontal, 1-block wide rows. Honeybees are randomly scattered around. 

@@ -1,3 +1,13 @@
+/**
+ * FIT3161/3162 Computer Science Project
+ * Insect Simulation for Improved Pollination and Pest Control
+ * Group CS6
+ *
+ * @file utility.cpp
+ * @brief File containing utility functions used throughout the project. 
+ * @date 2022-10-04
+ */
+
 #include <iostream>
 #include <fstream>
 #include "utility.hpp"
@@ -63,6 +73,24 @@ void Metrics::createDataFile(std::string filename) {
     out.close();
 };
 
+#define INT_LOWER_LIM 1
+#define ROWS_UPPER_LIM 400
+#define COLS_UPPER_LIM 400
+#define SCALE_UPPER_LIM 50 
+#define BEES_UPPER_LIM 10000
+
+void Parameters::check_limits(){
+    int int_lower_lim = 0;
+    if (rows < INT_LOWER_LIM) rows = INT_LOWER_LIM;
+    if (columns < INT_LOWER_LIM) columns = INT_LOWER_LIM;
+    if (scale < INT_LOWER_LIM) scale = INT_LOWER_LIM;
+    if (bees < INT_LOWER_LIM) bees = INT_LOWER_LIM;
+    if (rows > ROWS_UPPER_LIM) rows = ROWS_UPPER_LIM;
+    if (columns > COLS_UPPER_LIM) columns = COLS_UPPER_LIM;
+    if (scale > SCALE_UPPER_LIM) scale = SCALE_UPPER_LIM;
+    if (bees > BEES_UPPER_LIM) bees = BEES_UPPER_LIM;
+}
+
 #define WINDOWHEIGHT 196
 #define WINDOWWIDTH 401
 
@@ -98,26 +126,40 @@ Parameters simconfigUI(){
         // Adding widgets to window
         ImGui::Begin("Simulation Parameters", NULL, window_flags);
 
-        ImGui::InputInt2("Grid Dimensions", &dimensions[0]);
-        ImGui::InputInt("Scale", &parameters.scale);
-        ImGui::InputInt("Bees", &parameters.bees);    
-        ImGui::SliderFloat("Soybean Probability", &parameters.soybean_p, 0.0f, 1.0f, "%.2f", ImGuiSliderFlags_None);
-
-        // Update parameter values
-        parameters.rows = dimensions[0];
-        parameters.columns = dimensions[1];
-
-        // Display Simulation Widget
-        static int ds_clicked=0;
-        if(ImGui::Button("Start Simulation")) ds_clicked ++;
-        if(ds_clicked) {
-            parameters.normal_exit = true;
-            window.close();
+        static int mapGeneratorConfirmed = 0;              // map generator initially not confirmed
+        if (!mapGeneratorConfirmed)                                         // Map generation widgets
+        {                             
+            getMapGeneratorWidgets(&parameters, &mapGeneratorConfirmed);    
         }
+        else                                                                // Parameter selection widgets
+        {
+            getDefaultParameterWidgets(&parameters);            // Default Parameter widgets    
 
-         // Window size display
-        ImVec2 size = ImGui::GetWindowSize();
-        ImGui::SameLine();  ImGui::Text("Window size: [%2.fx%2.f]", size.x, size.y); 
+            // Additional Parameter widgets
+            switch (parameters.selectedGenerator) {             
+                case 0:
+                    ImGui::SliderFloat("Soybean Probability", &parameters.soybean_p, 0.0f, 1.0f, "%.2f", ImGuiSliderFlags_None);
+                    break;
+                case 1:
+                    break;
+                default:
+                    break;
+            }
+
+            // "Display Simulation" Widget Button
+            static int ds_clicked=0;
+            if(ImGui::Button("Start Simulation")) {
+                ds_clicked ++;
+            }
+            if(ds_clicked) {
+                parameters.exit_status = 0;
+                window.close();
+            }
+            /* Present for debugging/referenceing purposes
+            // Window size display
+            ImVec2 size = ImGui::GetWindowSize();
+            ImGui::SameLine();  ImGui::Text("Window size: [%2.fx%2.f]", size.x, size.y); */
+        }
         
         // Clear & Display/Render UI
         window.clear(sf::Color(255,234,155,100));
@@ -127,6 +169,46 @@ Parameters simconfigUI(){
     }
     ImGui::SFML::Shutdown();
     return parameters;    
+};
+
+void getMapGeneratorWidgets(Parameters* parameters, int* mapGeneratorConfirmed){
+    // Map Generator Combo Box Setup
+    const char* mapGenerators[] = { "Basic Map Generator", "Row Map Generator" };   // Must be in a specific order
+    static int selected_generator_id = 0;
+    const char* combo_preview_value = mapGenerators[selected_generator_id];  // The preview value visible before opening the combo
+    
+    // Map Generator Combo Box 
+    if (ImGui::BeginCombo("Map Generator", combo_preview_value, 0)){
+        for (int n = 0; n < IM_ARRAYSIZE(mapGenerators); n++){
+            const bool is_selected = (selected_generator_id == n);
+            if (ImGui::Selectable(mapGenerators[n], is_selected))   selected_generator_id = n;
+            if (is_selected) ImGui::SetItemDefaultFocus();
+        }
+        ImGui::EndCombo();
+    }
+
+    // Confirm Map Type Widget
+    static int cmt_clicked=0;
+    if(ImGui::Button("Confirm Map Type")) cmt_clicked ++;
+    if(cmt_clicked) {
+        *mapGeneratorConfirmed = 1;
+        parameters->selectedGenerator = selected_generator_id;
+    }
+};
+
+void getDefaultParameterWidgets(Parameters* parameters){
+    static int dimensions[2]={parameters->columns,parameters->rows};
+
+    // Default Parameter widgets
+    ImGui::InputInt2("Grid Dimensions", &dimensions[0]);
+    ImGui::InputInt("Scale", &parameters->scale);
+    ImGui::InputInt("Bees", &parameters->bees);    
+
+    // Update parameter values
+    parameters->rows = dimensions[0];
+    parameters->columns = dimensions[1];
+    parameters->check_limits();
+
 }
 
 EnvColours::EnvColours() {
