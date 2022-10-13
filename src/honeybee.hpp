@@ -112,6 +112,11 @@ class HoneyBee : public Agent {
          */
         void waggle(Environment& env, shared_ptr<Hive> hive, shared_ptr<Location> loc);
 
+        /**
+         * @brief Calls assertions for the correctness of the bee's state.
+         */
+        void _validateState();
+
     protected:
 
         /// @brief The amount of nectar the agent is carrying.
