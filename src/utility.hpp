@@ -69,8 +69,9 @@ struct ID {
         static std::atomic<std::uint64_t> id { 0 };
         return id++;
     };
-
+};
 // -----------------------------------------INITIAL DISPLAY---------------------------------------------
+
 
 /// @brief Parameters structure for storing simulation parameter values.
 struct Parameters {

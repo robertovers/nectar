@@ -24,10 +24,13 @@ The project was developed as part of the final-year Computer Science project at 
 
 ### MacOS
 
-For macOS users with homebrew, both CMake and Doxygen can be installed with:
-
+For macOS users with homebrew, both CMake, Doxygen and Python can be installed with:
 ```
-brew install cmake && brew install doxygen
+brew install cmake && brew install doxygen && brew install python
+```
+Once installed verify that pip is installed with:
+```
+pip3 --version
 ```
 
 Once CMake is installed, clone the nectar repository using:
@@ -42,6 +45,11 @@ For Windows, CMake binaries can be downloaded at: https://cmake.org/download/.
 
 Doxygen binaries can be found at: https://doxygen.nl/download.html.
 
+Python downloads can be found at: https://www.python.org/downloads/. Once installed verify that pip is installed with:
+```
+pip --version
+```
+
 Once CMake is installed, clone the nectar repository using:
 
 ```
@@ -49,6 +57,26 @@ git clone https://github.com/robertovers/nectar.git
 ```
 
 ### Linux
+
+CMake binaries can be downloaded at: https://cmake.org/download/.
+
+Doxygen binaries can be found at: https://doxygen.nl/download.html.
+
+Python can be installed via your native package manager, for example:
+```
+sudo apt-get install python
+```
+Once installed verify that pip is installed with:
+```
+pip --version
+```
+
+Once CMake is installed, clone the nectar repository using:
+
+```
+git clone https://github.com/robertovers/nectar.git
+```
+
 
 ## Usage
 
@@ -62,7 +90,8 @@ cmake --build build
 The executable will be contained in `build/src`, and can be run with:
 
 ```
-./build/src/nectar
+cd build/src
+./nectar
 ```
 
 Once built, the documentation can be location at `build/src/doc_doxygen`. Opening the `index.html` file within the html folder will load a webpage containing documentation for the project. Report and data files can be found in `build/src/reporting` once the simulation is complete.
