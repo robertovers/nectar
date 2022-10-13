@@ -32,15 +32,6 @@ TEST(AgentTest, LocationIsRetrieved) {
     EXPECT_EQ(loc6, nullptr);
 }
 
-TEST(AgentTest, AgentTargetMovement) {
-    BasicMapGenerator gen = BasicMapGenerator(EnvColours(), SoybeanOverlays(), 50, 50, 1, 0);
-    auto ac = std::make_shared<AgentController>();
-    auto env = std::make_shared<Environment>(gen.generateEnvironment(*ac));
-    shared_ptr<HoneyBee> bee1 = std::make_shared<HoneyBee>(0, 0);
-
-    
-}
-
 // Test IDs are unique
 TEST(AgentTest, IDisUnique) {
     shared_ptr<HoneyBee> bee1 = std::make_shared<HoneyBee>();
