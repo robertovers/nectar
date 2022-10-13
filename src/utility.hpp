@@ -16,6 +16,9 @@
 #include "environment.hpp"
 #include "templates.hpp"
 
+
+// -----------------------------------------METRICS---------------------------------------------
+
 /// @brief Struct for storing a timestamp of simulation statistics.
 struct Metrics {
 
@@ -66,8 +69,9 @@ struct ID {
         static std::atomic<std::uint64_t> id { 0 };
         return id++;
     };
-
 };
+// -----------------------------------------INITIAL DISPLAY---------------------------------------------
+
 
 /// @brief Parameters structure for storing simulation parameter values.
 struct Parameters {
@@ -87,8 +91,29 @@ struct Parameters {
     /// @brief Probability of a soybean being planted in each grid from 0-1.
     float soybean_p = 0.1;
 
+    /**
+     * @brief Number indicating the exit status of the simulation conguration display 
+     * 
+     * 0: Normal exit
+     * 1: User exit
+     * Otherwise: Error
+     */
+    int exit_status = 0;
+
+    /**
+     * @brief Number indicating the type of map generator selected
+     * 
+     * 0: Basic
+     * 1: Row
+     */
+    int selectedGenerator = 0;
+
+    /// @brief function that resticts parameters within the parameter limits set in utility.cpp
+    void check_limits();
+
     /// @brief Boolean for the exit status of the simulation conguration display 
     bool normal_exit = false;
+
 };
 
 /**
@@ -102,6 +127,24 @@ struct Parameters {
  * @return Parameters structure of simulation parameter values to be used.
  */
 Parameters simconfigUI();
+
+/**
+ * @brief Sets up widgets for selecting a map generator
+ * 
+ * @param mapGeneratorSelectionStatus Boolean to be made true with the user confirms their selection of a map generator
+ */
+void getMapGeneratorWidgets(Parameters* parameters, int* mapGeneratorSelectionStatus);
+
+/**
+ * @brief Sets up widgets for selecting simulation parameters
+ * 
+ * @param parameters 
+ * @param window 
+ */
+void getDefaultParameterWidgets(Parameters* parameters);
+
+
+// -----------------------------------------SIMULATION FEATURES---------------------------------------------
 
 /**
  * @brief Struct containing all colours used by different Locations in the simulation

@@ -39,7 +39,7 @@ Environment RowMapGenerator::generateEnvironment(AgentController& agentControlle
         // TODO: add to location?
         placedBees++;
     }
-
+\
     // replace rows of locations with plants
     auto& rows = generatedEnvironment.getLocations();
     for (int i = 0; i < rows.size(); i += 2) {
@@ -48,6 +48,13 @@ Environment RowMapGenerator::generateEnvironment(AgentController& agentControlle
                 shared_ptr<Soybean>(std::make_shared<Soybean>(location->getX(), location->getY(), envColours.soybeanColour, envColours.nectarColour, envColours.pollenColour, soybeanOverlays)));
         }
     }
+
+    // add a hive
+    int hive_x = rand() % envSizeX;
+    int hive_y = rand() % envSizeY;
+    auto hive = shared_ptr<Hive>(std::make_shared<Hive>(hive_x, hive_y, envColours.hiveColour));
+    generatedEnvironment.changeLocation(hive_x, hive_y, hive);
+    generatedEnvironment.setHive(hive);
 
     return generatedEnvironment;
 }
