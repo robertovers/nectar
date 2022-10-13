@@ -1,7 +1,9 @@
 #include "plant.hpp"
 #include <iostream>
 
-Plant::~Plant() { }
+Plant::~Plant() { 
+    nectar = static_cast <float> (rand()) / static_cast <float> (RAND_MAX / MAX_NECTAR);
+}
 
 Plant::Plant(int x, int y, shared_ptr<sf::Color> colour, shared_ptr<sf::Color> nectarColour, shared_ptr<sf::Color> pollenColour) : Location(x, y, colour) {
     this->nectarColour = nectarColour;
