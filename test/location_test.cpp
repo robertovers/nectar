@@ -20,7 +20,6 @@ TEST(LocationTest, AddAgent) {
     loc.addAgent(agent);
     EXPECT_EQ(loc.numAgents(), 1);
 
-
     // check agent is actually added
     int id_a = agent.getID();
     auto agents = loc.getAgents();
@@ -46,10 +45,6 @@ TEST(LocationTest, AddAnotherAgent) {
     // re-add existing agent
     loc.addAgent(agent);
     EXPECT_EQ(loc.numAgents(), 2);
-}
-
-TEST(LocationTest, AgentExists) {
-
 }
 
 // agent is removed
