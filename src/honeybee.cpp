@@ -10,6 +10,7 @@
 
 #include <math.h>
 #include <iostream>
+#include <assert.h>
 #include "honeybee.hpp"
 #include "plant.hpp"
 #include "hive.hpp"
