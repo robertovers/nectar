@@ -4,6 +4,8 @@ project(nectar_test)
 # GoogleTest requires at least C++14
 set(CMAKE_CXX_STANDARD 20)
 
+set(GTEST_LINKED_AS_SHARED_LIBRARY, 1) # needed for agentController new MockAgent, since it doesnt work with make_shared
+
 include(FetchContent)
 
 FetchContent_Declare(
@@ -32,7 +34,8 @@ add_executable(
 target_link_libraries(
   nectar_test
   nectar_lib
-  GTest::gtest_main
+  # GTest::gtest
+  GTest::gmock_main  # used in agentController tests
 )
 
 # Code coverage
