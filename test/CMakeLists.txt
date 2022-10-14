@@ -29,7 +29,7 @@ add_executable(
   plant_test.cpp
   soybean_test.cpp
   utility_test.cpp
-  #basicMapGenerator_test.cpp
+  basicMapGenerator_test.cpp
   environment_test.cpp
 )
 
