@@ -1,5 +1,7 @@
 #include "basicMapGenerator.hpp"
 
+BasicMapGenerator::BasicMapGenerator(int envSizeX, int envSizeY, int beeCount, int cropChance) : BasicMapGenerator(EnvColours(), SoybeanOverlays(), envSizeX, envSizeY, beeCount, cropChance) {};
+
 BasicMapGenerator::BasicMapGenerator(EnvColours envColours, SoybeanOverlays soybeanOverlays, int envSizeX, int envSizeY, int beeCount = 0, int cropChance = 0) {
     if (envSizeX <= 0) {
         throw std::invalid_argument("X value must be positive integer");
