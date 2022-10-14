@@ -2,9 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(nectar_test)
 
 # GoogleTest requires at least C++14
-set(CMAKE_CXX_STANDARD 20)
-
-set(GTEST_LINKED_AS_SHARED_LIBRARY, 1) # needed for agentController new MockAgent, since it doesnt work with make_shared
+set(CMAKE_CXX_STANDARD 20) 
 
 include(FetchContent)
 
@@ -31,19 +29,22 @@ add_executable(
   basicMapGenerator_test.cpp
 )
 
+# needed for agentController test's use of "new MockAgent", since mocked objects dont seem to work with make_shared
+target_compile_definitions(nectar_test PUBLIC GTEST_LINKED_AS_SHARED_LIBRARY)
+
 target_link_libraries(
   nectar_test
   nectar_lib
-  # GTest::gtest
+  GTest::gtest
   GTest::gmock_main  # used in agentController tests
 )
 
 # Code coverage
 
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/test)
-include(CodeCoverage)
-append_coverage_compiler_flags()
-setup_target_for_coverage_gcovr_xml(${PROJECT_NAME}_coverage NAME coverage)
+#set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/test)
+#include(CodeCoverage)
+#append_coverage_compiler_flags()
+#setup_target_for_coverage_gcovr_xml(${PROJECT_NAME}_coverage NAME coverage)
 
 include(GoogleTest)
 gtest_discover_tests(nectar_test)
