@@ -30,6 +30,13 @@
 class Environment {
 
     public:
+        /**
+         * @brief Construct a new Environment object.
+         *
+         * @param w width in tiles
+         * @param h height in tiles
+         */
+        Environment(int w, int h) : Environment(w , h, shared_ptr<sf::Color>()) {};
 
         /**
          * @brief Construct a new Environment object.

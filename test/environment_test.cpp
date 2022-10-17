@@ -1,42 +1,34 @@
 #include <gtest/gtest.h>
 #include "../src/basicMapGenerator.hpp"
+#include "../src/agentController.hpp"
 #include "../src/environment.hpp"
 #include "../src/honeybee.hpp"
 
 // initial plant count is correct
 TEST(EnvironmentTest, PlantCount) {
     BasicMapGenerator mp = BasicMapGenerator(3, 3, 0, 100);
-    Environment env = mp.generateEnvironment();
+    auto ac = AgentController();
+    Environment env = mp.generateEnvironment(ac);
 
-    EQ(env.plantCount(), 8);
+    EXPECT_EQ(env.plantCount(), 8);
 }
 
 TEST(EnvironmentTest, AgentCount) {
     BasicMapGenerator mp = BasicMapGenerator(3, 3, 7, 0);
-    Environment env = mp.generateEnvironment();
+    auto ac = AgentController();
+    Environment env = mp.generateEnvironment(ac);
 
     // initial agent count is correct
-    EQ(env.agentCount(), 7);
+    EXPECT_EQ(env.agentCount(), 7);
 }
 
 TEST(EnvironmentTest, LocationTest) {
     auto env = Environment(3, 3);
     auto loc = env.getLocation(3, 2);
-    EQ(loc->getX(), 3);
-    EQ(loc->getY(), 2);
+    EXPECT_EQ(loc->getX(), 3);
+    EXPECT_EQ(loc->getY(), 2);
 
     loc = env.getLocation(2, 3);
-    EQ(loc->getX(), 2);
-    EQ(loc->getY(), 3);
-}
-
-TEST(EnvironmentTest, LocationTest) {
-    auto env = Environment(3, 3);
-    auto loc = env.getLocation(3, 2);
-    EQ(loc->getX(), 3);
-    EQ(loc->getY(), 2);
-
-    loc = env.getLocation(2, 3);
-    EQ(loc->getX(), 2);
-    EQ(loc->getY(), 3);
+    EXPECT_EQ(loc->getX(), 2);
+    EXPECT_EQ(loc->getY(), 3);
 }
