@@ -39,6 +39,18 @@ class BasicMapGenerator : public MapGenerator {
 		* @throw invalid_argument if the given environment dimensions are negative or of size 0
 		*/
 		BasicMapGenerator(EnvColours envColours, SoybeanOverlays soybeanOverlays, int envSizeX, int envSizeY, int beeCount, int cropChance);
+
+		/**
+		* @brief Create a new BasicMapGenerator with settings for generated map. USes default env colours and soybean overlays
+		*
+		* @param envSizeX	 Length of the map
+		* @param envSizeY	 Height of the map
+		* @param beeCount	 Number of bees in the map
+		* @param cropChance  Chance that a location will have a crop on it, out of 100.
+		*					 For example, cropChance = 50 means 50/100 = 1/2 chance
+		* @throw invalid_argument if the given environment dimensions are negative or of size 0
+		*/
+		BasicMapGenerator(int envSizeX, int envSizeY, int beeCount, int cropChance);
 	
 		/**
 		* @brief Generates a populated Environment for the simulation to run, with Honeybees and Soybeans randomly scattered around
