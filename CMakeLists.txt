@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(Insect_Sim)
+project(nectar)
 
 add_subdirectory(src)
 

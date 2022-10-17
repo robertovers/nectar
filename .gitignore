@@ -4,8 +4,8 @@
 build
 out
 
-*.sh
 *.exe
 *.o
 
 main
+imgui.ini

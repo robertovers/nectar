@@ -4,7 +4,7 @@
  * Group CS6
  * 
  * @file agent.cpp
- * @brief Agent class for extension by simulation agents.
+ * @brief Abstract class for extension by simulation agents.
  * @date 2022-09-10
  */
 
@@ -12,9 +12,10 @@
 #include <math.h>
 #include <memory>
 #include "agent.hpp"
+#include "utility.hpp"
 
 Agent::Agent() {
-    id = generateID();
+    id = ID::generateID();
 }
 
 Agent::~Agent() { }
@@ -38,11 +39,6 @@ shared_ptr<Location> Agent::getTarget() {
 
 void Agent::setTarget(shared_ptr<Location> t) {
     target = t;
-}
-
-int Agent::generateID() {
-    static std::atomic<std::uint8_t> id { 0 };
-    return id++;
 }
 
 int Agent::getID() {
@@ -75,4 +71,8 @@ void Agent::moveToTarget() {
         sf::Vector2f target_u = target_v / dist; 
         direction_u = target_u;
     }
+}
+
+sf::Vector2f Agent::getPos() {
+    return pos;
 }

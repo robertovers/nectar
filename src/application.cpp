@@ -4,75 +4,191 @@
  * Group CS6
  * 
  * @file application.cpp
- * @brief Application class that initiates and controls the simulation.
+ * @brief Top-level class that initiates and controls the simulation.
  * @date 2022-09-10
  */
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include <thread>
 #include "application.hpp"
-#include "environment.hpp"
-#include "basicMapGenerator.hpp"
-#include "agentController.hpp"
-#include "utility.hpp"
+
+const std::string DATA_OUT = "reporting/sim_data.csv";
+const std::filesystem::path report_script_macos = "reporting/generate_macos.sh";
+const std::filesystem::path report_script_windows = "reporting\\generate_windows.bat";
+
+Status global_status = Status::Play;
 
 Application::Application() { }
 
-void Application::run() { 
-    float initialWindowWidth = 1000;
-    float initialWindowHeight = 1000;
-    int rows = 50; int columns = 50;
+int Application::run() {
+    // Acquire simulation parameters via initial user interface
+    Parameters params = simconfigUI();     
+
+    // Program concludes early if initial UI is not closed via load simulation button
+    if (params.exit_status) {
+        std::cout << "Program exited by user\n";
+        exit(1);
+    }
+
+    // initial simulation settings
+    auto envColours = EnvColours();  // default colours
+    auto soybeanOverlays = SoybeanOverlays();
+    float initialWindowWidth = params.rows * params.scale;
+    float initialWindowHeight = params.columns * params.scale;
 
     sf::Clock clock;
-    Metrics metrics;
+    auto metrics = std::make_shared<Metrics>();
 
-    sf::RenderWindow window(sf::VideoMode(initialWindowWidth, initialWindowHeight), "Insect Simulations");
-
+    // set up window
+    sf::RenderWindow window(sf::VideoMode(initialWindowWidth, initialWindowHeight), "Nectar");
+    sf::Image icon;
+    if (icon.loadFromFile("bee_hex.png")) {
+        window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+    };
+    
     window.setFramerateLimit(30);
 
     // set up environment
-    BasicMapGenerator mapGenerator = BasicMapGenerator(rows, columns, 50, 1);
-    AgentController agentController = AgentController();
-    Environment environment = mapGenerator.generateEnvironment(agentController);
+    MapGenerator* mapGenerator;
+    switch (params.selectedGenerator) {
+        case 0:
+            mapGenerator = new BasicMapGenerator(envColours, soybeanOverlays, params.rows, params.columns, params.bees, params.soybean_p*100);
+            break;
+        case 1:
+            mapGenerator = new RowMapGenerator(envColours, soybeanOverlays, params.rows, params.columns, params.bees);
+            break;
+        default:
+            break;
+    }
+    auto agentController = std::make_shared<AgentController>();
+    auto environment = std::make_shared<Environment>(mapGenerator->generateEnvironment(*agentController));
+    environment->initLookupTable();
+    delete mapGenerator;
 
-    // set up view scale
-    sf::Transform transformation = spriteTransformation(rows, columns, initialWindowWidth, initialWindowHeight);
+    // set up display parts
+    ImGui::SFML::Init(window);
+
+    StatsWindow statsWindow = StatsWindow(metrics);
+    auto legendsWindow = LegendsWindow(envColours, soybeanOverlays);
+    auto simDisplay = SimulationDisplay(agentController, environment);
+    simDisplay.updateViewport(initialWindowWidth, initialWindowHeight);
+    
+    // metric logging
+    Metrics::createDataFile(DATA_OUT);
+    float cur_log, last_log = 0;
+
+    // multithreading for report generation
+    std::thread reportThread;
 
     while (window.isOpen()) {
 
         sf::Event event;
-        metrics.updateMetrics(environment, clock.getElapsedTime());
+        sf::Clock deltaClock;
 
+        // event loop
         while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
+            ImGui::SFML::ProcessEvent(window, event);
+
+            if (event.type == sf::Event::Closed) {
                 window.close();
-            else if (event.type == sf::Event::Resized) {
-                // update view to new window size
-                sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
-                window.setView(sf::View(visibleArea));
-                transformation = spriteTransformation(rows, columns, event.size.width, event.size.height);
+
+            } else if (event.type == sf::Event::Resized) {
+                simDisplay.updateViewport(event.size.width, event.size.height);
+
+                ImGui::SFML::Update(window, deltaClock.restart());
+                statsWindow.draw(event.size.width, event.size.height);
+                ImGui::SFML::Render(window);
             }
         }
 
         window.clear();
 
-        agentController.updateAgents(environment);
-        
-        environment.draw(window, transformation);
-        agentController.draw(window, transformation); 
-        
-        window.display();
+        ImGui::SFML::Update(window, deltaClock.restart());
 
-        metrics.toConsole();
+        // status updates
+        if (global_status == Status::Play || global_status == Status::Pause) {
+            global_status = legendsWindow.getStatus();
+        } else if (global_status == Status::ReportSuccess || global_status == Status::ReportFail) {
+            legendsWindow.setStatus(global_status);
+        }
+
+        if (global_status == Status::Play) {
+
+            metrics->updateMetrics(*environment, clock.getElapsedTime());
+    
+            cur_log = clock.getElapsedTime().asMilliseconds();
+            if (cur_log - last_log > 1000) {
+                metrics->toFile(DATA_OUT);
+                last_log = cur_log;
+            }
+    
+            agentController->updateAgents(*environment);
+
+        } else if (global_status == Status::Stop) {
+
+            // begin generating report on new thread
+            #ifdef _WIN32
+                reportThread = std::thread(generate_report_windows, params);
+            #elif __APPLE__
+                reportThread = std::thread(generate_report_macos, params);
+            #endif
+
+            global_status = Status::Stopped;
+        }
+
+        window.setView(simDisplay.getView());
+        simDisplay.draw(window, sf::RenderStates());
+
+        statsWindow.draw();
+        legendsWindow.draw();
+
+        ImGui::SFML::Render(window);
+
+        window.display();
     }
+
+    if (reportThread.joinable()) {
+        reportThread.join();
+    }
+
+    ImGui::SFML::Shutdown();
+
+    return EXIT_SUCCESS;
 }
 
-sf::Transform Application::spriteTransformation(int rows, int columns, int windowWidth, int windowHeight){
-    float rowWidth = static_cast<float>(windowWidth) / rows;
-    float columnWidth = static_cast<float>(windowHeight) / columns;
-    // use smallest width, to fit on screen/avoid distortion
-    float displayWidth = rowWidth;
-    if (rowWidth > columnWidth) {
-        displayWidth = columnWidth;
+void generate_report_macos(Parameters params) {
+    std::filesystem::permissions(report_script_macos, std::filesystem::perms::owner_all);
+
+    try {
+        system((
+            report_script_macos.string() 
+            + " " + std::to_string(params.bees)
+            + " " + std::to_string(params.rows)
+            + " " + std::to_string(params.columns)
+            + " " + std::to_string(params.soybean_p)
+        ).c_str());
+    } catch (const std::exception& e) {
+        global_status = Status::ReportFail;
     }
-    return sf::Transform().scale(displayWidth, displayWidth);
+
+    global_status = Status::ReportSuccess;
+}
+
+void generate_report_windows(Parameters params) {
+    std::filesystem::permissions(report_script_windows, std::filesystem::perms::owner_all);
+
+    try {
+        system((
+            report_script_windows.string() 
+            + " " + std::to_string(params.bees)
+            + " " + std::to_string(params.rows)
+            + " " + std::to_string(params.columns)
+            + " " + std::to_string(params.soybean_p)
+        ).c_str());
+    } catch (const std::exception& e) {
+        global_status = Status::ReportFail;
+    }
+
+    global_status = Status::ReportSuccess;
 }
