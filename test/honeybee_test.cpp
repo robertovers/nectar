@@ -72,6 +72,8 @@ TEST(HoneybeeTest, MemoryIsFIFO) {
     EXPECT_EQ(in_mem, false); 
 }
 
+// Test behaviour is correctly set to HarvestingNotified for bees in the
+// vicinity of the waggle dance
 TEST(HoneybeeTest, WaggleDanceBehaviour) {
     BasicMapGenerator gen = BasicMapGenerator(EnvColours(), SoybeanOverlays(), 50, 50, 1, 0);
     auto ac = std::make_shared<AgentController>();
@@ -107,6 +109,7 @@ TEST(HoneybeeTest, WaggleDanceBehaviour) {
     EXPECT_NE(HoneybeeBehaviour::HarvestingNotified, bee_out->getBehaviour());
 }
 
+// Test target is correctly set for bees in the vicinity of the waggle dance
 TEST(HoneybeeTest, WaggleDanceTarget) {
     BasicMapGenerator gen = BasicMapGenerator(EnvColours(), SoybeanOverlays(), 50, 50, 1, 0);
     auto ac = std::make_shared<AgentController>();
