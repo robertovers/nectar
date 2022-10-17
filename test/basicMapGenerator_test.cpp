@@ -60,6 +60,7 @@ TEST(BasicMapGeneratorTest, PlantCount) {
     int x = 5;
     int y = 10;
     int bees = 3;
+    int hiveCount = 1;  // one hive is randomly generated, which replaces a random location
 
     // no crops
     int cropChance = -1;
@@ -72,7 +73,7 @@ TEST(BasicMapGeneratorTest, PlantCount) {
     // some crops
     cropChance = 50;
     env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(controller);
-    EXPECT_NEAR(env.plantCount(), (x * y) / 2, (x * y) / 4); // TODO: determine if margin of error is appropriate
+    EXPECT_NEAR(env.plantCount(), (x * y) / 2 - hiveCount, (x * y) / 4); // TODO: determine if margin of error is appropriate
     
     // all crops
     cropChance = 100;
@@ -80,5 +81,5 @@ TEST(BasicMapGeneratorTest, PlantCount) {
     EXPECT_EQ(env.plantCount(), x*y);
     cropChance = 110;
     env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(controller);
-    EXPECT_EQ(env.plantCount(), x * y);
+    EXPECT_EQ(env.plantCount(), x * y - hiveCount);
 }
