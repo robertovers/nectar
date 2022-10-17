@@ -29,6 +29,7 @@ add_executable(
   hive_test.cpp
   soybean_test.cpp
   #basicMapGenerator_test.cpp
+  environment_test.cpp
 )
 
 target_link_libraries(
