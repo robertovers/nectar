@@ -71,3 +71,75 @@ TEST(HoneybeeTest, MemoryIsFIFO) {
 
     EXPECT_EQ(in_mem, false); 
 }
+
+// Test behaviour is correctly set to HarvestingNotified for bees in the
+// vicinity of the waggle dance
+TEST(HoneybeeTest, WaggleDanceBehaviour) {
+    BasicMapGenerator gen = BasicMapGenerator(EnvColours(), SoybeanOverlays(), 50, 50, 1, 0);
+    auto ac = std::make_shared<AgentController>();
+    auto env = std::make_shared<Environment>(gen.generateEnvironment(*ac)); 
+    auto loc = std::make_shared<Location>(10, 10);
+
+    auto hive = env->getHive();
+    int hive_x = hive->getX();
+    int hive_y = hive->getY();
+
+    shared_ptr<HoneyBee> notifier = std::make_shared<HoneyBee>(hive_x, hive_y); 
+    shared_ptr<HoneyBee> bee_in_1 = std::make_shared<HoneyBee>(hive_x+1, hive_y+1); 
+    shared_ptr<HoneyBee> bee_in_2 = std::make_shared<HoneyBee>(hive_x+2, hive_y+2); 
+    shared_ptr<HoneyBee> bee_out = std::make_shared<HoneyBee>(hive_x+3, hive_y+3); 
+
+    // add agents to controller
+    ac->addAgent(notifier);
+    ac->addAgent(bee_in_1);
+    ac->addAgent(bee_in_2);
+    ac->addAgent(bee_out);
+
+    // add agents to locations
+    env->getLocation(hive_x, hive_y)->addAgent(*notifier);
+    env->getLocation(hive_x, hive_y)->addAgent(*bee_in_1);
+    env->getLocation(hive_x+1, hive_y+1)->addAgent(*bee_in_2);
+    env->getLocation(hive_x+5, hive_y+5)->addAgent(*bee_out);
+
+    // perform waggle dance
+    notifier->waggle(*env, hive, loc);
+
+    EXPECT_EQ(HoneybeeBehaviour::HarvestingNotified, bee_in_1->getBehaviour());
+    EXPECT_EQ(HoneybeeBehaviour::HarvestingNotified, bee_in_2->getBehaviour());
+    EXPECT_NE(HoneybeeBehaviour::HarvestingNotified, bee_out->getBehaviour());
+}
+
+// Test target is correctly set for bees in the vicinity of the waggle dance
+TEST(HoneybeeTest, WaggleDanceTarget) {
+    BasicMapGenerator gen = BasicMapGenerator(EnvColours(), SoybeanOverlays(), 50, 50, 1, 0);
+    auto ac = std::make_shared<AgentController>();
+    auto env = std::make_shared<Environment>(gen.generateEnvironment(*ac)); 
+    auto loc = std::make_shared<Location>(10, 10);
+
+    auto hive = env->getHive();
+    int hive_x = hive->getX();
+    int hive_y = hive->getY();
+
+    shared_ptr<HoneyBee> notifier = std::make_shared<HoneyBee>(hive_x, hive_y); 
+    shared_ptr<HoneyBee> bee_in_1 = std::make_shared<HoneyBee>(hive_x+1, hive_y+1); 
+    shared_ptr<HoneyBee> bee_in_2 = std::make_shared<HoneyBee>(hive_x+2, hive_y+2); 
+    shared_ptr<HoneyBee> bee_out = std::make_shared<HoneyBee>(hive_x+3, hive_y+3); 
+
+    // add agents to controller
+    ac->addAgent(notifier);
+    ac->addAgent(bee_in_1);
+    ac->addAgent(bee_in_2);
+    ac->addAgent(bee_out);
+
+    // add agents to locations
+    env->getLocation(hive_x, hive_y)->addAgent(*notifier);
+    env->getLocation(hive_x, hive_y)->addAgent(*bee_in_1);
+    env->getLocation(hive_x+1, hive_y+1)->addAgent(*bee_in_2);
+    env->getLocation(hive_x+5, hive_y+5)->addAgent(*bee_out);
+
+    // perform waggle dance
+    notifier->waggle(*env, hive, loc);
+
+    EXPECT_EQ(loc, bee_in_1->getTarget());
+    EXPECT_EQ(loc, bee_in_2->getTarget());
+}
