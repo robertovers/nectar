@@ -36,10 +36,10 @@ Environment RowMapGenerator::generateEnvironment(AgentController& agentControlle
         float trueY = rand() / (static_cast <float> (RAND_MAX / envSizeY));
         auto bee = shared_ptr<HoneyBee>(std::make_shared<HoneyBee>(trueX, trueY));
         agentController.addAgent(bee);
-        // TODO: add to location?
+        generatedEnvironment.getLocation(trueX, trueY)->addAgent(*bee);
         placedBees++;
     }
-\
+
     // replace rows of locations with plants
     auto& rows = generatedEnvironment.getLocations();
     for (int i = 0; i < rows.size(); i += 2) {

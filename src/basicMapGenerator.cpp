@@ -27,7 +27,7 @@ Environment BasicMapGenerator::generateEnvironment(AgentController& agentControl
         float trueY = rand() / (static_cast <float> (RAND_MAX / envSizeY));
         auto bee = shared_ptr<HoneyBee>(std::make_shared<HoneyBee>(trueX, trueY));
         agentController.addAgent(bee);
-        // TODO: add to location?
+        generatedEnvironment.getLocation(trueX, trueY)->addAgent(*bee);
         placedBees++;
     }
 
