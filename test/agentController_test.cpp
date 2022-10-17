@@ -65,15 +65,14 @@ public:
 };
 
 TEST(AgentControllerTest, UpdateAgents) {
-    MockAgent agent1;
-    auto agentPointer = std::shared_ptr<Agent>(new MockAgent()); //std::make_shared<Agent>(agent1);
+    auto agentPointer = std::shared_ptr<MockAgent>();
     //MockAgent agent2;
     //MockAgent agent3;
     //MockAgent agents[] = { agent1, agent2, agent3 };
 
     AgentController controller = AgentController();
     controller.addAgent(agentPointer);
-    EXPECT_CALL(agent1, update(::testing::_)).Times(::testing::AtLeast(1));
+    EXPECT_CALL(*agentPointer, update(::testing::_)).Times(::testing::AtLeast(1));
 
     /*for (int i = 0; i < 3; i++) {
         controller.addAgent(shared_ptr<Agent>(agents[i]));
