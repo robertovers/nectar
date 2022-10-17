@@ -22,10 +22,12 @@ enable_testing()
 add_executable(
   nectar_test
   agent_test.cpp
-  honeybee_test.cpp
-  plant_test.cpp
-  location_test.cpp
   agentController_test.cpp
+  honeybee_test.cpp
+  location_test.cpp
+  plant_test.cpp
+  hive_test.cpp
+  soybean_test.cpp
   basicMapGenerator_test.cpp
 )
 

@@ -234,6 +234,10 @@ int HoneyBee::getMemoryLimit() {
     return memory_limit;
 }
 
+HoneybeeBehaviour HoneyBee::getBehaviour() {
+    return behaviour;
+}
+
 void HoneyBee::_validateState() {
 
     switch (behaviour)

@@ -76,3 +76,7 @@ void Agent::moveToTarget() {
         direction_u = target_u;
     }
 }
+
+sf::Vector2f Agent::getPos() {
+    return pos;
+}

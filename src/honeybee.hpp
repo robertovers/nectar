@@ -102,6 +102,13 @@ class HoneyBee : public Agent {
          * @return the max no. of flowers the bee can remember.
          */
         int getMemoryLimit();
+        
+        /**
+         * @brief Get the bee's behavior type.
+         * 
+         * @return HoneybeeBehaviour 
+         */
+        HoneybeeBehaviour getBehaviour();
 
         /**
          * @brief Simulates the 'Waggle dance' to notify bees of a nectar source.
