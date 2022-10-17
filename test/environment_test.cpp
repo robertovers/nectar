@@ -8,7 +8,7 @@ TEST(EnvironmentTest, PlantCount) {
     BasicMapGenerator mp = BasicMapGenerator(3, 3, 0, 100);
     Environment env = mp.generateEnvironment();
 
-    EQ(env.plantCount(), 9);
+    EQ(env.plantCount(), 8);
 }
 
 TEST(EnvironmentTest, AgentCount) {
@@ -17,7 +17,15 @@ TEST(EnvironmentTest, AgentCount) {
 
     // initial agent count is correct
     EQ(env.agentCount(), 7);
+}
 
-    // add agent
-    Honeybee bee = HoneyBee();
+TEST(EnvironmentTest, LocationTest) {
+    auto env = Environment(3, 3);
+    auto loc = env.getLocation(3, 2);
+    EQ(loc->getX(), 3);
+    EQ(loc->getY(), 2);
+
+    loc = env.getLocation(2, 3);
+    EQ(loc->getX(), 2);
+    EQ(loc->getY(), 3);
 }
