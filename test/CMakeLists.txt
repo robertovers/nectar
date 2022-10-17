@@ -26,6 +26,7 @@ add_executable(
   honeybee_test.cpp
   location_test.cpp
   plant_test.cpp
+  utility_test.cpp
   #basicMapGenerator_test.cpp
 )
 
