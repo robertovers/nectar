@@ -78,7 +78,7 @@ TEST(BasicMapGeneratorTest, PlantCount) {
     // all crops
     cropChance = 100;
     env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(controller);
-    EXPECT_EQ(env.plantCount(), x*y);
+    EXPECT_EQ(env.plantCount(), x * y - hiveCount);
     cropChance = 110;
     env = BasicMapGenerator(x, y, bees, cropChance).generateEnvironment(controller);
     EXPECT_EQ(env.plantCount(), x * y - hiveCount);
