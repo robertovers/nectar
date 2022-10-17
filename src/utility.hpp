@@ -15,6 +15,8 @@
 #include <filesystem>
 #include "environment.hpp"
 #include "templates.hpp"
+#include <iostream>
+#include <fstream>
 
 
 // -----------------------------------------METRICS---------------------------------------------
@@ -23,25 +25,25 @@
 struct Metrics {
 
     /// @brief The days component of the runtime.
-    int days;
+    int days=0;
 
     /// @brief The hours component of the runtime.
-    int hours;
+    int hours=0;
 
     /// @brief The minutes component of the runtime.
-    int mins;
+    int mins=0;
 
     /// @brief The seconds component of the runtime.
-    int secs;
+    int secs=0;
 
     /// @brief The total seconds elapsed.
-    int secs_elapsed;
+    int secs_elapsed=0;
 
     /// @brief The total amount of nectar in the hive (in milligrams).
-    float hive_nectar;
+    float hive_nectar=0;
 
     /// @brief The total number of pollinated flowers.
-    float pollinated_count;
+    float pollinated_count=0;
 
     /// @brief Updates the metrics according to the current state.
     /// @param env a reference to the simulation environment
