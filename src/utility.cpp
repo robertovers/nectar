@@ -73,27 +73,40 @@ void Metrics::createDataFile(std::string filename) {
     out.close();
 };
 
-#define INT_LOWER_LIM 1
-#define ROWS_UPPER_LIM 400
-#define COLS_UPPER_LIM 400
-#define SCALE_UPPER_LIM 50 
-#define BEES_UPPER_LIM 10000
+#define DIMS_MAX 400
+#define SCALE_MAX 50 
+#define BEES_MAX 10000
 
+/**
+ * @brief A function for restricting patameter elements to realistic/optimal values.
+ * Limits were defined according to simulation perfornace limits and basic reason such as having dimensions > 0. 
+ * 
+ */
 void Parameters::check_limits(){
-    int int_lower_lim = 0;
-    if (rows < INT_LOWER_LIM) rows = INT_LOWER_LIM;
-    if (columns < INT_LOWER_LIM) columns = INT_LOWER_LIM;
-    if (scale < INT_LOWER_LIM) scale = INT_LOWER_LIM;
-    if (bees < INT_LOWER_LIM) bees = INT_LOWER_LIM;
-    if (rows > ROWS_UPPER_LIM) rows = ROWS_UPPER_LIM;
-    if (columns > COLS_UPPER_LIM) columns = COLS_UPPER_LIM;
-    if (scale > SCALE_UPPER_LIM) scale = SCALE_UPPER_LIM;
-    if (bees > BEES_UPPER_LIM) bees = BEES_UPPER_LIM;
+    if (rows < 1) rows = 1;
+    if (rows > DIMS_MAX) rows = DIMS_MAX;
+
+    if (columns < 1) columns = 1;
+    if (columns > DIMS_MAX) columns = DIMS_MAX;
+
+    if (scale < 1) scale = 1;
+    if (scale > SCALE_MAX) scale = SCALE_MAX;
+
+    if (bees < 0) bees = 0;
+    if (bees > BEES_MAX) bees = BEES_MAX;
+
+    if (soybean_p < 0) soybean_p = 0.05;
+    if (soybean_p > 1) soybean_p = 1;
 }
 
 #define WINDOWHEIGHT 196
 #define WINDOWWIDTH 401
 
+/**
+ * @brief Function running a fixed window for seleting initial simulation parameters
+ * 
+ * @return A Parameters structure with attributes representing user-defined values of different simulation parameters 
+ */
 Parameters simconfigUI(){
     Parameters parameters;                              
     static int dimensions[2]={parameters.columns,parameters.rows};
@@ -171,6 +184,13 @@ Parameters simconfigUI(){
     return parameters;    
 };
 
+/**
+ * @brief Sub-function exclusively for simconfigUI function for clarity of code. Not to be used elsewhere.
+ *  Adds ImGUI widgets for the initial simulation map selection
+ * 
+ * @param parameters 
+ * @param mapGeneratorConfirmed 
+ */
 void getMapGeneratorWidgets(Parameters* parameters, int* mapGeneratorConfirmed){
     // Map Generator Combo Box Setup
     const char* mapGenerators[] = { "Basic Map Generator", "Row Map Generator" };   // Must be in a specific order
@@ -196,7 +216,13 @@ void getMapGeneratorWidgets(Parameters* parameters, int* mapGeneratorConfirmed){
     }
 };
 
-void getDefaultParameterWidgets(Parameters* parameters){
+/**
+ * @brief Sub-function exclusively for simconfigUI function for clarity of code. Not to be used elsewhere.
+ *  Adds the ImGUI widgets for default simulation parameters - parameters required for all environment maps.
+ * 
+ * @param parameters A structure for storing initial simulation parameters according to user input
+ */
+void getDefaultParameterWidgets(Parameters* parameters) {
     static int dimensions[2]={parameters->columns,parameters->rows};
 
     // Default Parameter widgets

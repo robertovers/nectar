@@ -31,10 +31,10 @@ TEST(AgentControllerTest, RemoveAgent) {
     AgentController ac = AgentController();
     shared_ptr<HoneyBee> agent = std::make_shared<HoneyBee>();
     int id_a = agent->getID();
-    auto agents = ac.getAgents();
     bool found = false;
     
     ac.addAgent(agent);
+    auto agents = ac.getAgents();
 
     auto equal_id = [id_a](shared_ptr<Agent> b) { return b->getID() == id_a; };
     auto it = std::find_if(agents.begin(), agents.end(), equal_id);
