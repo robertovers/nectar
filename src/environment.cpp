@@ -87,6 +87,10 @@ shared_ptr<Location> Environment::getLocation(int x, int y)
     return locations[y][x];
 }
 
+shared_ptr<Location> Environment::getLocation(float x, float y) {
+    return getLocation(floor(x), floor(y));
+}
+
 shared_ptr<Hive> Environment::getHive() {
     return hive;
 }
