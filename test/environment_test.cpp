@@ -29,3 +29,14 @@ TEST(EnvironmentTest, LocationTest) {
     EQ(loc->getX(), 2);
     EQ(loc->getY(), 3);
 }
+
+TEST(EnvironmentTest, LocationTest) {
+    auto env = Environment(3, 3);
+    auto loc = env.getLocation(3, 2);
+    EQ(loc->getX(), 3);
+    EQ(loc->getY(), 2);
+
+    loc = env.getLocation(2, 3);
+    EQ(loc->getX(), 2);
+    EQ(loc->getY(), 3);
+}
