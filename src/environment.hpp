@@ -140,15 +140,6 @@ class Environment {
         shared_ptr<Location> getLocation(int x, int y);
 
         /**
-         * @brief Get the Location object at the given coordinates.
-         *
-         * @param x a float x-coordinate.
-         * @param y a float y-coordinate.
-         * @return a shared pointer to the corresponding location tile.
-         */
-        shared_ptr<Location> getLocation(float x, float y);
-
-        /**
          * @brief Get the Hive object.
          * 
          * @return a shared pointer to the hive. 
