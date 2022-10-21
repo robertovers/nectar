@@ -2,8 +2,10 @@
 #include "../src/utility.hpp"
 #include "../src/rowMapGenerator.hpp"
 #include <stdio.h>
+#include <fstream>
+#include <string>
 
-
+// Test update metrics works as intendSe
 TEST(MetricsTest, UpdateMetrics){
     // Setup empty envirment (No agents)
     EnvColours envColours;
@@ -97,32 +99,31 @@ void eq_params(Parameters params, int rows, int columns, int scale, int bees, fl
     EXPECT_EQ(params.soybean_p, prob);
 }
 
-
-/*
 // Tests not functioning currectly due to fscanf not scanning any values. No files are being created either. 
 
 // Tests that toFile appends the correct values to file
 TEST(MetricsTest, ToFile){
     int scanned = 0;
     Metrics toFileMetrics;
-    int secsElapsed=0, hiveNectar=0, pollinationCount=0;
+    int secsElapsed=-1, hiveNectar=-1, pollinationCount=-1;
 
-    // toFile writes initial metrics values to file - 0,0,0
-    toFileMetrics.toFile("metrics_file_test.txt");
+    // Write initial metrics values to file - 0,0,0 - via toFile 
+    toFileMetrics.toFile("metrics_toFile_test.txt");
     
-    // toFile appends new metrics values to file - 54323,20,6
+    // Appends new metrics values to file - 54323,20,6 - via toFile
     toFileMetrics.secs_elapsed = 54323;
     toFileMetrics.hive_nectar = 20;
     toFileMetrics.pollinated_count = 6;
-    toFileMetrics.toFile("metrics_file_test.txt");    
+    toFileMetrics.toFile("metrics_toFile_test.txt");    
 
-    FILE* file = fopen("metrics_file_test.txt","r"); 
-    // Initial
+    FILE* file = fopen("metrics_toFile_test.txt","r"); 
+
+    // Scan initial values
     scanned = fscanf(file, "%d,%d,%d\n", &secsElapsed, &hiveNectar, &pollinationCount);
     EXPECT_NE(scanned, 0);
-    EXPECT_EQ(toFileMetrics.secs_elapsed, secsElapsed);
-    EXPECT_EQ(toFileMetrics.hive_nectar, hiveNectar);
-    EXPECT_EQ(toFileMetrics.pollinated_count, pollinationCount);
+    EXPECT_EQ(0, secsElapsed);
+    EXPECT_EQ(0, hiveNectar);
+    EXPECT_EQ(0, pollinationCount);
 
     // New after initial
     fscanf(file, "%d,%d,%d\n", &secsElapsed, &hiveNectar, &pollinationCount);    
@@ -137,34 +138,18 @@ TEST(MetricsTest, ToFile){
 
 // Tests that createDataFile rewrites the file with the correct values
 TEST(MetricsTest, CreateDataFile){
-    FILE *file1, *file2;
+    fstream file;
     Metrics cdmetrics;
-    int secsElapsed=0, hiveNectar=0, pollinationCount=0;
+    int scanned=0;
+    char string[50]
 
     // toFile writes initial metrics values to file - 0,0,0
-    cdmetrics.createDataFile("metrics_file_test.txt");
-    file1 = fopen("metrics_file_test.txt","r"); 
-    fscanf(file1, "%i,%i,%i\n", &secsElapsed, &hiveNectar, &pollinationCount);
-    fclose(file1);
-
-    EXPECT_EQ(cdmetrics.secs_elapsed, secsElapsed);
-    EXPECT_EQ(cdmetrics.hive_nectar, hiveNectar);
-    EXPECT_EQ(cdmetrics.pollinated_count, pollinationCount);
+    cdmetrics.createDataFile("metrics_createDataFile_test.txt");
+    file.open("metrics_createDataFile_test.txt",ios::in); 
     
-    // toFile appends new metrics values to file - 54323,20,6
-    cdmetrics.secs_elapsed = 54323;
-    cdmetrics.hive_nectar = 20;
-    cdmetrics.pollinated_count = 6;
-    cdmetrics.createDataFile("metrics_file_test.txt"); 
+    if (newfile.is_open()) getline(newfile, string);
+    fclose(file);
 
-    file2 = fopen("metrics_file_test.txt","r"); 
-    fscanf(file2, "%i,%i,%i\n", &secsElapsed, &hiveNectar, &pollinationCount);
-    fclose(file2);
+    EXPECT_NE(string, "time,nectar,pollinated\n");
 
-    EXPECT_EQ(cdmetrics.secs_elapsed, secsElapsed);
-    EXPECT_EQ(cdmetrics.hive_nectar, hiveNectar);
-    EXPECT_EQ(cdmetrics.pollinated_count, pollinationCount);
-
-    file1 = file2 = NULL;
 }
-*/

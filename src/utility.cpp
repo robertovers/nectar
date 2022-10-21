@@ -68,7 +68,7 @@ void Metrics::toFile(std::string filename) {
     out.close();
 }
 
-/// @brief Rewrites the specified file with data - time elapsed, hive nectar and pollination count.
+/// @brief Creates or rewrites the specified file with "time,nectar,pollinated\n"
 /// @param filename Input filename of file for storing data
 void Metrics::createDataFile(std::string filename) {
     std::fstream out;
